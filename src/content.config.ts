@@ -51,7 +51,7 @@ const produits = defineCollection({
     // Composition
     collagenType: z.array(z.string()).optional(),
     dosage: z.string().optional(),
-    format: z.enum(['poudre', 'gelules', 'liquide', 'comprime']).optional(),
+    format: z.enum(['poudre', 'gelules', 'liquide', 'comprime', 'gummies']).optional(),
     certifications: z.array(z.string()).default([]),
 
     publishedAt: z.coerce.date(),
