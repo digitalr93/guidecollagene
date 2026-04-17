@@ -1,7 +1,9 @@
 ---
 title: "Collagène pour la peau : anti-âge, rides, fermeté — les preuves"
 description: "Le collagène améliore-t-il vraiment la peau ? Rides, fermeté, hydratation : analyse des études cliniques et conseils pour choisir le bon produit."
-publishedAt: 2025-03-25
+image: https://images.unsplash.com/photo-1552693673-1bf958298935?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Femme de 45 ans avec une belle peau lumineuse"
+publishedAt: 2026-03-25
 author: Le pro du collagène
 category: Peau
 tags:

@@ -28,8 +28,8 @@ certifications:
   - Kosher
   - Gluten Free
   - Grass-fed
-publishedAt: 2025-02-01
-updatedAt: 2025-04-10
+publishedAt: 2026-02-01
+updatedAt: 2026-04-10
 featured: true
 ---
 

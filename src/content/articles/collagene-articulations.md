@@ -1,7 +1,9 @@
 ---
 title: "Collagène pour les articulations : ce que dit vraiment la science"
 description: "Collagène et articulations : type II UC-II®, peptides hydrolysés, glucosamine... Quelle approche est la plus efficace pour l'inconfort articulaire ?"
-publishedAt: 2025-04-01
+image: https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Personne active qui court, genoux en bonne santé"
+publishedAt: 2026-04-01
 author: Le pro du collagène
 category: Articulations
 tags:

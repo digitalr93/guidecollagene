@@ -1,7 +1,9 @@
 ---
 title: "Collagène et sport : récupération, tendons, performance — ce que dit la science"
 description: "Le collagène est-il utile pour les sportifs ? Tendons, ligaments, cartilages, récupération musculaire : les preuves scientifiques et le protocole optimal."
-publishedAt: 2025-03-20
+image: https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Sportif en récupération après l'entraînement"
+publishedAt: 2026-03-20
 author: Le pro du collagène
 category: Sport
 tags:

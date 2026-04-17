@@ -1,6 +1,8 @@
 ---
 title: "Collagène et cheveux : effets prouvés, dosage et meilleurs produits 2026"
 description: "Le collagène peut-il vraiment faire pousser vos cheveux ? On passe en revue les études, les mécanismes, et les produits qui valent vraiment le coup."
+image: https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Femme avec de beaux cheveux brillants et épais"
 publishedAt: 2026-01-15
 updatedAt: 2026-04-01
 author: Le pro du collagène

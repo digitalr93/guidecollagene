@@ -23,7 +23,7 @@ collagenType:
 dosage: 15g par jour
 certifications:
   - Informed Sport (certaines références)
-publishedAt: 2025-04-17
+publishedAt: 2026-04-17
 draft: false
 featured: false
 ---

@@ -1,7 +1,9 @@
 ---
 title: "Comment prendre le collagène ? Dosage, timing et erreurs à éviter"
 description: "Quelle dose de collagène prendre ? À quel moment de la journée ? Avec quoi l'associer ? Toutes les réponses basées sur les études cliniques."
-publishedAt: 2025-03-10
+image: https://images.unsplash.com/photo-1616117100733-d2679e9c2103?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Femme préparant sa dose de collagène dans un verre d'eau"
+publishedAt: 2026-03-10
 author: Le pro du collagène
 category: Pratique
 tags:

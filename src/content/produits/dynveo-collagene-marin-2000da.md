@@ -21,7 +21,7 @@ collagenType:
 dosage: 10g par jour
 certifications:
   - Non OGM
-publishedAt: 2025-04-17
+publishedAt: 2026-04-17
 draft: false
 featured: false
 ---

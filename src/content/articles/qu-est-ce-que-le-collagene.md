@@ -1,7 +1,9 @@
 ---
 title: "Qu'est-ce que le collagène ? Tout comprendre en 5 minutes"
 description: "Le collagène, c'est quoi exactement ? Rôle, types (I, II, III), sources naturelles et pourquoi la production diminue avec l'âge. Explications claires."
-publishedAt: 2025-02-01
+image: https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Illustration du tissu conjonctif et de la peau"
+publishedAt: 2026-02-01
 author: Le pro du collagène
 category: Fondamentaux
 tags:

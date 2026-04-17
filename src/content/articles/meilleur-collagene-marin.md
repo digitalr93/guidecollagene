@@ -1,8 +1,10 @@
 ---
 title: "Meilleur collagène marin 2025 : notre sélection et comparatif"
 description: "Quel est le meilleur collagène marin en 2025 ? Comparatif Naticol®, Peptan®, Dynveo, Novoma, Sunday Natural — notre sélection basée sur les preuves."
-publishedAt: 2025-04-10
-updatedAt: 2025-04-17
+image: https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Compléments de collagène marin de qualité"
+publishedAt: 2026-04-10
+updatedAt: 2026-04-17
 author: Le pro du collagène
 category: Comparatif
 tags:

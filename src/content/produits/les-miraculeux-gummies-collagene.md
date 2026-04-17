@@ -22,7 +22,7 @@ collagenType:
   - Type I
 dosage: 2 gummies par jour
 certifications: []
-publishedAt: 2025-04-17
+publishedAt: 2026-04-17
 draft: false
 featured: false
 ---

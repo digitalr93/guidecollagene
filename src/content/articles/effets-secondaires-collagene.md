@@ -1,7 +1,9 @@
 ---
 title: "Effets secondaires du collagène : risques réels et contre-indications"
 description: "Collagène : quels sont les effets secondaires possibles ? Allergies, interactions médicamenteuses, populations à risque. Ce que disent les études cliniques."
-publishedAt: 2025-02-20
+image: https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Médecin expliquant les précautions à une patiente"
+publishedAt: 2026-02-20
 author: Le pro du collagène
 category: Sécurité
 tags:

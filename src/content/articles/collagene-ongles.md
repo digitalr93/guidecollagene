@@ -1,6 +1,8 @@
 ---
 title: "Collagène pour les ongles : ce qui marche vraiment en 2026"
 description: "Ongles cassants, striés ou qui se dédoublent ? Le collagène peut aider — mais pas n'importe lequel, pas n'importe comment. Ce qu'on sait avec certitude."
+image: https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Mains avec des ongles forts et bien entretenus"
 publishedAt: 2026-01-20
 updatedAt: 2026-04-01
 author: Le pro du collagène

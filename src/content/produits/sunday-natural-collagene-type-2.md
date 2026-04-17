@@ -25,7 +25,7 @@ certifications:
   - GMP pharmaceutique
   - Non OGM
   - Breveté UC-II®
-publishedAt: 2025-04-17
+publishedAt: 2026-04-17
 draft: false
 featured: false
 ---

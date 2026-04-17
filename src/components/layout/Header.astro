@@ -1,10 +1,9 @@
 ---
 const navLinks = [
+  { href: '/guide/meilleur-collagene-marin', label: 'Top Marin 2026' },
   { href: '/comparatif', label: 'Comparatif' },
   { href: '/categorie/marin', label: 'Marin' },
   { href: '/categorie/bovin', label: 'Bovin' },
-  { href: '/categorie/vegetal', label: 'Végétal' },
-  { href: '/categorie/peptides', label: 'Peptides' },
   { href: '/guide', label: 'Guides' },
 ];
 
@@ -15,9 +14,8 @@ const pathname = Astro.url.pathname;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 font-bold text-xl text-slate-900 hover:text-blue-600 transition-colors">
-        <span class="text-blue-600" aria-hidden="true">⬡</span>
-        Guide Collagène
+      <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity" aria-label="Guide Collagène — Accueil">
+        <img src="/logo.svg" alt="Guide Collagène" width="160" height="36" class="h-9 w-auto" loading="eager" />
       </a>
 
       <!-- Desktop nav -->
@@ -26,22 +24,29 @@ const pathname = Astro.url.pathname;
           <a
             href={href}
             class:list={[
-              'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              pathname.startsWith(href)
-                ? 'bg-blue-50 text-blue-700'
+              'px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap',
+              pathname === href || pathname.startsWith(href + '/')
+                ? 'bg-[#D44D2E]/10 text-[#D44D2E]'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100',
             ]}
           >
             {label}
           </a>
         ))}
+        <a
+          href="/guide/meilleur-collagene-marin"
+          class="ml-2 px-4 py-2 rounded-full bg-[#D44D2E] text-white text-sm font-semibold hover:bg-[#C0432A] transition-colors whitespace-nowrap"
+        >
+          Meilleur choix →
+        </a>
       </nav>
 
-      <!-- Mobile menu button (TODO: island React for toggle) -->
+      <!-- Mobile menu button -->
       <button
         class="md:hidden p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-100"
         aria-label="Ouvrir le menu"
         id="mobile-menu-btn"
+        aria-expanded="false"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -50,7 +55,7 @@ const pathname = Astro.url.pathname;
     </div>
 
     <!-- Mobile nav -->
-    <nav class="hidden md:hidden pb-4" id="mobile-menu" aria-label="Navigation mobile">
+    <nav class="hidden pb-4" id="mobile-menu" aria-label="Navigation mobile">
       {navLinks.map(({ href, label }) => (
         <a
           href={href}
@@ -59,6 +64,9 @@ const pathname = Astro.url.pathname;
           {label}
         </a>
       ))}
+      <a href="/comparatif" class="block mx-4 mt-3 px-4 py-2 rounded-full bg-[#D44D2E] text-white text-sm font-semibold text-center hover:bg-[#C0432A] transition-colors">
+        Meilleur choix →
+      </a>
     </nav>
   </div>
 </header>
@@ -67,6 +75,8 @@ const pathname = Astro.url.pathname;
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   btn?.addEventListener('click', () => {
+    const open = !menu?.classList.contains('hidden');
     menu?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!open));
   });
 </script>

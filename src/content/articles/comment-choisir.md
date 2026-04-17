@@ -1,8 +1,10 @@
 ---
 title: "Comment choisir son complément de collagène en 2025 ?"
 description: "Guide d'achat complet pour choisir le meilleur collagène : type marin ou bovin, peptides ou natif, dosage optimal et certifications à exiger."
-publishedAt: 2025-01-15
-updatedAt: 2025-04-10
+image: https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Personne qui choisit parmi différents compléments alimentaires"
+publishedAt: 2026-01-15
+updatedAt: 2026-04-10
 author: Le pro du collagène
 category: Guide d'achat
 tags:

@@ -28,7 +28,7 @@ certifications:
   - Non OGM
   - Grass-fed
   - Gluten Free
-publishedAt: 2025-04-17
+publishedAt: 2026-04-17
 draft: false
 featured: false
 ---

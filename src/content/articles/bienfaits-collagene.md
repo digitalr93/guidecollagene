@@ -1,7 +1,9 @@
 ---
 title: "Bienfaits du collagène : ce que disent vraiment les études scientifiques"
 description: "Peau, articulations, muscles, os : les effets prouvés du collagène hydrolysé selon les études cliniques. On sépare les preuves solides du marketing."
-publishedAt: 2025-02-10
+image: https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Femme souriante avec une peau éclatante"
+publishedAt: 2026-02-10
 author: Le pro du collagène
 category: Science
 tags:
