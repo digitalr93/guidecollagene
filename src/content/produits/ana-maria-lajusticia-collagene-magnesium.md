@@ -6,6 +6,7 @@ category: bovin
 format: poudre
 merchant: anamarialajusticia
 affiliateUrl: https://anamarialajusticia.com/fr/produit/collagene-avec-magnesium-poudre/
+price: 22.9
 rating: 4.1
 reviewCount: 0
 pros:

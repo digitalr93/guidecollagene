@@ -6,6 +6,7 @@ category: marin
 format: poudre
 merchant: granions
 affiliateUrl: https://www.granions.fr/products/collagene-marin-acide-hyaluronique-vitamine-c
+price: 29.9
 rating: 4.1
 reviewCount: 0
 pros:

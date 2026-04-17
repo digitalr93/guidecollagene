@@ -24,6 +24,7 @@ const { Content } = await render(article);
   image={article.data.image}
   imageAlt={article.data.imageAlt}
   faq={article.data.faq}
+  slug={article.id}
 >
   <Content />
 </ArticleLayout>

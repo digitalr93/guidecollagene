@@ -6,6 +6,7 @@ category: bovin
 format: gelules
 merchant: biocyte
 affiliateUrl: https://www.biocyte.com/fr/produit/collagene-express-gelules
+price: 24.9
 rating: 3.9
 reviewCount: 0
 pros:

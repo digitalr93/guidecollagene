@@ -6,6 +6,7 @@ category: bovin
 format: poudre
 merchant: bulk
 affiliateUrl: https://www.bulk.com/fr/peptides-de-collagene.html
+price: 19.99
 rating: 4.0
 reviewCount: 0
 pros:

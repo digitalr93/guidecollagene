@@ -6,6 +6,7 @@ category: marin
 format: poudre
 merchant: sundaynatural
 affiliateUrl: https://www.sunday.fr/collagene-marin-peptides-bio-actifs-naticol.html
+price: 41.9
 rating: 4.5
 reviewCount: 0
 pros:

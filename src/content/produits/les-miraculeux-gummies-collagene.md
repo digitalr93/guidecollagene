@@ -6,6 +6,7 @@ category: bovin
 format: gummies
 merchant: lesmiraculeux
 affiliateUrl: https://lesmiraculeux.com/products/gummies-collagene
+price: 19.9
 rating: 3.6
 reviewCount: 0
 pros:

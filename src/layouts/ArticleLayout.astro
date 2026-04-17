@@ -1,5 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import ProductWidget from '../components/affiliate/ProductWidget.astro';
+import RelatedArticles from '../components/article/RelatedArticles.astro';
+import { getCollection } from 'astro:content';
 import { SITE_URL } from '../lib/seo';
 
 interface Props {
@@ -12,6 +15,7 @@ interface Props {
   image?: string;
   imageAlt?: string;
   faq?: { question: string; answer: string }[];
+  slug?: string;
 }
 
 const {
@@ -24,9 +28,33 @@ const {
   image,
   imageAlt,
   faq,
+  slug,
 } = Astro.props;
 
 const canonical = `${SITE_URL}${Astro.url.pathname}`;
+
+// Sidebar: top 3 featured products
+const allProducts = await getCollection('produits', (p) => !p.data.draft);
+const sidebarProducts = allProducts
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.rating - a.data.rating)
+  .slice(0, 3);
+
+// Sidebar: related articles (same category, exclude current)
+const allArticles = await getCollection('articles', (a) => !a.data.draft);
+const relatedArticles = allArticles
+  .filter((a) => a.id !== slug && a.data.category === category)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 5);
+
+// Fallback: if not enough same-category articles, fill with recent articles
+const fallbackArticles = allArticles
+  .filter((a) => a.id !== slug && a.data.category !== category)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const sidebarArticles = relatedArticles.length >= 3
+  ? relatedArticles
+  : [...relatedArticles, ...fallbackArticles].slice(0, 5);
 
 // JSON-LD Article
 const articleSchema = {
@@ -85,63 +113,90 @@ const breadcrumbSchema = {
   {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
-  <article class="max-w-3xl mx-auto px-4 py-12">
+  <div class="max-w-6xl mx-auto px-4 py-12">
     <!-- Breadcrumb -->
-    <nav class="text-sm text-slate-500 mb-6" aria-label="Fil d'Ariane">
+    <nav class="text-sm text-slate-500 mb-8" aria-label="Fil d'Ariane">
       <ol class="flex items-center gap-2 flex-wrap">
         <li><a href="/" class="hover:text-slate-800">Accueil</a></li>
         <li aria-hidden="true">›</li>
         <li><a href="/guide" class="hover:text-slate-800">Guides</a></li>
         <li aria-hidden="true">›</li>
-        <li class="text-slate-800" aria-current="page">{title}</li>
+        <li class="text-slate-800 line-clamp-1" aria-current="page">{title}</li>
       </ol>
     </nav>
 
-    <header class="mb-10">
-      <div class="mb-3">
-        <span class="badge bg-blue-100 text-blue-800">{category}</span>
-      </div>
-      <h1 class="text-4xl font-bold text-slate-900 mb-4 leading-tight">{title}</h1>
-      <p class="text-xl text-slate-600 mb-6">{description}</p>
-      <div class="flex items-center gap-4 text-sm text-slate-500">
-        <span>Par <strong class="text-slate-700">{author}</strong></span>
-        <span>·</span>
-        <time datetime={publishedAt.toISOString()}>
-          {publishedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </time>
-        {updatedAt && (
-          <>
+    <!-- 2-col grid: article + sticky sidebar -->
+    <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12 lg:items-start">
+
+      <!-- Main article -->
+      <article>
+        <header class="mb-10">
+          <div class="mb-3">
+            <span class="badge bg-blue-100 text-blue-800">{category}</span>
+          </div>
+          <h1 class="text-4xl font-bold text-slate-900 mb-4 leading-tight">{title}</h1>
+          <p class="text-xl text-slate-600 mb-6">{description}</p>
+          <div class="flex items-center gap-4 text-sm text-slate-500 flex-wrap">
+            <span>Par <strong class="text-slate-700">{author}</strong></span>
             <span>·</span>
-            <span>Mis à jour le <time datetime={updatedAt.toISOString()}>
-              {updatedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </time></span>
-          </>
+            <time datetime={publishedAt.toISOString()}>
+              {publishedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            {updatedAt && (
+              <>
+                <span>·</span>
+                <span>Mis à jour le <time datetime={updatedAt.toISOString()}>
+                  {updatedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time></span>
+              </>
+            )}
+          </div>
+        </header>
+
+        {image && (
+          <figure class="mb-10">
+            <img src={image} alt={imageAlt ?? title} class="w-full rounded-xl object-cover" loading="eager" />
+          </figure>
         )}
-      </div>
-    </header>
 
-    {image && (
-      <figure class="mb-10">
-        <img src={image} alt={imageAlt ?? title} class="w-full rounded-xl object-cover" loading="eager" />
-      </figure>
-    )}
+        <!-- Mobile sidebar (shown before prose on small screens) -->
+        {sidebarProducts.length > 0 && (
+          <div class="lg:hidden mb-8">
+            <ProductWidget products={sidebarProducts} />
+          </div>
+        )}
 
-    <div class="prose max-w-none">
-      <slot />
+        <div class="prose max-w-none">
+          <slot />
+        </div>
+
+        {faq?.length && (
+          <section class="mt-16 border-t border-slate-200 pt-10">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6">Questions fréquentes</h2>
+            <dl class="space-y-6">
+              {faq.map((item) => (
+                <div>
+                  <dt class="font-semibold text-slate-900 mb-2">{item.question}</dt>
+                  <dd class="text-slate-600">{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+      </article>
+
+      <!-- Sticky sidebar (desktop only) -->
+      <aside class="hidden lg:block">
+        <div class="sticky top-24 space-y-6">
+          {sidebarProducts.length > 0 && (
+            <ProductWidget products={sidebarProducts} />
+          )}
+          {sidebarArticles.length > 0 && (
+            <RelatedArticles articles={sidebarArticles} />
+          )}
+        </div>
+      </aside>
+
     </div>
-
-    {faq?.length && (
-      <section class="mt-16 border-t border-slate-200 pt-10">
-        <h2 class="text-2xl font-bold text-slate-900 mb-6">Questions fréquentes</h2>
-        <dl class="space-y-6">
-          {faq.map((item) => (
-            <div>
-              <dt class="font-semibold text-slate-900 mb-2">{item.question}</dt>
-              <dd class="text-slate-600">{item.answer}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-    )}
-  </article>
+  </div>
 </BaseLayout>

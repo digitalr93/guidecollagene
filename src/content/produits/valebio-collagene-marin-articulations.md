@@ -6,6 +6,7 @@ category: marin
 format: poudre
 merchant: valebio
 affiliateUrl: https://valebio.com/products/collagene-marin-articulations-peptan-ii
+price: 36.9
 rating: 4.2
 reviewCount: 0
 pros:

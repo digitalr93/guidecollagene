@@ -6,6 +6,7 @@ category: marin
 format: poudre
 merchant: dynveo
 affiliateUrl: https://dynveo.fr/collagene-marin.html
+price: 32.9
 rating: 4.4
 reviewCount: 0
 pros:

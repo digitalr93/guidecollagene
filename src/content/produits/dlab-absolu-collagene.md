@@ -6,6 +6,7 @@ category: marin
 format: gelules
 merchant: dlab
 affiliateUrl: https://dailylab.com/products/absolu-de-collagene
+price: 59.9
 rating: 4.2
 reviewCount: 0
 pros:
