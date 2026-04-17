@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Brand tokens */
+    --color-primary: #2563eb;
+    --color-primary-dark: #1d4ed8;
+    --color-secondary: #059669;
+    --color-accent: #f59e0b;
+    --color-bg: #ffffff;
+    --color-bg-subtle: #f8fafc;
+    --color-text: #0f172a;
+    --color-text-muted: #64748b;
+    --color-border: #e2e8f0;
+
+    /* Typography */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-slate-900 antialiased;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    @apply font-semibold leading-tight;
+  }
+
+  /* Prose styles for article content */
+  .prose {
+    @apply text-slate-700 leading-relaxed;
+  }
+  .prose h2 { @apply text-2xl font-bold text-slate-900 mt-10 mb-4; }
+  .prose h3 { @apply text-xl font-semibold text-slate-900 mt-8 mb-3; }
+  .prose p  { @apply mb-4; }
+  .prose ul { @apply list-disc list-inside mb-4 space-y-1; }
+  .prose ol { @apply list-decimal list-inside mb-4 space-y-1; }
+  .prose a  { @apply text-blue-600 underline hover:text-blue-800; }
+  .prose strong { @apply font-semibold text-slate-900; }
+  .prose blockquote { @apply border-l-4 border-blue-500 pl-4 italic text-slate-600 my-6; }
+  .prose table { @apply w-full border-collapse text-sm mb-6; }
+  .prose th { @apply bg-slate-100 font-semibold text-left px-3 py-2 border border-slate-300; }
+  .prose td { @apply px-3 py-2 border border-slate-300; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-lg transition-colors;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-900 font-semibold px-5 py-3 rounded-lg transition-colors;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-slate-200 p-6;
+  }
+  .badge {
+    @apply inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded-full;
+  }
+}

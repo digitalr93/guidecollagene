@@ -1,0 +1,62 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-slate-900 text-slate-400 mt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+      <!-- Brand -->
+      <div class="col-span-2 md:col-span-1">
+        <a href="/" class="text-white font-bold text-lg mb-3 block">Guide Collagène</a>
+        <p class="text-sm leading-relaxed">
+          Le guide expert sur les compléments de collagène : comparatifs indépendants, avis produits et conseils nutritionnels.
+        </p>
+      </div>
+
+      <!-- Produits -->
+      <div>
+        <h3 class="text-white font-semibold mb-3 text-sm uppercase tracking-wide">Catégories</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/categorie/marin" class="hover:text-white transition-colors">Marin</a></li>
+          <li><a href="/categorie/bovin" class="hover:text-white transition-colors">Bovin</a></li>
+          <li><a href="/categorie/vegetal" class="hover:text-white transition-colors">Végétal</a></li>
+          <li><a href="/categorie/peptides" class="hover:text-white transition-colors">Peptides</a></li>
+          <li><a href="/comparatif" class="hover:text-white transition-colors">Comparatif général</a></li>
+        </ul>
+      </div>
+
+      <!-- Guides -->
+      <div>
+        <h3 class="text-white font-semibold mb-3 text-sm uppercase tracking-wide">Guides</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/guide/qu-est-ce-que-le-collagene" class="hover:text-white transition-colors">Qu'est-ce que le collagène ?</a></li>
+          <li><a href="/guide/bienfaits-collagene" class="hover:text-white transition-colors">Bienfaits du collagène</a></li>
+          <li><a href="/guide/comment-choisir" class="hover:text-white transition-colors">Comment choisir ?</a></li>
+          <li><a href="/guide/effets-secondaires" class="hover:text-white transition-colors">Effets secondaires</a></li>
+        </ul>
+      </div>
+
+      <!-- Site -->
+      <div>
+        <h3 class="text-white font-semibold mb-3 text-sm uppercase tracking-wide">Site</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/a-propos" class="hover:text-white transition-colors">À propos</a></li>
+          <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
+          <li><a href="/mentions-legales" class="hover:text-white transition-colors">Mentions légales</a></li>
+          <li><a href="/politique-confidentialite" class="hover:text-white transition-colors">Confidentialité</a></li>
+          <li><a href="/rss.xml" class="hover:text-white transition-colors">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Disclosure affiliation -->
+    <div class="border-t border-slate-700 pt-6 text-xs text-slate-500">
+      <p class="mb-2">
+        <strong class="text-slate-400">Disclosure :</strong> Guide Collagène participe à des programmes d'affiliation.
+        Certains liens de ce site sont des liens affiliés : si vous achetez un produit via ces liens,
+        nous percevons une commission sans surcoût pour vous. Cela nous permet de financer la création de contenu indépendant.
+      </p>
+      <p>© {currentYear} Guide Collagène. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>

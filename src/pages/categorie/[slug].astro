@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_URL } from '../../lib/seo';
+
+const CATEGORIES = {
+  marin: { label: 'Collagène Marin', desc: 'Issu de peaux et écailles de poissons, le collagène marin est riche en type I et très biodisponible.' },
+  bovin: { label: 'Collagène Bovin', desc: 'Extrait de peaux et os de bovins, riche en types I et III. Excellent rapport qualité/prix.' },
+  vegetal: { label: 'Collagène Végétal', desc: 'Boosters végétaux (vitamine C, acides aminés) pour stimuler la synthèse naturelle de collagène.' },
+  peptides: { label: 'Peptides de Collagène', desc: 'Collagène hydrolysé en peptides pour une absorption optimale et des effets plus rapides.' },
+  autre: { label: 'Autres collagènes', desc: 'Formats spécifiques, associations et compléments mixtes.' },
+};
+
+export function getStaticPaths() {
+  const cats = {
+    marin: true, bovin: true, vegetal: true, peptides: true, autre: true,
+  };
+  return Object.keys(cats).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const category = CATEGORIES[slug as keyof typeof CATEGORIES];
+
+const produits = await getCollection('produits', ({ data }) =>
+  data.category === slug && !data.draft
+);
+produits.sort((a, b) => b.data.rating - a.data.rating);
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Catégories', item: `${SITE_URL}/categorie` },
+    { '@type': 'ListItem', position: 3, name: category.label, item: `${SITE_URL}/categorie/${slug}` },
+  ],
+};
+---
+
+<BaseLayout title={`${category.label} — Comparatif & Avis`} description={category.desc}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-6" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-slate-800">Accueil</a></li>
+        <li>›</li>
+        <li class="text-slate-800">{category.label}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="text-4xl font-bold text-slate-900 mb-4">{category.label}</h1>
+      <p class="text-xl text-slate-600 max-w-2xl">{category.desc}</p>
+    </header>
+
+    {produits.length === 0 ? (
+      <div class="text-center py-16 text-slate-500">
+        <p class="text-lg">Aucun produit dans cette catégorie pour l'instant.</p>
+        <a href="/comparatif" class="mt-4 inline-block text-blue-600 hover:underline">Voir le comparatif global</a>
+      </div>
+    ) : (
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {produits.map((p, i) => (
+          <article class="card hover:shadow-md transition-shadow">
+            {i === 0 && (
+              <span class="badge bg-amber-100 text-amber-800 font-semibold mb-2">
+                Meilleur {category.label}
+              </span>
+            )}
+            {p.data.image && (
+              <img
+                src={p.data.image}
+                alt={p.data.imageAlt ?? p.data.title}
+                class="w-full h-40 object-contain mb-4 rounded-lg bg-slate-50"
+              />
+            )}
+            <h2 class="font-bold text-slate-900 mb-1">
+              <a href={`/produit/${p.id}`} class="hover:text-blue-600 transition-colors">
+                {p.data.title}
+              </a>
+            </h2>
+            <p class="text-sm text-slate-500 mb-2">{p.data.brand}</p>
+            <div class="flex items-center gap-1 mb-3">
+              <span class="text-amber-400 text-sm">{'★'.repeat(Math.round(p.data.rating))}</span>
+              <span class="text-sm">{p.data.rating}/5</span>
+            </div>
+            {p.data.price && (
+              <p class="font-semibold text-slate-900 mb-3">
+                {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })}
+              </p>
+            )}
+            <a href={`/produit/${p.id}`} class="btn-secondary w-full text-center text-sm">
+              Lire l'avis →
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

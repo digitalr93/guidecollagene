@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AffiliateButton from '../components/affiliate/AffiliateButton.astro';
+import { SITE_URL } from '../lib/seo';
+
+const produits = await getCollection('produits', ({ data }) => !data.draft);
+produits.sort((a, b) => b.data.rating - a.data.rating);
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Comparatif', item: `${SITE_URL}/comparatif` },
+  ],
+};
+---
+
+<BaseLayout
+  title="Comparatif Collagène 2025 — Tous les produits testés"
+  description="Tableau comparatif complet de tous les compléments de collagène : notes, prix, composition, certifications. Trouvez le meilleur rapport qualité/prix."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <nav class="text-sm text-slate-500 mb-6" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-slate-800">Accueil</a></li>
+        <li>›</li>
+        <li class="text-slate-800">Comparatif</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="text-4xl font-bold text-slate-900 mb-4">Comparatif Collagène 2025</h1>
+      <p class="text-xl text-slate-600 max-w-3xl">
+        {produits.length} produits analysés et notés indépendamment par notre équipe.
+        Mis à jour en {new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}.
+      </p>
+    </header>
+
+    {produits.length === 0 ? (
+      <p class="text-slate-500 text-center py-16">Les produits arrivent bientôt — revenez dans quelques jours.</p>
+    ) : (
+      <>
+        <!-- Table desktop -->
+        <div class="hidden md:block overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 text-left">
+              <tr>
+                <th class="px-4 py-3 font-semibold text-slate-700">#</th>
+                <th class="px-4 py-3 font-semibold text-slate-700">Produit</th>
+                <th class="px-4 py-3 font-semibold text-slate-700">Catégorie</th>
+                <th class="px-4 py-3 font-semibold text-slate-700">Note</th>
+                <th class="px-4 py-3 font-semibold text-slate-700">Prix</th>
+                <th class="px-4 py-3 font-semibold text-slate-700">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {produits.map((p, i) => (
+                <tr class="border-t border-slate-100 hover:bg-slate-50 transition-colors">
+                  <td class="px-4 py-4 text-slate-400 font-medium">{i + 1}</td>
+                  <td class="px-4 py-4">
+                    <div class="flex items-center gap-3">
+                      {p.data.image && (
+                        <img
+                          src={p.data.image}
+                          alt=""
+                          class="w-12 h-12 object-contain rounded bg-slate-50 flex-shrink-0"
+                          aria-hidden="true"
+                        />
+                      )}
+                      <div>
+                        <a href={`/produit/${p.id}`} class="font-semibold text-slate-900 hover:text-blue-600 transition-colors">
+                          {p.data.title}
+                        </a>
+                        <p class="text-slate-400 text-xs">{p.data.brand}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-4 py-4">
+                    <span class="badge bg-emerald-100 text-emerald-800">{p.data.category}</span>
+                  </td>
+                  <td class="px-4 py-4">
+                    <div class="flex items-center gap-1">
+                      <span class="text-amber-400">{'★'.repeat(Math.round(p.data.rating))}</span>
+                      <span class="font-medium">{p.data.rating}</span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-4 font-medium text-slate-900">
+                    {p.data.price
+                      ? p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })
+                      : '—'}
+                  </td>
+                  <td class="px-4 py-4">
+                    <AffiliateButton
+                      productId={p.id}
+                      productSlug={`/produit/${p.id}`}
+                      merchant={p.data.merchant}
+                      affiliateUrl={p.data.affiliateUrl}
+                      sourcePage="/comparatif"
+                      position={i + 1}
+                      label="Voir le prix"
+                      class="text-xs px-3 py-2"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Cards mobile -->
+        <div class="md:hidden space-y-4">
+          {produits.map((p, i) => (
+            <article class="card">
+              <div class="flex items-start gap-3">
+                <span class="text-slate-400 font-bold text-lg w-6 flex-shrink-0">{i + 1}</span>
+                <div class="flex-1">
+                  <a href={`/produit/${p.id}`} class="font-semibold text-slate-900 hover:text-blue-600">
+                    {p.data.title}
+                  </a>
+                  <p class="text-xs text-slate-400 mb-2">{p.data.brand} · {p.data.category}</p>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1">
+                      <span class="text-amber-400 text-sm">{'★'.repeat(Math.round(p.data.rating))}</span>
+                      <span class="text-sm font-medium">{p.data.rating}/5</span>
+                    </div>
+                    {p.data.price && (
+                      <span class="font-semibold text-slate-900 text-sm">
+                        {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
+  </div>
+</BaseLayout>

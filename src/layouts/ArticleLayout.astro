@@ -1,0 +1,147 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { SITE_URL } from '../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+  author: string;
+  category: string;
+  image?: string;
+  imageAlt?: string;
+  faq?: { question: string; answer: string }[];
+}
+
+const {
+  title,
+  description,
+  publishedAt,
+  updatedAt,
+  author,
+  category,
+  image,
+  imageAlt,
+  faq,
+} = Astro.props;
+
+const canonical = `${SITE_URL}${Astro.url.pathname}`;
+
+// JSON-LD Article
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: publishedAt.toISOString(),
+  dateModified: (updatedAt ?? publishedAt).toISOString(),
+  author: {
+    '@type': 'Person',
+    name: author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Guide Collagène',
+    url: SITE_URL,
+  },
+  ...(image && { image: `${SITE_URL}${image}` }),
+};
+
+const faqSchema = faq?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    }
+  : null;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: `${SITE_URL}/guide` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogType="article"
+  ogImage={image}
+  publishedAt={publishedAt}
+  updatedAt={updatedAt}
+  author={author}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-6" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-2 flex-wrap">
+        <li><a href="/" class="hover:text-slate-800">Accueil</a></li>
+        <li aria-hidden="true">›</li>
+        <li><a href="/guide" class="hover:text-slate-800">Guides</a></li>
+        <li aria-hidden="true">›</li>
+        <li class="text-slate-800" aria-current="page">{title}</li>
+      </ol>
+    </nav>
+
+    <header class="mb-10">
+      <div class="mb-3">
+        <span class="badge bg-blue-100 text-blue-800">{category}</span>
+      </div>
+      <h1 class="text-4xl font-bold text-slate-900 mb-4 leading-tight">{title}</h1>
+      <p class="text-xl text-slate-600 mb-6">{description}</p>
+      <div class="flex items-center gap-4 text-sm text-slate-500">
+        <span>Par <strong class="text-slate-700">{author}</strong></span>
+        <span>·</span>
+        <time datetime={publishedAt.toISOString()}>
+          {publishedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {updatedAt && (
+          <>
+            <span>·</span>
+            <span>Mis à jour le <time datetime={updatedAt.toISOString()}>
+              {updatedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time></span>
+          </>
+        )}
+      </div>
+    </header>
+
+    {image && (
+      <figure class="mb-10">
+        <img src={image} alt={imageAlt ?? title} class="w-full rounded-xl object-cover" loading="eager" />
+      </figure>
+    )}
+
+    <div class="prose max-w-none">
+      <slot />
+    </div>
+
+    {faq?.length && (
+      <section class="mt-16 border-t border-slate-200 pt-10">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Questions fréquentes</h2>
+        <dl class="space-y-6">
+          {faq.map((item) => (
+            <div>
+              <dt class="font-semibold text-slate-900 mb-2">{item.question}</dt>
+              <dd class="text-slate-600">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
+  </article>
+</BaseLayout>

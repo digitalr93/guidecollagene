@@ -1,0 +1,64 @@
+---
+import { buildAffiliateUrl } from '../../lib/affiliate';
+
+interface Props {
+  productId: string;
+  productSlug: string;
+  merchant: string;
+  affiliateUrl: string;
+  sourcePage?: string;
+  position?: number;
+  label?: string;
+  class?: string;
+}
+
+const {
+  productId,
+  productSlug,
+  merchant,
+  affiliateUrl,
+  sourcePage,
+  position,
+  label = 'Voir le meilleur prix',
+  class: className,
+} = Astro.props;
+
+const finalUrl = buildAffiliateUrl({ productId, productSlug, merchant, affiliateUrl, sourcePage, position });
+---
+
+<a
+  href={finalUrl}
+  target="_blank"
+  rel="nofollow noopener sponsored"
+  class:list={['btn-primary text-center justify-center', className]}
+  data-affiliate
+  data-product-id={productId}
+  data-merchant={merchant}
+  data-source={sourcePage}
+>
+  {label}
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+  </svg>
+</a>
+
+<script>
+  // Track clicks via sendBeacon
+  document.querySelectorAll('[data-affiliate]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const link = el as HTMLAnchorElement;
+      const payload = {
+        clickId: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+        productId: link.dataset.productId ?? '',
+        merchant: link.dataset.merchant ?? '',
+        destinationUrl: link.href,
+        sourcePage: link.dataset.source ?? window.location.pathname,
+        referrer: document.referrer,
+        device: /mobile|android|iphone|ipad/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+        timestamp: new Date().toISOString(),
+      };
+      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      navigator.sendBeacon?.('/api/click', blob);
+    });
+  });
+</script>

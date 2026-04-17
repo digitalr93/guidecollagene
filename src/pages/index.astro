@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const featuredProducts = await getCollection('produits', ({ data }) => data.featured && !data.draft);
+const recentArticles = await getCollection('articles', ({ data }) => !data.draft);
+
+featuredProducts.sort((a, b) => b.data.rating - a.data.rating);
+recentArticles.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const top3 = featuredProducts.slice(0, 3);
+const latestArticles = recentArticles.slice(0, 6);
+
+// JSON-LD WebSite
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Guide Collagène',
+  url: 'https://guidecollagene.fr',
+  description: 'Le guide de référence sur les compléments de collagène.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://guidecollagene.fr/recherche?q={search_term_string}',
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+
+<BaseLayout
+  title="Guide Collagène — Comparatifs & Avis Produits"
+  description="Guides d'achat experts, comparatifs indépendants et avis détaillés sur les meilleurs compléments de collagène. Marin, bovin, végétal, peptides."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-blue-50 via-white to-emerald-50 py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="badge bg-blue-100 text-blue-700 mb-4">Guide indépendant 2025</span>
+      <h1 class="text-5xl font-bold text-slate-900 mb-6 leading-tight">
+        Trouver le meilleur<br />complément de <span class="text-blue-600">collagène</span>
+      </h1>
+      <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+        Comparatifs indépendants, analyses scientifiques et avis vérifiés pour choisir le collagène
+        adapté à vos besoins — sans bullshit.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/comparatif" class="btn-primary text-base px-8 py-4">
+          Voir le comparatif complet
+        </a>
+        <a href="/guide/comment-choisir" class="btn-secondary text-base px-8 py-4">
+          Guide d'achat
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top 3 produits -->
+  {top3.length > 0 && (
+    <section class="max-w-7xl mx-auto px-4 py-16">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-slate-900 mb-3">Nos meilleures recommandations</h2>
+        <p class="text-slate-600">Sélectionnés et testés par notre équipe de rédaction</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        {top3.map((p, i) => (
+          <article class="card hover:shadow-md transition-shadow relative">
+            {i === 0 && (
+              <span class="absolute -top-3 left-4 badge bg-amber-100 text-amber-800 font-semibold">
+                ⭐ Meilleur choix
+              </span>
+            )}
+            {p.data.image && (
+              <img
+                src={p.data.image}
+                alt={p.data.imageAlt ?? p.data.title}
+                class="w-full h-48 object-contain mb-4 rounded-lg bg-slate-50"
+              />
+            )}
+            <div class="badge bg-emerald-100 text-emerald-700 mb-2">{p.data.category}</div>
+            <h3 class="font-bold text-slate-900 mb-1">{p.data.title}</h3>
+            <p class="text-sm text-slate-500 mb-3">{p.data.brand}</p>
+            <div class="flex items-center gap-1 mb-4">
+              <span class="text-amber-400">{'★'.repeat(Math.round(p.data.rating))}</span>
+              <span class="text-sm font-medium">{p.data.rating}/5</span>
+            </div>
+            <a href={`/produit/${p.id}`} class="btn-primary w-full text-center text-sm">
+              Voir l'avis complet
+            </a>
+          </article>
+        ))}
+      </div>
+      <div class="text-center mt-8">
+        <a href="/comparatif" class="text-blue-600 hover:text-blue-800 font-medium">
+          Voir tous les produits →
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- Guide d'achat résumé -->
+  <section class="bg-slate-50 py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-900 mb-8 text-center">Comment choisir son collagène ?</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { icon: '🐟', title: 'Type de collagène', desc: 'Marin, bovin ou végétal : chaque source a ses avantages selon vos objectifs.' },
+          { icon: '🧪', title: 'Forme & dosage', desc: 'Poudre, gélules ou liquide. Visez 5–10 g de peptides par jour pour des effets mesurables.' },
+          { icon: '📋', title: 'Certifications', desc: 'Préférez les produits certifiés EFSA, Halal/Casher si besoin, et sans additifs inutiles.' },
+          { icon: '💰', title: 'Rapport qualité/prix', desc: 'Calculez le coût par gramme de collagène plutôt que le prix de la boîte.' },
+        ].map(({ icon, title, desc }) => (
+          <div class="card text-center">
+            <div class="text-4xl mb-3" aria-hidden="true">{icon}</div>
+            <h3 class="font-semibold text-slate-900 mb-2">{title}</h3>
+            <p class="text-sm text-slate-600">{desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-8">
+        <a href="/guide/comment-choisir" class="btn-primary">Lire le guide complet</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Articles récents -->
+  {latestArticles.length > 0 && (
+    <section class="max-w-7xl mx-auto px-4 py-16">
+      <h2 class="text-3xl font-bold text-slate-900 mb-8">Derniers articles</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {latestArticles.map((a) => (
+          <article class="card hover:shadow-md transition-shadow">
+            <span class="badge bg-blue-100 text-blue-700 mb-2">{a.data.category}</span>
+            <h3 class="font-bold text-slate-900 mb-2 leading-snug">
+              <a href={`/guide/${a.id}`} class="hover:text-blue-600 transition-colors">
+                {a.data.title}
+              </a>
+            </h3>
+            <p class="text-sm text-slate-600 mb-4 line-clamp-2">{a.data.description}</p>
+            <time class="text-xs text-slate-400" datetime={a.data.publishedAt.toISOString()}>
+              {a.data.publishedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
