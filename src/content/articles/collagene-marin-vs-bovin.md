@@ -1,5 +1,5 @@
 ---
-title: "Collagène marin vs bovin : lequel choisir en 2025 ?"
+title: "Collagène marin vs bovin : lequel choisir en 2026 ?"
 description: "Comparatif complet collagène marin vs bovin : biodisponibilité, types, prix, durabilité. Tout pour choisir selon vos objectifs et votre profil."
 image: https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Poissons frais et produits naturels pour le collagène"

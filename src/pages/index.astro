@@ -36,11 +36,11 @@ const websiteSchema = {
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-blue-50 via-white to-emerald-50 py-20 px-4">
+  <section class="bg-gradient-to-br from-brand-50 via-white to-emerald-50 py-20 px-4">
     <div class="max-w-4xl mx-auto text-center">
-      <span class="badge bg-blue-100 text-blue-700 mb-4">Guide indépendant 2025</span>
+      <span class="badge bg-brand-100 text-brand-700 mb-4">Guide indépendant 2026</span>
       <h1 class="text-5xl font-bold text-slate-900 mb-6 leading-tight">
-        Trouver le meilleur<br />complément de <span class="text-blue-600">collagène</span>
+        Trouver le meilleur<br />complément de <span class="text-brand-600">collagène</span>
       </h1>
       <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
         Comparatifs indépendants, analyses scientifiques et avis vérifiés pour choisir le collagène
@@ -93,7 +93,7 @@ const websiteSchema = {
         ))}
       </div>
       <div class="text-center mt-8">
-        <a href="/comparatif" class="text-blue-600 hover:text-blue-800 font-medium">
+        <a href="/comparatif" class="text-brand-600 hover:text-brand-800 font-medium">
           Voir tous les produits →
         </a>
       </div>
@@ -131,9 +131,9 @@ const websiteSchema = {
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {latestArticles.map((a) => (
           <article class="card hover:shadow-md transition-shadow">
-            <span class="badge bg-blue-100 text-blue-700 mb-2">{a.data.category}</span>
+            <span class="badge bg-brand-100 text-brand-700 mb-2">{a.data.category}</span>
             <h3 class="font-bold text-slate-900 mb-2 leading-snug">
-              <a href={`/guide/${a.id}`} class="hover:text-blue-600 transition-colors">
+              <a href={`/guide/${a.id}`} class="hover:text-brand-600 transition-colors">
                 {a.data.title}
               </a>
             </h3>

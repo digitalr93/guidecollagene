@@ -126,13 +126,13 @@ const breadcrumbSchema = {
     </nav>
 
     <!-- 2-col grid: article + sticky sidebar -->
-    <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12 lg:items-start">
+    <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
 
       <!-- Main article -->
       <article>
         <header class="mb-10">
           <div class="mb-3">
-            <span class="badge bg-blue-100 text-blue-800">{category}</span>
+            <span class="badge bg-brand-100 text-brand-800">{category}</span>
           </div>
           <h1 class="text-4xl font-bold text-slate-900 mb-4 leading-tight">{title}</h1>
           <p class="text-xl text-slate-600 mb-6">{description}</p>
@@ -186,7 +186,7 @@ const breadcrumbSchema = {
       </article>
 
       <!-- Sticky sidebar (desktop only) -->
-      <aside class="hidden lg:block">
+      <aside class="hidden lg:block" style="align-self: stretch;">
         <div class="sticky top-24 space-y-6">
           {sidebarProducts.length > 0 && (
             <ProductWidget products={sidebarProducts} />

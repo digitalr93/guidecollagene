@@ -34,7 +34,7 @@ function initials(brand: string) {
 }
 
 const brandColors: Record<string, string> = {
-  nutripure: 'bg-emerald-600', nutriandco: 'bg-blue-600',
+  nutripure: 'bg-emerald-600', nutriandco: 'bg-brand-600',
   dynveo: 'bg-purple-600', novoma: 'bg-teal-600',
   'vital proteins': 'bg-rose-600', 'd-lab': 'bg-fuchsia-700',
   valebio: 'bg-green-700', 'twenty dc': 'bg-cyan-600',
@@ -54,7 +54,7 @@ function brandColor(brand: string) {
 ---
 
 <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-  <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-3">
+  <div class="bg-gradient-to-r from-brand-600 to-brand-700 px-4 py-3">
     <p class="text-white font-semibold text-sm">{title}</p>
   </div>
 
@@ -86,7 +86,7 @@ function brandColor(brand: string) {
           </div>
 
           <div class="flex-1 min-w-0">
-            <a href={`/produit/${p.id}`} class="font-semibold text-slate-900 text-sm hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+            <a href={`/produit/${p.id}`} class="font-semibold text-slate-900 text-sm hover:text-brand-600 transition-colors line-clamp-2 leading-snug">
               {p.data.title}
             </a>
             <p class="text-xs text-slate-400 mt-0.5">{p.data.brand}</p>
@@ -121,7 +121,7 @@ function brandColor(brand: string) {
   </div>
 
   <div class="px-4 pb-3 text-center">
-    <a href="/comparatif" class="text-xs text-blue-600 hover:underline">
+    <a href="/comparatif" class="text-xs text-brand-600 hover:underline">
       Voir tous les produits →
     </a>
   </div>
