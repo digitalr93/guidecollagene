@@ -17,6 +17,7 @@ interface Props {
   faq?: { question: string; answer: string }[];
   slug?: string;
   featuredProducts?: string[];
+  keyPoints?: string[];
 }
 
 const {
@@ -31,14 +32,22 @@ const {
   faq,
   slug,
   featuredProducts: featuredProductIds,
+  keyPoints,
 } = Astro.props;
+
+// "En résumé" : utilise keyPoints si fournis, sinon extrait la 1ère phrase des 4 premières FAQ
+const summaryPoints: string[] = keyPoints?.length
+  ? keyPoints
+  : (faq?.slice(0, 4).map((f) => {
+      const first = f.answer.split(/\.\s+/)[0];
+      return first.endsWith('.') ? first : first + '.';
+    }) ?? []);
 
 const canonical = `${SITE_URL}${Astro.url.pathname}`;
 
-// Sidebar: top 3 featured products
+// Sidebar: top 3 produits par note (pas de filtre featured)
 const allProducts = await getCollection('produits', (p) => !p.data.draft);
 const sidebarProducts = allProducts
-  .filter((p) => p.data.featured)
   .sort((a, b) => b.data.rating - a.data.rating)
   .slice(0, 3);
 
@@ -166,6 +175,28 @@ const breadcrumbSchema = {
           </figure>
         )}
 
+        <!-- ═══ EN RÉSUMÉ ═══════════════════════════════════════════════ -->
+        {summaryPoints.length > 0 && (
+          <div class="not-prose mb-10 rounded-2xl border border-brand-200 bg-brand-50 overflow-hidden">
+            <div class="flex items-center gap-2 px-5 py-3 bg-brand-600">
+              <svg class="w-4 h-4 text-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+              <span class="text-white font-semibold text-sm">En résumé</span>
+            </div>
+            <ul class="px-5 py-4 space-y-2.5">
+              {summaryPoints.map((point) => (
+                <li class="flex items-start gap-2.5 text-sm text-slate-700 leading-relaxed">
+                  <svg class="w-4 h-4 text-brand-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <!-- Bloc logos produits (guides d'achat uniquement) -->
         {inlineProducts.length > 0 && (
           <div class="not-prose mb-10 rounded-xl border border-slate-200 bg-slate-50 overflow-hidden">
@@ -248,6 +279,48 @@ const breadcrumbSchema = {
           <slot />
         </div>
 
+        <!-- ═══ VERDICT TEMPLATE (déplacé après le 3e H2 par JS) ═══════ -->
+        {inlineProducts.length > 0 && (() => {
+          const top = inlineProducts[0];
+          return (
+            <div id="verdict-box" class="hidden not-prose my-8 rounded-2xl border-2 border-brand-300 bg-white overflow-hidden shadow-sm">
+              <div class="px-5 py-3 bg-gradient-to-r from-brand-600 to-brand-700 flex items-center gap-2">
+                <span class="text-lg">🏆</span>
+                <span class="text-white font-bold text-sm uppercase tracking-wide">Notre verdict — meilleur choix</span>
+              </div>
+              <div class="p-5 flex items-center gap-4">
+                {top.data.image ? (
+                  <img src={top.data.image} alt={top.data.brand} width="72" height="72"
+                    class="w-18 h-18 object-contain rounded-xl bg-slate-50 border border-slate-100 p-1 flex-shrink-0"
+                    loading="lazy" style="width:72px;height:72px;" />
+                ) : (
+                  <div class="w-16 h-16 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                    {top.data.brand.slice(0, 2).toUpperCase()}
+                  </div>
+                )}
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs text-slate-500 mb-0.5">{top.data.brand}</p>
+                  <p class="font-bold text-slate-900 leading-snug mb-1">{top.data.title}</p>
+                  <div class="flex items-center gap-1 mb-2">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <svg class:list={['w-4 h-4', j < Math.round(top.data.rating) ? 'text-amber-400' : 'text-slate-200']}
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                    <span class="text-sm font-semibold text-slate-700 ml-1">{top.data.rating}/5</span>
+                  </div>
+                  <a href={`/produit/${top.id}`}
+                    class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors">
+                    Voir l'avis complet →
+                  </a>
+                </div>
+              </div>
+              <p class="text-center text-xs text-slate-400 pb-3">* Lien affilié — sans surcoût pour vous</p>
+            </div>
+          );
+        })()}
+
         {faq?.length && (
           <section class="mt-16 border-t border-slate-200 pt-10">
             <h2 class="text-2xl font-bold text-slate-900 mb-6">Questions fréquentes</h2>
@@ -288,14 +361,36 @@ const breadcrumbSchema = {
 
     </div>
   </div>
+<!-- ═══ STICKY CTA BAR ════════════════════════════════════════════ -->
+<div id="sticky-cta"
+  class="hidden fixed bottom-0 left-0 right-0 z-50 bg-slate-900 border-t border-slate-700 px-4 py-3 shadow-2xl"
+  role="complementary" aria-label="Sélection produits">
+  <div class="max-w-6xl mx-auto flex items-center gap-4">
+    <p class="text-white text-sm font-medium hidden sm:block flex-1">
+      Vous cherchez le meilleur collagène&nbsp;?
+    </p>
+    <div class="flex items-center gap-3 ml-auto">
+      <a href="/comparatif"
+        class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-5 py-2 rounded-xl transition-colors whitespace-nowrap">
+        Notre sélection 2026 →
+      </a>
+      <button id="sticky-close" class="text-slate-400 hover:text-white p-1 transition-colors" aria-label="Fermer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
+  // ── FAQ accordion ─────────────────────────────────────────────────────
   document.querySelectorAll('#article-faq .faq-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const panel = btn.nextElementSibling as HTMLElement;
       const chevron = btn.querySelector('.faq-chevron') as HTMLElement;
       const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
-      // Fermer tous les autres
       document.querySelectorAll('#article-faq .faq-btn').forEach((b) => {
         const p = b.nextElementSibling as HTMLElement;
         const c = b.querySelector('.faq-chevron') as HTMLElement;
@@ -304,7 +399,6 @@ const breadcrumbSchema = {
         if (c) c.style.transform = '';
       });
 
-      // Ouvrir celui-ci si était fermé
       if (!isOpen) {
         btn.setAttribute('aria-expanded', 'true');
         if (panel) panel.style.display = '';
@@ -312,5 +406,38 @@ const breadcrumbSchema = {
       }
     });
   });
+
+  // ── Verdict box : injecter après le 3e H2 de l'article ───────────────
+  const verdictBox = document.getElementById('verdict-box');
+  if (verdictBox) {
+    const headings = document.querySelectorAll('article .prose h2');
+    const target = headings[2] ?? headings[headings.length - 1];
+    if (target) {
+      verdictBox.classList.remove('hidden');
+      target.insertAdjacentElement('afterend', verdictBox);
+    }
+  }
+
+  // ── Sticky CTA bar ────────────────────────────────────────────────────
+  const cta = document.getElementById('sticky-cta') as HTMLElement | null;
+  const closeBtn = document.getElementById('sticky-close');
+  let dismissed = false;
+
+  closeBtn?.addEventListener('click', () => {
+    dismissed = true;
+    cta?.classList.add('hidden');
+  });
+
+  const showCta = () => {
+    if (dismissed || !cta) return;
+    const scrolled = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+    if (scrolled > 0.30) {
+      cta.classList.remove('hidden');
+    } else {
+      cta.classList.add('hidden');
+    }
+  };
+
+  window.addEventListener('scroll', showCta, { passive: true });
 </script>
 </BaseLayout>

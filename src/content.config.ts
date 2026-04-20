@@ -24,6 +24,7 @@ const articles = defineCollection({
       )
       .optional(),
     featuredProducts: z.array(z.string()).optional(),
+    keyPoints: z.array(z.string()).optional(),
   }),
 });
 
