@@ -1,6 +1,8 @@
 ---
 title: "Collagène et vitamine C : la synergie biochimique indispensable"
 description: "Vitamine C et collagène forment un duo indissociable. On vous explique la biochimie, les preuves cliniques et comment optimiser votre supplémentation."
+image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1200&q=80"
+imageAlt: "Oranges fraîches et compléments alimentaires vitamine C"
 publishedAt: 2026-04-20
 author: dr-martin-rousseau
 category: Science

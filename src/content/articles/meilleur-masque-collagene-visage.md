@@ -1,6 +1,8 @@
 ---
 title: "Meilleur masque collagène visage 2026 : comparatif et guide d'achat"
 description: "Masque collagène visage : quel type choisir, comment ils fonctionnent vraiment, et quels produits valent le coup. Guide factuel 2026 sans marketing."
+image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80"
+imageAlt: "Femme avec masque de soin visage hydratant collagène"
 publishedAt: 2026-04-20
 author: dr-martin-rousseau
 category: Comparatif
