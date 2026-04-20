@@ -361,24 +361,62 @@ const breadcrumbSchema = {
 
     </div>
   </div>
-<!-- ═══ STICKY CTA BAR ════════════════════════════════════════════ -->
+<!-- ═══ STICKY COUPON BAR — Nutrimuscle ══════════════════════════ -->
 <div id="sticky-cta"
-  class="hidden fixed bottom-0 left-0 right-0 z-50 bg-slate-900 border-t border-slate-700 px-4 py-3 shadow-2xl"
-  role="complementary" aria-label="Sélection produits">
-  <div class="max-w-6xl mx-auto flex items-center gap-4">
-    <p class="text-white text-sm font-medium hidden sm:block flex-1">
-      Vous cherchez le meilleur collagène&nbsp;?
-    </p>
-    <div class="flex items-center gap-3 ml-auto">
-      <a href="/comparatif"
-        class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-5 py-2 rounded-xl transition-colors whitespace-nowrap">
-        Notre sélection 2026 →
-      </a>
-      <button id="sticky-close" class="text-slate-400 hover:text-white p-1 transition-colors" aria-label="Fermer">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+  class="hidden fixed bottom-0 left-0 right-0 z-50 shadow-2xl"
+  role="complementary" aria-label="Code promo Nutrimuscle">
+  <!-- Fil décoratif couleur -->
+  <div class="h-1 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400"></div>
+  <div class="bg-slate-900 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center gap-3 sm:gap-5">
+
+      <!-- Icône + marque -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span class="text-xl" aria-hidden="true">🏷️</span>
+        <div class="hidden sm:block leading-tight">
+          <p class="text-amber-400 text-xs font-bold uppercase tracking-wide">Nutrimuscle</p>
+          <p class="text-slate-400 text-xs">−5% cumulables</p>
+        </div>
+      </div>
+
+      <!-- Code promo avec bouton copier -->
+      <div class="flex items-center gap-3 flex-1 min-w-0">
+        <div class="flex items-center gap-2 bg-slate-800 border border-dashed border-amber-500/60 rounded-lg px-3 py-1.5 flex-shrink-0">
+          <span class="text-amber-400 font-mono font-bold text-sm tracking-widest select-all">NME_GC</span>
+          <button id="copy-code"
+            class="text-slate-500 hover:text-amber-400 transition-colors"
+            aria-label="Copier le code promo">
+            <svg id="copy-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <svg id="check-icon" class="w-4 h-4 hidden text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </button>
+        </div>
+        <p class="text-slate-400 text-xs hidden sm:block truncate">
+          cumulables avec les offres en cours
+        </p>
+      </div>
+
+      <!-- CTA + fermer -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <a href="https://nmsquad.link/03ksw"
+          target="_blank"
+          rel="nofollow noopener sponsored"
+          class="bg-amber-500 hover:bg-amber-400 text-slate-900 text-sm font-bold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
+          En profiter →
+        </a>
+        <button id="sticky-close"
+          class="text-slate-500 hover:text-white p-1 transition-colors"
+          aria-label="Fermer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -418,14 +456,28 @@ const breadcrumbSchema = {
     }
   }
 
-  // ── Sticky CTA bar ────────────────────────────────────────────────────
+  // ── Sticky coupon bar ─────────────────────────────────────────────────
   const cta = document.getElementById('sticky-cta') as HTMLElement | null;
   const closeBtn = document.getElementById('sticky-close');
+  const copyBtn = document.getElementById('copy-code');
+  const copyIcon = document.getElementById('copy-icon');
+  const checkIcon = document.getElementById('check-icon');
   let dismissed = false;
 
   closeBtn?.addEventListener('click', () => {
     dismissed = true;
     cta?.classList.add('hidden');
+  });
+
+  copyBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText('NME_GC').then(() => {
+      copyIcon?.classList.add('hidden');
+      checkIcon?.classList.remove('hidden');
+      setTimeout(() => {
+        copyIcon?.classList.remove('hidden');
+        checkIcon?.classList.add('hidden');
+      }, 2000);
+    });
   });
 
   const showCta = () => {
