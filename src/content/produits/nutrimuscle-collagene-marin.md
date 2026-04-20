@@ -3,10 +3,10 @@ title: "Collagène Marin Hydrolysé — Nutrimuscle"
 description: "Collagène marin pur de qualité pharmaceutique par Nutrimuscle : sans additifs, issu de poissons sauvages, poudre neutre. Code promo NME_GC pour -5%."
 brand: Nutrimuscle
 category: marin
-image: ""
-imageAlt: "Collagène marin Nutrimuscle poudre"
+image: "/logos/nutrimuscle.avif"
+imageAlt: "Collagène marin hydrolysé Nutrimuscle poudre"
 merchant: nutrimuscle
-affiliateUrl: https://nmsquad.link/03ksw
+affiliateUrl: https://nmsquad.link/02ocm
 price: 29.90
 currency: EUR
 rating: 4.6
@@ -31,7 +31,9 @@ certifications:
   - "Testé en laboratoire indépendant"
 publishedAt: 2026-04-20
 draft: false
-featured: false
+featured: true
+promoCode: "NME_GC"
+promoDiscount: 5
 ---
 
 ## Nutrimuscle Collagène Marin : la pureté avant tout

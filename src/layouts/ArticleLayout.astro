@@ -48,7 +48,10 @@ const canonical = `${SITE_URL}${Astro.url.pathname}`;
 // Sidebar: top 3 produits par note (pas de filtre featured)
 const allProducts = await getCollection('produits', (p) => !p.data.draft);
 const sidebarProducts = allProducts
-  .sort((a, b) => b.data.rating - a.data.rating)
+  .sort((a, b) => {
+    if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+    return b.data.rating - a.data.rating;
+  })
   .slice(0, 3);
 
 // Sidebar: related articles (same category, exclude current)
@@ -402,7 +405,7 @@ const breadcrumbSchema = {
 
       <!-- CTA + fermer -->
       <div class="flex items-center gap-2 flex-shrink-0">
-        <a href="https://nmsquad.link/03ksw"
+        <a href="https://nmsquad.link/02ocm"
           target="_blank"
           rel="nofollow noopener sponsored"
           class="bg-amber-500 hover:bg-amber-400 text-slate-900 text-sm font-bold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
@@ -475,7 +478,7 @@ const breadcrumbSchema = {
       clickId: `nm-${action}-${Date.now()}`,
       productId: 'nutrimuscle-coupon',
       merchant: 'nutrimuscle',
-      destinationUrl: action === 'copy' ? 'code-copy-NME_GC' : 'https://nmsquad.link/03ksw',
+      destinationUrl: action === 'copy' ? 'code-copy-NME_GC' : 'https://nmsquad.link/02ocm',
       sourcePage: window.location.pathname,
       device: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
     });

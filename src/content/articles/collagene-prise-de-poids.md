@@ -14,6 +14,10 @@ tags:
 featured: false
 image: https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Femme mesurant sa taille, silhouette saine"
+featuredProducts:
+  - bulk-hydrolysed-collagen-peptides
+  - myprotein-collagene-poudre
+  - vital-proteins-collagen-peptides
 faq:
   - question: "Le collagène fait-il grossir ?"
     answer: "Non, dans sa forme pure (poudre non aromatisée). 10 g de peptides de collagène représentent ~35–40 kcal, sans glucides ni lipides. Certaines formules aromatisées sucrées peuvent apporter 50–100 kcal supplémentaires par portion, à vérifier."

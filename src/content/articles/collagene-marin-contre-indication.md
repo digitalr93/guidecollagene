@@ -15,6 +15,10 @@ tags:
 featured: false
 image: https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Médecin tenant une bouteille de compléments alimentaires"
+featuredProducts:
+  - novoma-collagene-marin-pur
+  - nutripure-collagene-marin-peptan
+  - granions-collagene-marin-ah
 faq:
   - question: "Le collagène marin est-il dangereux pour les personnes allergiques aux poissons ?"
     answer: "Oui, c'est la contre-indication principale. Le collagène marin est extrait de la peau ou des arêtes de poissons. Les personnes avec une allergie IgE-médiée aux poissons ou crustacés doivent l'éviter strictement. Une réaction allergique peut survenir même avec des peptides très hydrolysés."

@@ -11,6 +11,10 @@ tags:
   - timing
   - pratique
   - comment prendre
+featuredProducts:
+  - vital-proteins-collagen-peptides
+  - nutriandco-collagene-naticol
+  - novoma-collagene-marin-pur
 faq:
   - question: "Quelle est la dose de collagène recommandée par jour ?"
     answer: "Les études cliniques utilisent des doses de 2,5 à 15g de peptides de collagène hydrolysé par jour selon les objectifs. Pour la peau : 2,5 à 10g. Pour les articulations et le sport : 10 à 15g. En dessous de 2,5g, les effets sont insuffisants."

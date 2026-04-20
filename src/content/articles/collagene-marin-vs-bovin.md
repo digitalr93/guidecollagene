@@ -12,6 +12,10 @@ tags:
   - comparatif
   - biodisponibilité
 featured: true
+featuredProducts:
+  - sunday-natural-collagene-marin
+  - nutriandco-collagene-bovin-peptan
+  - vital-proteins-collagen-peptides
 faq:
   - question: "Le collagène marin est-il vraiment mieux absorbé que le bovin ?"
     answer: "Le collagène marin hydrolysé présente une biodisponibilité estimée 1,5 fois supérieure au collagène bovin, en raison d'un poids moléculaire plus faible. Mais cette différence est atténuée pour les peptides bovins bien hydrolysés."

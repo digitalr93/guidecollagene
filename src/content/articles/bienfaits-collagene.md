@@ -13,6 +13,10 @@ tags:
   - peau
   - articulations
 featured: true
+featuredProducts:
+  - vital-proteins-collagen-peptides
+  - sunday-natural-collagene-marin
+  - nutriandco-collagene-naticol
 faq:
   - question: "Le collagène est-il vraiment efficace pour la peau ?"
     answer: "Oui, plusieurs méta-analyses (dont celle de Proksch et al., 2014 et de Bolke et al., 2019) démontrent une amélioration significative de l'élasticité et de l'hydratation cutanée après 8 à 12 semaines de supplémentation à 10g/jour de peptides hydrolysés."

@@ -15,6 +15,11 @@ tags:
 featured: true
 image: https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Femme de 50 ans, peau lumineuse, portant une tasse de thé"
+featuredProducts:
+  - nutriandco-collagene-naticol
+  - dlab-absolu-collagene
+  - sunday-natural-collagene-marin
+
 faq:
   - question: "La ménopause accélère-t-elle vraiment la perte de collagène ?"
     answer: "Oui. La chute des œstrogènes à la ménopause entraîne une perte de 30 % du collagène cutané dans les 5 premières années, puis de 2 % par an ensuite. Cette accélération est documentée dans de nombreuses études dermatologiques."

@@ -14,6 +14,11 @@ tags:
   - tendance 2026
   - liquide
 featured: true
+featuredProducts:
+  - granions-collagene-marin-ah
+  - biocyte-collagene-express
+  - vital-proteins-marine-collagen
+
 faq:
   - question: "Les boissons au collagène sont-elles plus efficaces que la poudre ?"
     answer: "Non, pas de manière significative. L'efficacité dépend du type de peptides et du dosage — pas du format. Les boissons pratiques mais souvent sous-dosées (< 5 g) et plus chères au gramme que les poudres."

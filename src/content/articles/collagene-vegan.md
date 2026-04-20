@@ -15,6 +15,11 @@ tags:
 featured: false
 image: https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Légumes frais colorés sur une table en bois"
+featuredProducts:
+  - les-miraculeux-gummies-collagene
+  - dlab-absolu-collagene
+  - ancient-nutrition-multi-collagen
+
 faq:
   - question: "Existe-t-il un collagène 100 % vegan ?"
     answer: "Pas encore en grande distribution. Des laboratoires travaillent sur du collagène produit par fermentation microbienne ou levures génétiquement modifiées — technologie en développement, pas encore disponible au grand public en 2026."

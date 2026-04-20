@@ -5,7 +5,10 @@ import AffiliateButton from '../components/affiliate/AffiliateButton.astro';
 import { SITE_URL } from '../lib/seo';
 
 const produits = await getCollection('produits', ({ data }) => !data.draft);
-produits.sort((a, b) => b.data.rating - a.data.rating);
+produits.sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return b.data.rating - a.data.rating;
+});
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -101,10 +104,26 @@ const breadcrumbSchema = {
                       <span class="font-medium">{p.data.rating}</span>
                     </div>
                   </td>
-                  <td class="px-4 py-4 font-medium text-slate-900">
-                    {p.data.price
-                      ? p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })
-                      : '—'}
+                  <td class="px-4 py-4">
+                    {p.data.price ? (() => {
+                      const disc = p.data.promoDiscount;
+                      const discPrice = disc ? p.data.price! * (1 - disc / 100) : null;
+                      return discPrice ? (
+                        <div>
+                          <span class="font-bold text-emerald-600">
+                            {discPrice.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency, maximumFractionDigits: 2 })}
+                          </span>
+                          <span class="text-xs text-slate-400 line-through ml-1">
+                            {p.data.price!.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })}
+                          </span>
+                          <span class="block text-xs text-amber-600 font-semibold">{p.data.promoCode} −{disc}%</span>
+                        </div>
+                      ) : (
+                        <span class="font-medium text-slate-900">
+                          {p.data.price!.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })}
+                        </span>
+                      );
+                    })() : <span class="text-slate-400">—</span>}
                   </td>
                   <td class="px-4 py-4">
                     <AffiliateButton

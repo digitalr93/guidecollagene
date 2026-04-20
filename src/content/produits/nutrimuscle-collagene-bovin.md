@@ -3,10 +3,10 @@ title: "Collagène Bovin Hydrolysé — Nutrimuscle"
 description: "Collagène bovin de qualité pharmaceutique par Nutrimuscle : bovins d'élevage extensif, sans additifs, poudre neutre. Code NME_GC pour -5% cumulables."
 brand: Nutrimuscle
 category: bovin
-image: ""
-imageAlt: "Collagène bovin Nutrimuscle poudre"
+image: "/logos/nutrimuscle.avif"
+imageAlt: "Collagène bovin hydrolysé Nutrimuscle poudre"
 merchant: nutrimuscle
-affiliateUrl: https://nmsquad.link/03ksw
+affiliateUrl: https://nmsquad.link/02ocm
 price: 24.90
 currency: EUR
 rating: 4.5
@@ -32,7 +32,9 @@ certifications:
   - "Testé en laboratoire indépendant"
 publishedAt: 2026-04-20
 draft: false
-featured: false
+featured: true
+promoCode: "NME_GC"
+promoDiscount: 5
 ---
 
 ## Nutrimuscle Collagène Bovin : le rapport qualité/prix imbattable

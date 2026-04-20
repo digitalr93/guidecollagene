@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "guidecollagene-dev",
+      "runtimeExecutable": "/Users/regiseklo/.nvm/versions/node/v22.22.2/bin/node",
+      "runtimeArgs": ["node_modules/.bin/astro", "dev", "--port", "4321"],
+      "port": 4321
+    }
+  ]
+}

@@ -11,6 +11,10 @@ tags:
   - protéine
   - fondamentaux
 featured: true
+featuredProducts:
+  - sunday-natural-collagene-marin
+  - nutriandco-collagene-naticol
+  - novoma-collagene-marin-pur
 faq:
   - question: "Le collagène est-il une protéine ?"
     answer: "Oui, le collagène est la protéine la plus abondante du corps humain. Il représente environ 30% de la masse protéique totale et 70 à 80% des protéines de la peau."

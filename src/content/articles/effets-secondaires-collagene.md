@@ -11,6 +11,10 @@ tags:
   - contre-indications
   - sécurité
   - allergies
+featuredProducts:
+  - novoma-collagene-marin-pur
+  - nutripure-collagene-marin-peptan
+  - vital-proteins-collagen-peptides
 faq:
   - question: "Le collagène est-il dangereux ?"
     answer: "Les peptides de collagène hydrolysé sont généralement bien tolérés aux doses recommandées (5–15g/jour). Les études cliniques rapportent peu d'effets indésirables significatifs. Les risques principaux concernent les personnes allergiques aux sources (poisson, bœuf) et celles sous traitement anticoagulant."

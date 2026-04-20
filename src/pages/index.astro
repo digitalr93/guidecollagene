@@ -6,7 +6,11 @@ import { getCollection } from 'astro:content';
 const allProducts = await getCollection('produits', ({ data }) => !data.draft);
 const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 
-allProducts.sort((a, b) => b.data.rating - a.data.rating);
+// Featured (ex: Nutrimuscle) toujours en premier, puis par note
+allProducts.sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return b.data.rating - a.data.rating;
+});
 allArticles.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
 const featuredProducts = allProducts.slice(0, 6);
@@ -148,8 +152,8 @@ const websiteSchema = {
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {featuredProducts.map((p, i) => {
             const LABELS = [
+              { bg: 'bg-amber-500',  text: '🥇 Choix n°1 — Code NME_GC' },
               { bg: 'bg-brand-600',  text: '⭐ Meilleur choix 2026' },
-              { bg: 'bg-amber-500',  text: '💰 Meilleur rapport Q/P' },
               { bg: 'bg-slate-700',  text: '🏆 Notre coup de cœur' },
               { bg: 'bg-teal-600',   text: '🐟 Meilleur collagène marin' },
               { bg: 'bg-purple-600', text: '💪 Idéal pour le sport' },
@@ -195,11 +199,31 @@ const websiteSchema = {
                     ))}
                     <span class="text-sm font-semibold text-slate-700 ml-1">{p.data.rating}/5</span>
                   </div>
-                  {p.data.price && (
-                    <p class="text-2xl font-bold text-slate-900 mb-4">
-                      {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency ?? 'EUR' })}
-                    </p>
-                  )}
+                  {p.data.price && (() => {
+                    const disc = p.data.promoDiscount;
+                    const discPrice = disc ? p.data.price! * (1 - disc / 100) : null;
+                    return (
+                      <div class="mb-4">
+                        {discPrice ? (
+                          <>
+                            <div class="flex items-baseline gap-2">
+                              <p class="text-2xl font-bold text-emerald-600">
+                                {discPrice.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency ?? 'EUR', maximumFractionDigits: 2 })}
+                              </p>
+                              <p class="text-sm text-slate-400 line-through">
+                                {p.data.price!.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency ?? 'EUR' })}
+                              </p>
+                            </div>
+                            <p class="text-xs text-amber-600 font-semibold mt-0.5">Code {p.data.promoCode} — -{disc}%</p>
+                          </>
+                        ) : (
+                          <p class="text-2xl font-bold text-slate-900">
+                            {p.data.price!.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency ?? 'EUR' })}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })()}
                   <a href={`/produit/${p.id}`} class:list={[
                     'block w-full text-center text-sm font-semibold py-2.5 rounded-xl transition-colors',
                     i === 0 ? 'bg-brand-600 hover:bg-brand-700 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-900'

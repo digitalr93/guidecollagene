@@ -21,6 +21,9 @@ interface Props {
   cons: string[];
   publishedAt: Date;
   updatedAt?: Date;
+  promoCode?: string;
+  promoDiscount?: number;
+  featured?: boolean;
 }
 
 const props = Astro.props;
@@ -29,7 +32,10 @@ const {
   rating, reviewCount, price, currency = 'EUR',
   merchant, affiliateUrl, productId,
   pros, cons, publishedAt, updatedAt,
+  promoCode, promoDiscount, featured,
 } = props;
+
+const discountedPrice = (price && promoDiscount) ? price * (1 - promoDiscount / 100) : null;
 
 const canonical = `${SITE_URL}${Astro.url.pathname}`;
 
@@ -121,8 +127,13 @@ function renderStars(value: number) {
         )}
       </div>
       <div class="flex flex-col justify-center">
-        <div class="mb-2">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
           <span class="badge bg-emerald-100 text-emerald-800">{category}</span>
+          {featured && (
+            <span class="inline-flex items-center gap-1 bg-amber-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+              🥇 Choix n°1
+            </span>
+          )}
         </div>
         <h1 class="text-3xl font-bold text-slate-900 mb-2">{title}</h1>
         <p class="text-slate-500 mb-3">par {brand}</p>
@@ -134,10 +145,30 @@ function renderStars(value: number) {
           <span class="text-slate-500 text-sm">({reviewCount} avis)</span>
         </div>
 
+        <!-- Prix avec compare-at-price si code promo -->
         {price && (
-          <p class="text-3xl font-bold text-slate-900 mb-4">
-            {price.toLocaleString('fr-FR', { style: 'currency', currency })}
-          </p>
+          <div class="mb-4">
+            {discountedPrice ? (
+              <>
+                <div class="flex items-baseline gap-3">
+                  <p class="text-3xl font-bold text-emerald-600">
+                    {discountedPrice.toLocaleString('fr-FR', { style: 'currency', currency, maximumFractionDigits: 2 })}
+                  </p>
+                  <p class="text-lg text-slate-400 line-through">
+                    {price.toLocaleString('fr-FR', { style: 'currency', currency })}
+                  </p>
+                </div>
+                <div class="inline-flex items-center gap-1.5 mt-1.5 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">
+                  <span class="text-sm">🏷️</span>
+                  <span class="text-amber-700 text-sm font-semibold">Code <strong class="font-mono tracking-wider">{promoCode}</strong> — -{promoDiscount}% cumulables</span>
+                </div>
+              </>
+            ) : (
+              <p class="text-3xl font-bold text-slate-900">
+                {price.toLocaleString('fr-FR', { style: 'currency', currency })}
+              </p>
+            )}
+          </div>
         )}
 
         <AffiliateButton

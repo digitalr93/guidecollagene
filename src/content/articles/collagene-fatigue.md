@@ -14,6 +14,11 @@ tags:
 featured: false
 image: https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Femme qui s'étire le matin, énergique et reposée"
+featuredProducts:
+  - ancient-nutrition-multi-collagen
+  - vital-proteins-collagen-peptides
+  - nutripure-collagene-marin-peptan
+
 faq:
   - question: "Le collagène peut-il réduire la fatigue ?"
     answer: "Pas directement comme un stimulant. Mais via la glycine, il améliore la qualité du sommeil, ce qui réduit la fatigue chronique. Des études montrent que 3 g de glycine avant le coucher améliorent la qualité subjective du sommeil et réduisent la somnolence diurne."

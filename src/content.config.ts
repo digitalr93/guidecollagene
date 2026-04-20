@@ -44,6 +44,10 @@ const produits = defineCollection({
     price: z.number().optional(),
     currency: z.string().default('EUR'),
 
+    // Promo
+    promoCode: z.string().optional(),
+    promoDiscount: z.number().optional(), // pourcentage, ex: 5 = -5%
+
     // Évaluation
     rating: z.number().min(0).max(5),
     reviewCount: z.number().default(0),
