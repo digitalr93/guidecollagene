@@ -183,14 +183,20 @@ const breadcrumbSchema = {
                   {/* Logo marque */}
                   <div class="flex-shrink-0">
                     {p.data.image ? (
-                      <img
-                        src={p.data.image}
-                        alt={`Logo ${p.data.brand}`}
-                        class="w-12 h-12 object-contain rounded-lg bg-white border border-slate-100 p-1"
-                        loading="lazy"
-                        width="48"
-                        height="48"
-                      />
+                      <>
+                        <img
+                          src={p.data.image}
+                          alt={`Logo ${p.data.brand}`}
+                          class="w-12 h-12 object-contain rounded-lg bg-white border border-slate-100 p-1"
+                          loading="lazy"
+                          width="48"
+                          height="48"
+                          onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden');"
+                        />
+                        <div hidden class="w-12 h-12 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
+                          {p.data.brand.slice(0, 2).toUpperCase()}
+                        </div>
+                      </>
                     ) : (
                       <div class="w-12 h-12 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
                         {p.data.brand.slice(0, 2).toUpperCase()}

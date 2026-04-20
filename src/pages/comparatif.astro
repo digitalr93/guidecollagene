@@ -63,14 +63,27 @@ const breadcrumbSchema = {
                   <td class="px-4 py-4 text-slate-400 font-medium">{i + 1}</td>
                   <td class="px-4 py-4">
                     <div class="flex items-center gap-3">
-                      {p.data.image && (
-                        <img
-                          src={p.data.image}
-                          alt=""
-                          class="w-12 h-12 object-contain rounded bg-slate-50 flex-shrink-0"
-                          aria-hidden="true"
-                        />
-                      )}
+                      <div class="w-12 h-12 flex-shrink-0 relative">
+                        {p.data.image ? (
+                          <>
+                            <img
+                              src={p.data.image}
+                              alt=""
+                              class="w-12 h-12 object-contain rounded bg-slate-50"
+                              aria-hidden="true"
+                              loading="lazy"
+                              onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden');"
+                            />
+                            <div hidden class="w-12 h-12 rounded bg-brand-100 flex items-center justify-center text-brand-700 font-bold text-sm">
+                              {p.data.brand.split(' ').map((w: string) => w[0]).join('').slice(0,2).toUpperCase()}
+                            </div>
+                          </>
+                        ) : (
+                          <div class="w-12 h-12 rounded bg-brand-100 flex items-center justify-center text-brand-700 font-bold text-sm">
+                            {p.data.brand.split(' ').map((w: string) => w[0]).join('').slice(0,2).toUpperCase()}
+                          </div>
+                        )}
+                      </div>
                       <div>
                         <a href={`/produit/${p.id}`} class="font-semibold text-slate-900 hover:text-brand-600 transition-colors">
                           {p.data.title}

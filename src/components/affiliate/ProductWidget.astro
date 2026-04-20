@@ -70,14 +70,20 @@ function brandColor(brand: string) {
 
         <div class="flex gap-3 items-start">
           {/* Image ou placeholder */}
-          <div class="flex-shrink-0">
+          <div class="flex-shrink-0 relative">
             {p.data.image ? (
-              <img
-                src={p.data.image}
-                alt={p.data.title}
-                class="w-16 h-16 object-contain rounded-lg bg-slate-50"
-                loading="lazy"
-              />
+              <>
+                <img
+                  src={p.data.image}
+                  alt={p.data.title}
+                  class="w-16 h-16 object-contain rounded-lg bg-slate-50"
+                  loading="lazy"
+                  onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden');"
+                />
+                <div hidden class:list={['w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-lg', brandColor(p.data.brand)]}>
+                  {initials(p.data.brand)}
+                </div>
+              </>
             ) : (
               <div class:list={['w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-lg', brandColor(p.data.brand)]}>
                 {initials(p.data.brand)}

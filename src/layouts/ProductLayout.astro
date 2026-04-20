@@ -100,11 +100,26 @@ function renderStars(value: number) {
 
     <!-- Hero produit -->
     <div class="grid md:grid-cols-2 gap-10 mb-12">
-      {image && (
-        <div class="rounded-xl overflow-hidden bg-slate-50">
-          <img src={image} alt={imageAlt ?? title} class="w-full object-contain aspect-square" loading="eager" />
-        </div>
-      )}
+      <div class="rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center p-8 aspect-square">
+        {image ? (
+          <>
+            <img
+              src={image}
+              alt={imageAlt ?? title}
+              class="w-full h-full object-contain"
+              loading="eager"
+              onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden');"
+            />
+            <div hidden class="text-6xl font-bold text-brand-200 select-none">
+              {brand.slice(0,2).toUpperCase()}
+            </div>
+          </>
+        ) : (
+          <div class="text-6xl font-bold text-brand-200 select-none">
+            {brand.slice(0,2).toUpperCase()}
+          </div>
+        )}
+      </div>
       <div class="flex flex-col justify-center">
         <div class="mb-2">
           <span class="badge bg-emerald-100 text-emerald-800">{category}</span>
