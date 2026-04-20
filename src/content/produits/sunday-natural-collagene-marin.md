@@ -5,7 +5,7 @@ brand: Sunday Natural
 category: marin
 format: poudre
 merchant: sundaynatural
-affiliateUrl: https://www.sunday.fr/collagene-marin-peptides-bio-actifs-naticol.html
+affiliateUrl: https://www.sunday.fr/fr/beaute/
 price: 41.9
 image: /logos/sunday-natural.png
 rating: 4.5

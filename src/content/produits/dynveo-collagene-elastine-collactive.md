@@ -5,7 +5,7 @@ brand: Dynveo
 category: marin
 format: poudre
 merchant: dynveo
-affiliateUrl: https://dynveo.fr/collagene-et-elastine-synergie.html
+affiliateUrl: https://dynveo.fr/collections/complements-alimentaires-collagene
 price: 44.9
 image: /logos/dynveo.webp
 rating: 4.3

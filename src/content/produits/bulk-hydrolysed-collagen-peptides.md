@@ -5,7 +5,7 @@ brand: Bulk
 category: bovin
 format: poudre
 merchant: bulk
-affiliateUrl: https://www.bulk.com/fr/peptides-de-collagene.html
+affiliateUrl: https://www.bulk.com/fr/search?q=collagene
 price: 19.99
 image: /logos/bulk.png
 rating: 4.0

@@ -3,8 +3,8 @@ title: "Vital Proteins Collagen Peptides"
 description: "Le collagène bovin hydrolysé de référence : poudre sans saveur, certifié sans OGM, 20 g de peptides par dose. Notre meilleur choix tous critères confondus."
 brand: Vital Proteins
 category: bovin
-merchant: amazon
-affiliateUrl: https://www.amazon.fr/dp/B00K6FS32K
+merchant: vitalproteins
+affiliateUrl: https://www.vitalproteins.fr/
 price: 39.99
 currency: EUR
 image: /logos/vital-proteins.png

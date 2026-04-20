@@ -5,7 +5,7 @@ brand: "Nutri&Co"
 category: bovin
 format: poudre
 merchant: nutriandco
-affiliateUrl: https://nutriandco.com/fr/collagene-bovin/
+affiliateUrl: https://nutriandco.com/fr/
 price: 34.9
 image: /logos/nutriandco.webp
 rating: 4.5

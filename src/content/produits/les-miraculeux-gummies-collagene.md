@@ -5,7 +5,7 @@ brand: Mium Lab
 category: bovin
 format: gummies
 merchant: miumlab
-affiliateUrl: https://miumlab.com/products/gummies-collagene
+affiliateUrl: https://www.miumlab.com/collections/all
 price: 19.9
 image: /logos/mium-lab.webp
 rating: 3.6

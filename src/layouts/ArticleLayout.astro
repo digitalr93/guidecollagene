@@ -469,6 +469,19 @@ const breadcrumbSchema = {
     cta?.classList.add('hidden');
   });
 
+  // Helper : envoie un événement au tracking /api/click via sendBeacon
+  const trackCoupon = (action: string) => {
+    const payload = JSON.stringify({
+      clickId: `nm-${action}-${Date.now()}`,
+      productId: 'nutrimuscle-coupon',
+      merchant: 'nutrimuscle',
+      destinationUrl: action === 'copy' ? 'code-copy-NME_GC' : 'https://nmsquad.link/03ksw',
+      sourcePage: window.location.pathname,
+      device: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+    });
+    navigator.sendBeacon('/api/click', new Blob([payload], { type: 'application/json' }));
+  };
+
   copyBtn?.addEventListener('click', () => {
     navigator.clipboard.writeText('NME_GC').then(() => {
       copyIcon?.classList.add('hidden');
@@ -477,8 +490,13 @@ const breadcrumbSchema = {
         copyIcon?.classList.remove('hidden');
         checkIcon?.classList.add('hidden');
       }, 2000);
+      trackCoupon('copy');
     });
   });
+
+  // Track les clics sur "En profiter →"
+  document.querySelector('#sticky-cta a[href*="nmsquad"]')
+    ?.addEventListener('click', () => trackCoupon('cta'));
 
   const showCta = () => {
     if (dismissed || !cta) return;

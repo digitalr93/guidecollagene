@@ -5,7 +5,7 @@ brand: Sunday Natural
 category: autre
 format: gelules
 merchant: sundaynatural
-affiliateUrl: https://www.sunday.fr/collagene-type-2-cartilage-poulet-uc-ii.html
+affiliateUrl: https://www.sunday.fr/fr/beaute/
 price: 27.9
 image: /logos/sunday-natural.png
 rating: 4.4

@@ -5,7 +5,7 @@ brand: Biocyte
 category: bovin
 format: gelules
 merchant: biocyte
-affiliateUrl: https://www.biocyte.com/fr/produit/collagene-express-gelules
+affiliateUrl: https://www.biocyte.com/collections/collagene
 price: 24.9
 image: /logos/biocyte.png
 rating: 3.9

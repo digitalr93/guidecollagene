@@ -25,6 +25,9 @@ export const GET: APIRoute = async () => {
   }
 
   // ── 1. Collecte des données ───────────────────────────────────────────
+  const supabaseUrl = import.meta.env.SUPABASE_URL;
+  const supabaseKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+
   const [articles, produits] = await Promise.all([
     getCollection('articles', ({ data }) => !data.draft),
     getCollection('produits',  ({ data }) => !data.draft),
@@ -44,6 +47,32 @@ export const GET: APIRoute = async () => {
     acc[a.data.category] = (acc[a.data.category] ?? 0) + 1;
     return acc;
   }, {});
+
+  // ── Stats Nutrimuscle (clics coupon des 7 derniers jours) ────────────
+  let nmClicks = 0;
+  let nmCopies = 0;
+  let nmCtas = 0;
+
+  if (supabaseUrl && supabaseKey) {
+    try {
+      const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      const res = await fetch(
+        `${supabaseUrl}/rest/v1/clicks?product_id=eq.nutrimuscle-coupon&clicked_at=gte.${since}&select=destination_url`,
+        {
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+          },
+        }
+      );
+      if (res.ok) {
+        const rows: { destination_url: string }[] = await res.json();
+        nmClicks = rows.length;
+        nmCopies = rows.filter(r => r.destination_url?.includes('code-copy')).length;
+        nmCtas   = rows.filter(r => r.destination_url?.includes('nmsquad')).length;
+      }
+    } catch (_) { /* silencieux si Supabase indisponible */ }
+  }
 
   // Opportunités de contenu manquant (URLs WP encore sans article dédié)
   const missingTopics = [
@@ -125,6 +154,25 @@ export const GET: APIRoute = async () => {
         <tbody>
           ${missingTopics.map(t => `<tr><td style="padding:4px 10px;color:#64748b;">${t.url}</td><td style="padding:4px 10px;"><a href="${SITE}${t.article}" style="color:#d44d2e;">${t.article}</a></td></tr>`).join('')}
         </tbody>
+      </table>
+
+      <!-- Nutrimuscle coupon stats -->
+      <h2 style="margin:0 0 12px;font-size:15px;color:#0f172a;text-transform:uppercase;letter-spacing:.05em;">🏷️ Coupon Nutrimuscle (7 jours)</h2>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+        <tr style="background:#fffbeb;">
+          <td style="padding:10px 14px;border-radius:8px 0 0 8px;font-size:13px;color:#64748b;">Total interactions</td>
+          <td style="padding:10px 14px;border-radius:0 8px 8px 0;font-size:20px;font-weight:700;color:#d97706;text-align:right;">${nmClicks}</td>
+        </tr>
+        <tr><td colspan="2" style="height:6px;"></td></tr>
+        <tr style="background:#fffbeb;">
+          <td style="padding:10px 14px;border-radius:8px 0 0 8px;font-size:13px;color:#64748b;">Code copié (NME_GC)</td>
+          <td style="padding:10px 14px;border-radius:0 8px 8px 0;font-size:20px;font-weight:700;color:#d97706;text-align:right;">${nmCopies}</td>
+        </tr>
+        <tr><td colspan="2" style="height:6px;"></td></tr>
+        <tr style="background:#fffbeb;">
+          <td style="padding:10px 14px;border-radius:8px 0 0 8px;font-size:13px;color:#64748b;">Clics "En profiter →"</td>
+          <td style="padding:10px 14px;border-radius:0 8px 8px 0;font-size:20px;font-weight:700;color:#d97706;text-align:right;">${nmCtas}</td>
+        </tr>
       </table>
 
       <!-- Idée du jour -->
