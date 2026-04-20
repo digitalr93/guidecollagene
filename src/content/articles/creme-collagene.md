@@ -14,6 +14,10 @@ tags:
   - anti-âge
   - beauté
 featured: false
+featuredProducts:
+  - nutriandco-collagene-naticol
+  - twentydc-peau-magnifique
+  - dlab-absolu-collagene
 faq:
   - question: "Le collagène dans les crèmes pénètre-t-il dans la peau ?"
     answer: "Non. Les molécules de collagène natif (300 kDa+) sont beaucoup trop grandes pour traverser la barrière cutanée. Les crèmes au collagène créent un effet hydratant et tenseur temporaire en surface — elles ne restimulent pas la synthèse dermique."

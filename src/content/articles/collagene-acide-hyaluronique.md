@@ -13,6 +13,10 @@ tags:
   - peau
   - anti-âge
 featured: false
+featuredProducts:
+  - nutriandco-collagene-naticol
+  - dlab-absolu-collagene
+  - twentydc-peau-magnifique
 faq:
   - question: "Peut-on prendre collagène et acide hyaluronique ensemble ?"
     answer: "Oui, et c'est recommandé. Les deux agissent sur des mécanismes différents et complémentaires : le collagène renforce la structure de la peau, l'acide hyaluronique en maintient l'hydratation. Plusieurs études montrent une synergie significative sur les rides et l'élasticité."

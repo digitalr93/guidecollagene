@@ -14,6 +14,10 @@ tags:
 featured: false
 image: https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Personne endormie paisiblement dans un lit confortable"
+featuredProducts:
+  - ancient-nutrition-multi-collagen
+  - dlab-absolu-collagene
+  - nutriandco-collagene-naticol
 faq:
   - question: "Le collagène améliore-t-il le sommeil ?"
     answer: "Indirectement, via sa teneur en glycine. La glycine est un acide aminé qui abaisse la température corporelle centrale et agit comme neurotransmetteur inhibiteur, facilitant l'endormissement. 10 g de collagène apportent ~3 g de glycine — la dose utilisée dans les études cliniques."

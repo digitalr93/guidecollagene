@@ -199,6 +199,7 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
 </section>
 
 <script define:vars={{ reco, produitsData }}>
+document.addEventListener('DOMContentLoaded', () => {
   let answers = { objectif: '', budget: '' };
 
   const show = (id) => {
@@ -304,4 +305,5 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
     show('step-1');
     setProgress(33);
   });
+}); // end DOMContentLoaded
 </script>

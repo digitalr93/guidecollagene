@@ -11,6 +11,10 @@ tags:
   - type II
   - type III
   - fondamentaux
+featuredProducts:
+  - ancient-nutrition-multi-collagen
+  - sunday-natural-collagene-marin
+  - sunday-natural-collagene-type-2
 faq:
   - question: "Quelle est la différence entre collagène type I et type II ?"
     answer: "Le collagène de type I est le plus abondant (peau, os, tendons) et cible surtout la peau et les tendons. Le type II est spécifique au cartilage articulaire. Ce sont des protéines différentes avec des rôles et des usages de supplémentation distincts."
