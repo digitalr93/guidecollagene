@@ -1,37 +1,99 @@
 ---
 /**
  * DiagnosticWidget.astro
- * Quiz interactif 3 étapes → recommandation produit + capture email
+ * 4 questions + email gating → recommandation personnalisée
+ * Flux : objectif → situation → source → budget → email → résultat
  */
 import { getCollection } from 'astro:content';
 
 const produits = await getCollection('produits', p => !p.data.draft);
 
-const reco: Record<string, Record<string, string>> = {
+// Matrice [objectif][source][budget] → slug produit
+const reco: Record<string, Record<string, Record<string, string>>> = {
   peau: {
-    eco:      'novoma-collagene-marin-pur',
-    standard: 'nutriandco-collagene-naticol',
-    premium:  'sunday-natural-collagene-marin',
+    marin: {
+      eco:      'novoma-collagene-marin-pur',
+      standard: 'nutriandco-collagene-naticol',
+      premium:  'sunday-natural-collagene-marin',
+    },
+    bovin: {
+      eco:      'myprotein-collagene-poudre',
+      standard: 'nutriandco-collagene-bovin-peptan',
+      premium:  'vital-proteins-collagen-peptides',
+    },
+    peu_importe: {
+      eco:      'novoma-collagene-marin-pur',
+      standard: 'twentydc-peau-magnifique',
+      premium:  'sunday-natural-collagene-marin',
+    },
   },
   articulations: {
-    eco:      'valebio-collagene-marin-articulations',
-    standard: 'nutriandco-collagene-bovin-peptan',
-    premium:  'sunday-natural-collagene-type-2',
+    marin: {
+      eco:      'valebio-collagene-marin-articulations',
+      standard: 'nutripure-collagene-marin-peptan',
+      premium:  'granions-collagene-marin-ah',
+    },
+    bovin: {
+      eco:      'nutriandco-collagene-bovin-peptan',
+      standard: 'nutriandco-collagene-bovin-peptan',
+      premium:  'sunday-natural-collagene-type-2',
+    },
+    peu_importe: {
+      eco:      'valebio-collagene-marin-articulations',
+      standard: 'nutriandco-collagene-bovin-peptan',
+      premium:  'sunday-natural-collagene-type-2',
+    },
   },
   sport: {
-    eco:      'bulk-hydrolysed-collagen-peptides',
-    standard: 'nutripure-collagene-marin-peptan',
-    premium:  'vital-proteins-collagen-peptides',
+    marin: {
+      eco:      'novoma-collagene-marin-pur',
+      standard: 'nutripure-collagene-marin-peptan',
+      premium:  'vital-proteins-marine-collagen',
+    },
+    bovin: {
+      eco:      'bulk-hydrolysed-collagen-peptides',
+      standard: 'nutripure-collagene-peptides-bovin',
+      premium:  'vital-proteins-collagen-peptides',
+    },
+    peu_importe: {
+      eco:      'bulk-hydrolysed-collagen-peptides',
+      standard: 'nutripure-collagene-marin-peptan',
+      premium:  'vital-proteins-collagen-peptides',
+    },
   },
   cheveux: {
-    eco:      'novoma-collagene-marin-pur',
-    standard: 'vital-proteins-marine-collagen',
-    premium:  'nutriandco-collagene-naticol',
+    marin: {
+      eco:      'novoma-collagene-marin-pur',
+      standard: 'vital-proteins-marine-collagen',
+      premium:  'dynveo-collagene-marin-2000da',
+    },
+    bovin: {
+      eco:      'myprotein-collagene-poudre',
+      standard: 'nutriandco-collagene-bovin-peptan',
+      premium:  'ancient-nutrition-multi-collagen',
+    },
+    peu_importe: {
+      eco:      'novoma-collagene-marin-pur',
+      standard: 'vital-proteins-marine-collagen',
+      premium:  'nutriandco-collagene-naticol',
+    },
   },
   vitalite: {
-    eco:      'myprotein-collagene-poudre',
-    standard: 'ancient-nutrition-multi-collagen',
-    premium:  'dlab-absolu-collagene',
+    marin: {
+      eco:      'novoma-collagene-marin-pur',
+      standard: 'granions-collagene-marin-ah',
+      premium:  'dlab-absolu-collagene',
+    },
+    bovin: {
+      eco:      'myprotein-collagene-poudre',
+      standard: 'ancient-nutrition-multi-collagen',
+      premium:  'dlab-absolu-collagene',
+    },
+    peu_importe: {
+      eco:      'myprotein-collagene-poudre',
+      standard: 'ancient-nutrition-multi-collagen',
+      premium:  'dlab-absolu-collagene',
+    },
   },
 };
 
@@ -52,26 +114,27 @@ const produitsData = produits.reduce<Record<string, {
 
 <section class="bg-gradient-to-br from-brand-600 to-brand-800 py-16 px-4" id="diagnostic">
   <div class="max-w-2xl mx-auto">
+
     <div class="text-center mb-8">
       <span class="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
         Outil gratuit
       </span>
       <h2 class="text-3xl font-bold text-white mb-3">Quel collagène vous convient ?</h2>
-      <p class="text-brand-100">3 questions · Résultat immédiat · Sélection personnalisée</p>
+      <p class="text-brand-100">4 questions · Recommandation personnalisée · Protocole par email</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden" id="diag-card">
 
       <!-- Barre de progression -->
       <div class="h-1.5 bg-slate-100">
-        <div id="diag-progress" class="h-full bg-brand-500 transition-all duration-500" style="width:33%"></div>
+        <div id="diag-progress" class="h-full bg-brand-500 transition-all duration-500" style="width:25%"></div>
       </div>
 
       <div id="diag-steps" class="p-8">
 
-        <!-- Étape 1 : Objectif -->
+        <!-- ── ÉTAPE 1 : Objectif ───────────────────────────────────── -->
         <div id="step-1">
-          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 1 / 3</p>
+          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 1 / 4</p>
           <h3 class="text-xl font-bold text-slate-900 mb-6">Quel est votre objectif principal ?</h3>
           <div class="grid grid-cols-1 gap-3">
             {[
@@ -94,39 +157,24 @@ const produitsData = produits.reduce<Record<string, {
           </div>
         </div>
 
-        <!-- Étape 2 : Budget -->
+        <!-- ── ÉTAPE 2 : Situation (remplie dynamiquement en JS) ──── -->
         <div id="step-2" style="display:none">
-          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 2 / 3</p>
-          <h3 class="text-xl font-bold text-slate-900 mb-6">Quel budget mensuel ?</h3>
-          <div class="grid grid-cols-1 gap-3">
-            {[
-              { val: 'eco',      icon: '💶', label: 'Économique', desc: 'Moins de 25 €/mois' },
-              { val: 'standard', icon: '💳', label: 'Standard',   desc: '25 à 45 €/mois' },
-              { val: 'premium',  icon: '💎', label: 'Premium',    desc: 'Plus de 45 €/mois' },
-            ].map(o => (
-              <button type="button" data-step="2" data-val={o.val}
-                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group">
-                <span class="text-2xl">{o.icon}</span>
-                <div>
-                  <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
-                  <p class="text-xs text-slate-500">{o.desc}</p>
-                </div>
-                <svg class="ml-auto w-5 h-5 text-slate-300 group-hover:text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            ))}
-          </div>
-          <button id="diag-back-1" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
+          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 2 / 4</p>
+          <h3 class="text-xl font-bold text-slate-900 mb-6" id="step-2-title">Précisez votre situation</h3>
+          <div class="grid grid-cols-1 gap-3" id="step-2-options"></div>
+          <button id="diag-back-1" type="button" class="mt-5 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
         </div>
 
-        <!-- Étape 3 : Format -->
+        <!-- ── ÉTAPE 3 : Source ────────────────────────────────────── -->
         <div id="step-3" style="display:none">
-          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 3 / 3</p>
-          <h3 class="text-xl font-bold text-slate-900 mb-6">Quel format préférez-vous ?</h3>
+          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 3 / 4</p>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Votre source de collagène</h3>
+          <p class="text-sm text-slate-500 mb-6">Régime alimentaire ou préférence personnelle</p>
           <div class="grid grid-cols-1 gap-3">
             {[
-              { val: 'poudre',  icon: '🥄', label: 'Poudre',      desc: 'À diluer dans eau, café, smoothie — meilleur rapport Q/P' },
-              { val: 'gelules', icon: '💊', label: 'Gélules',      desc: 'Pratiques, sans goût — idéal en déplacement' },
-              { val: 'peu',     icon: '🤷', label: 'Peu importe',  desc: 'Je veux le plus efficace' },
+              { val: 'marin',       icon: '🐟', label: 'Marin (poisson)',   desc: 'Biodisponibilité maximale — idéal peau & cheveux' },
+              { val: 'bovin',       icon: '🐄', label: 'Bovin (bœuf)',      desc: 'Polyvalent, bon rapport qualité/prix, types I & III' },
+              { val: 'peu_importe', icon: '🤷', label: 'Peu importe',       desc: 'Je veux le plus efficace selon mon objectif' },
             ].map(o => (
               <button type="button" data-step="3" data-val={o.val}
                 class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group">
@@ -139,25 +187,81 @@ const produitsData = produits.reduce<Record<string, {
               </button>
             ))}
           </div>
-          <button id="diag-back-2" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
+          <button id="diag-back-2" type="button" class="mt-5 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
         </div>
 
-        <!-- Résultat -->
+        <!-- ── ÉTAPE 4 : Budget ────────────────────────────────────── -->
+        <div id="step-4" style="display:none">
+          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 4 / 4</p>
+          <h3 class="text-xl font-bold text-slate-900 mb-6">Quel budget mensuel ?</h3>
+          <div class="grid grid-cols-1 gap-3">
+            {[
+              { val: 'eco',      icon: '💶', label: 'Économique', desc: 'Moins de 25 €/mois' },
+              { val: 'standard', icon: '💳', label: 'Standard',   desc: '25 à 45 €/mois' },
+              { val: 'premium',  icon: '💎', label: 'Premium',    desc: 'Plus de 45 €/mois' },
+            ].map(o => (
+              <button type="button" data-step="4" data-val={o.val}
+                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group">
+                <span class="text-2xl">{o.icon}</span>
+                <div>
+                  <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
+                  <p class="text-xs text-slate-500">{o.desc}</p>
+                </div>
+                <svg class="ml-auto w-5 h-5 text-slate-300 group-hover:text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            ))}
+          </div>
+          <button id="diag-back-3" type="button" class="mt-5 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
+        </div>
+
+        <!-- ── ÉTAPE EMAIL : Déblocage du résultat ─────────────────── -->
+        <div id="step-email" style="display:none">
+          <div class="text-center mb-6">
+            <div class="w-14 h-14 bg-brand-100 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">📩</div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Votre sélection est prête</h3>
+            <p class="text-sm text-slate-500">Entrez votre email pour voir votre recommandation et recevoir le protocole complet détaillé.</p>
+          </div>
+
+          <form id="diag-email-form" novalidate class="space-y-3">
+            <input
+              type="email"
+              id="diag-email-input"
+              placeholder="votre@email.fr"
+              autocomplete="email"
+              class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-400 transition-colors"
+              required
+            />
+            <p id="diag-email-error" class="text-xs text-red-500 hidden">Veuillez saisir une adresse email valide.</p>
+            <button type="submit" id="diag-email-btn"
+              class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3.5 rounded-xl text-base transition-colors flex items-center justify-center gap-2">
+              <span id="diag-email-btn-text">Voir ma recommandation →</span>
+              <svg id="diag-email-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+              </svg>
+            </button>
+            <p class="text-xs text-slate-400 text-center">Pas de spam · Protocole personnalisé · Désinscription en 1 clic</p>
+          </form>
+
+          <button id="diag-back-4" type="button" class="mt-5 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
+        </div>
+
+        <!-- ── RÉSULTAT (affiché après soumission email) ───────────── -->
         <div id="step-result" style="display:none">
           <div class="text-center mb-5">
             <span class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-sm font-semibold px-4 py-2 rounded-full border border-brand-200">
-              ✅ Notre recommandation personnalisée
+              ✅ Recommandation personnalisée
             </span>
           </div>
 
           <!-- Carte produit -->
-          <div class="border-2 border-brand-200 rounded-xl overflow-hidden mb-5">
+          <div class="border-2 border-brand-200 rounded-xl overflow-hidden mb-4">
             <div class="bg-brand-600 text-white text-xs font-bold text-center py-2 uppercase tracking-wide">
               ⭐ Sélection pour votre profil
             </div>
             <div class="p-5">
               <div class="flex items-center gap-4 mb-4">
-                <div id="result-logo" class="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden text-sm font-bold text-slate-400"></div>
+                <div id="result-logo" class="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden text-sm font-bold text-slate-500"></div>
                 <div>
                   <p id="result-brand" class="text-xs text-slate-500 mb-0.5"></p>
                   <h4 id="result-title" class="font-bold text-slate-900 text-base leading-snug"></h4>
@@ -173,43 +277,13 @@ const produitsData = produits.reduce<Record<string, {
             </div>
           </div>
 
-          <!-- Capture email -->
-          <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 mb-4">
-            <div id="email-form-wrap">
-              <div class="flex items-start gap-3 mb-3">
-                <span class="text-xl mt-0.5">📩</span>
-                <div>
-                  <p class="font-semibold text-slate-900 text-sm">Recevez votre protocole détaillé par email</p>
-                  <p class="text-xs text-slate-500 mt-0.5">Dosage, durée, études scientifiques clés et conseils pratiques — personnalisés selon vos réponses.</p>
-                </div>
-              </div>
-              <form id="diag-email-form" class="flex flex-col gap-2" novalidate>
-                <input
-                  type="email"
-                  id="diag-email-input"
-                  placeholder="votre@email.fr"
-                  autocomplete="email"
-                  class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 bg-white"
-                  required
-                />
-                <p id="diag-email-error" class="text-xs text-red-500 hidden">Veuillez saisir une adresse email valide.</p>
-                <button type="submit" id="diag-email-btn"
-                  class="w-full bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
-                  <span id="diag-email-btn-text">Recevoir mon protocole →</span>
-                  <svg id="diag-email-spinner" class="hidden w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                  </svg>
-                </button>
-                <p class="text-xs text-slate-400 text-center">Pas de spam. Désinscription en 1 clic.</p>
-              </form>
-            </div>
-            <!-- Succès -->
-            <div id="email-success" class="hidden text-center py-2">
-              <p class="text-3xl mb-2">✅</p>
-              <p class="font-semibold text-slate-900">Protocole envoyé !</p>
-              <p class="text-sm text-slate-500 mt-1">Vérifiez votre boîte mail (et les spams si besoin).</p>
-            </div>
+          <!-- Confirmation email -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl px-5 py-4 flex items-start gap-3 mb-4">
+            <span class="text-xl mt-0.5 flex-shrink-0">📬</span>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              <strong class="text-slate-900">Protocole envoyé !</strong><br/>
+              Dosages, durée, études scientifiques et conseils pratiques dans votre boîte mail. Vérifiez les spams si besoin.
+            </p>
           </div>
 
           <button id="diag-restart" type="button" class="w-full text-sm text-slate-400 hover:text-slate-700 text-center py-2">
@@ -224,213 +298,364 @@ const produitsData = produits.reduce<Record<string, {
 
 <script define:vars={{ reco, produitsData }} is:inline>
 (function () {
-  var answers = { objectif: '', budget: '', format: '' };
+
+  // ── Données statiques (pas besoin de define:vars) ──────────────────────
+
+  var situations = {
+    peau: [
+      { val: "premiers_signes", icon: "🌱", label: "Premiers signes (< 40 ans)",  desc: "Prévention, teint terne, premières ridules" },
+      { val: "anti_age_actif",  icon: "⏰", label: "Anti-âge actif (40–60 ans)",  desc: "Rides installées, perte de fermeté" },
+      { val: "secheresse",      icon: "💧", label: "Peau très sèche ou terne",    desc: "Déshydratation chronique, manque d'éclat" },
+    ],
+    articulations: [
+      { val: "prevention",    icon: "🛡️", label: "Prévention & gêne légère",    desc: "Sport régulier, mobilité à préserver" },
+      { val: "douleurs",      icon: "🔴", label: "Douleurs régulières",          desc: "Inconfort quotidien, raideurs matinales" },
+      { val: "post_blessure", icon: "🏥", label: "Post-blessure ou opération",   desc: "Récupération active, rééducation" },
+    ],
+    sport: [
+      { val: "endurance",    icon: "🏃", label: "Endurance",              desc: "Running, vélo, triathlon, natation" },
+      { val: "force",        icon: "🏋️", label: "Force & musculation",    desc: "Crossfit, haltérophilie, bodybuilding" },
+      { val: "recuperation", icon: "🔄", label: "Récupération",           desc: "Tendons, ligaments, prévention blessures" },
+    ],
+    cheveux: [
+      { val: "chute",      icon: "🪮", label: "Chute de cheveux",          desc: "Perte de densité, zones clairsemées" },
+      { val: "fragilite",  icon: "💅", label: "Ongles et cheveux fragiles", desc: "Cassants, qui s'effritent" },
+      { val: "croissance", icon: "✨", label: "Brillance & pousse lente",   desc: "Cheveux ternes, croissance insuffisante" },
+    ],
+    vitalite: [
+      { val: "fatigue", icon: "⚡", label: "Fatigue chronique",   desc: "Manque d'énergie persistant dans la journée" },
+      { val: "sommeil", icon: "🌙", label: "Qualité du sommeil",  desc: "Endormissement difficile, sommeil peu réparateur" },
+      { val: "global",  icon: "🎯", label: "Santé globale",       desc: "Articulations + peau + énergie — approche multi-cibles" },
+    ],
+  };
+
+  var whys = {
+    peau: {
+      marin: {
+        eco:      "Peptides marins purs, sans additifs — le meilleur départ pour la peau à petit prix.",
+        standard: "Naticol® certifié, référence clinique française pour la peau. 10 g/jour, résultats mesurables à 8 semaines.",
+        premium:  "Fabrication GMP pharmaceutique, Naticol® certifié lot par lot. La version sans compromis.",
+      },
+      bovin: {
+        eco:      "Poudre bovine neutre, très soluble, dosage libre — efficace et économique.",
+        standard: "Peptan® bovin certifié — standard international pour la peau et les articulations.",
+        premium:  "La formule Vital Proteins, référence aux États-Unis depuis 2013. Types I & III.",
+      },
+      peu_importe: {
+        eco:      "Marin pur, sans additifs — le meilleur rapport biodisponibilité/prix pour débuter.",
+        standard: "Naticol® + acide hyaluronique + vitamine C dans une seule poudre. La formule la plus complète.",
+        premium:  "Naticol® GMP, production certifiée — exactement la matière première des études cliniques.",
+      },
+    },
+    articulations: {
+      marin: {
+        eco:      "Peptan II® marin, spécialisé articulations — type II qui cible directement le cartilage.",
+        standard: "Peptan® certifié, dosage optimal pour les articulations, soluble à froid.",
+        premium:  "Marin + acide hyaluronique — le duo synergique pour le tissu articulaire.",
+      },
+      bovin: {
+        eco:      "Peptan® bovin, standard de référence pour les articulations, rapport Q/P optimal.",
+        standard: "Peptan® bovin certifié — le protocole le plus documenté pour les douleurs articulaires.",
+        premium:  "UC-II® 40 mg type II non dénaturé — supérieur à la glucosamine selon l'étude Crowley 2009.",
+      },
+      peu_importe: {
+        eco:      "Peptan II® marin spécialisé articulations — meilleur choix tous budgets pour démarrer.",
+        standard: "Peptan® bovin certifié — la dose de 10 g/jour est la mieux validée pour les articulations.",
+        premium:  "UC-II® 40 mg — mécanisme de tolérance orale, supérieur pour les douleurs régulières.",
+      },
+    },
+    sport: {
+      marin: {
+        eco:      "Poudre marine pure, soluble à froid — à prendre 45 min avant l'entraînement.",
+        standard: "Peptan® marin certifié — le format de référence pour la synthèse tendineuse pré-effort.",
+        premium:  "Marine Collagen Vital Proteins — spécialement formulé pour la performance et la récupération.",
+      },
+      bovin: {
+        eco:      "Poudre bovine bulk — dosage libre à 15 g, parfait pré-entraînement avec vitamine C.",
+        standard: "Peptides bovins Peptan® — hydrolyse fine, solubilité parfaite, dosage optimal sportif.",
+        premium:  "Vital Proteins Collagen Peptides — la référence des athlètes US depuis 10 ans.",
+      },
+      peu_importe: {
+        eco:      "Poudre bulk économique — 15 g avant l'effort + vitamine C, c'est le protocole Shaw 2017.",
+        standard: "Peptan® marin certifié — optimal pour les tendons et ligaments des sportifs d'endurance.",
+        premium:  "Vital Proteins — format pratique, dosage sport, qualité constante lot par lot.",
+      },
+    },
+    cheveux: {
+      marin: {
+        eco:      "Peptides marins purs — les précurseurs de kératine les mieux absorbés à prix mini.",
+        standard: "Marine Collagen Vital Proteins — type I marin, biodisponibilité maximale pour le cheveu.",
+        premium:  "Collagène 2000 Da Dynveo — poids moléculaire ultra-fin pour une absorption optimale.",
+      },
+      bovin: {
+        eco:      "Poudre bovine économique — apport en glycine et proline, précurseurs de kératine.",
+        standard: "Peptan® bovin — types I & III pour la peau, les cheveux et les ongles.",
+        premium:  "Multi-collagène Ancient Nutrition — 5 types pour une couverture capillaire complète.",
+      },
+      peu_importe: {
+        eco:      "Marin pur, absorption maximale — la meilleure base pour les cheveux à petit prix.",
+        standard: "Marine Collagen type I — biodisponibilité supérieure au bovin, spécifique cheveux & ongles.",
+        premium:  "Naticol® certifié — le mieux documenté pour la qualité cutanée et capillaire.",
+      },
+    },
+    vitalite: {
+      marin: {
+        eco:      "Poudre marine pure — glycine naturelle pour l'énergie et le sommeil.",
+        standard: "Granions marin + AH — formule liquide professionnelle, qualité pharmaceutique française.",
+        premium:  "D-LAB Absolu Collagène — formule concentrée avec actifs complémentaires, vitalité globale.",
+      },
+      bovin: {
+        eco:      "Poudre bovine économique — la glycine du collagène pour un meilleur sommeil en 4 semaines.",
+        standard: "Multi-collagène Ancient Nutrition types I, II, III, V, X — couverture systémique complète.",
+        premium:  "D-LAB Absolu — actifs concentrés, vitalité globale, format premium sans compromis.",
+      },
+      peu_importe: {
+        eco:      "Poudre bulk — rentable, neutre en goût, à diluer dans votre routine du matin.",
+        standard: "Multi-collagène 5 types — couvre peau, articulations, intestins et vitalité globale.",
+        premium:  "D-LAB Absolu Collagène — la formule la plus complète pour la vitalité globale.",
+      },
+    },
+  };
+
+  // ── État ────────────────────────────────────────────────────────────────
+
+  var answers = { objectif: "", situation: "", source: "", budget: "" };
+
+  // ── Utilitaires ─────────────────────────────────────────────────────────
+
+  var STEPS = ["step-1", "step-2", "step-3", "step-4", "step-email", "step-result"];
 
   function show(id) {
-    ['step-1', 'step-2', 'step-3', 'step-result'].forEach(function (s) {
+    STEPS.forEach(function (s) {
       var el = document.getElementById(s);
-      if (el) el.style.display = s === id ? '' : 'none';
+      if (el) el.style.display = s === id ? "" : "none";
     });
   }
 
   function setProgress(pct) {
-    var bar = document.getElementById('diag-progress');
-    if (bar) bar.style.width = pct + '%';
+    var bar = document.getElementById("diag-progress");
+    if (bar) bar.style.width = pct + "%";
   }
 
-  var whys = {
-    peau: {
-      eco:      "Peptides marins purs, sans additifs. Rapport qualité/prix imbattable pour débuter.",
-      standard: "Peptides Naticol® certifiés — le plus étudié pour la peau en France. 10g/jour.",
-      premium:  "Fabrication GMP pharmaceutique, Naticol® certifié, certificat d'analyse par lot.",
-    },
-    articulations: {
-      eco:      "Formule marin + glucosamine pour les articulations. Très bon rapport qualité/prix.",
-      standard: "Peptan® bovin certifié, le standard de référence pour les articulations.",
-      premium:  "UC-II® non dénaturé à 40mg — mécanisme supérieur à la glucosamine.",
-    },
-    sport: {
-      eco:      "Poudre pure sans arômes, dosage libre. Idéal pour les sportifs qui gèrent leur nutrition.",
-      standard: "Peptan® certifié, dosage optimal, soluble à froid. La référence du sportif sérieux.",
-      premium:  "Standard international, dosage validé en compétition, format sport pratique.",
-    },
-    cheveux: {
-      eco:      "Peptides marins purs à petit prix — efficace pour les précurseurs de kératine.",
-      standard: "Collagène marin type I + biodisponibilité élevée. Spécifique cheveux & ongles.",
-      premium:  "Naticol® + études cliniques sur la qualité capillaire. Le choix des professionnels.",
-    },
-    vitalite: {
-      eco:      "Poudre économique à dissoudre dans votre boisson du matin. Simple et efficace.",
-      standard: "Multi-collagène types I, II, III, V, X — couverture complète pour la vitalité globale.",
-      premium:  "Formule concentrée avec actifs complémentaires. Le choix des exigeants.",
-    },
-  };
+  // ── Rendu dynamique de l'étape 2 ────────────────────────────────────────
+
+  function renderStep2(objectif) {
+    var opts = situations[objectif];
+    if (!opts) return;
+    var container = document.getElementById("step-2-options");
+    if (!container) return;
+    container.innerHTML = "";
+    opts.forEach(function (o) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-step", "2");
+      btn.setAttribute("data-val", o.val);
+      btn.className = "diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group";
+      btn.innerHTML = [
+        '<span class="text-2xl">' + o.icon + '</span>',
+        '<div>',
+        '  <p class="font-semibold text-slate-900 group-hover:text-brand-700">' + o.label + '</p>',
+        '  <p class="text-xs text-slate-500">' + o.desc + '</p>',
+        '</div>',
+        '<svg class="ml-auto w-5 h-5 text-slate-300 group-hover:text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      ].join("");
+      btn.addEventListener("click", function () {
+        answers.situation = o.val;
+        show("step-3");
+        setProgress(50);
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  // ── Affichage du résultat ────────────────────────────────────────────────
 
   function fillResult() {
-    var slug = (reco[answers.objectif] && reco[answers.objectif][answers.budget])
-      ? reco[answers.objectif][answers.budget]
-      : 'nutriandco-collagene-naticol';
+    var src  = answers.source || "peu_importe";
+    var bdgt = answers.budget || "standard";
+    var obj  = answers.objectif || "peau";
+
+    var slug = reco[obj] && reco[obj][src] && reco[obj][src][bdgt]
+      ? reco[obj][src][bdgt]
+      : "nutriandco-collagene-naticol";
     var p = produitsData[slug];
     if (!p) return;
 
     // Logo
-    var logoEl = document.getElementById('result-logo');
+    var logoEl = document.getElementById("result-logo");
     if (logoEl) {
-      var initials = p.brand.slice(0, 2).toUpperCase();
+      var initials = p.brand ? p.brand.slice(0, 2).toUpperCase() : "??";
       if (p.image) {
-        logoEl.innerHTML = '<img src="' + p.image + '" alt="' + p.brand + '" style="width:100%;height:100%;object-fit:contain;padding:4px;" onerror="this.parentElement.innerHTML=\'' + initials + '\';" />';
+        logoEl.innerHTML = '<img src="' + p.image + '" alt="' + p.brand + '" style="width:100%;height:100%;object-fit:contain;padding:4px;" onerror="this.parentElement.textContent=\'' + initials + '\';" />';
       } else {
         logoEl.textContent = initials;
+        logoEl.style.background = "#d44d2e";
+        logoEl.style.color = "#fff";
       }
     }
 
-    var brandEl = document.getElementById('result-brand');
-    if (brandEl) brandEl.textContent = p.brand;
-    var titleEl = document.getElementById('result-title');
-    if (titleEl) titleEl.textContent = p.title;
-    var ctaEl = document.getElementById('result-cta');
-    if (ctaEl) ctaEl.href = '/produit/' + p.slug;
+    var brandEl = document.getElementById("result-brand");
+    if (brandEl) brandEl.textContent = p.brand || "";
 
-    var priceEl = document.getElementById('result-price');
+    var titleEl = document.getElementById("result-title");
+    if (titleEl) titleEl.textContent = p.title || "";
+
+    var ctaEl = document.getElementById("result-cta");
+    if (ctaEl) ctaEl.href = "/produit/" + p.slug;
+
+    var priceEl = document.getElementById("result-price");
     if (priceEl && p.price) {
-      priceEl.textContent = p.price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+      priceEl.textContent = p.price.toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
     }
 
-    var starsEl = document.getElementById('result-stars');
+    var starsEl = document.getElementById("result-stars");
     if (starsEl) {
-      starsEl.innerHTML = '';
+      starsEl.innerHTML = "";
       for (var j = 0; j < 5; j++) {
-        var star = document.createElement('span');
-        star.textContent = '★';
-        star.style.color = j < Math.round(p.rating) ? '#f59e0b' : '#e2e8f0';
-        star.style.fontSize = '1.125rem';
+        var star = document.createElement("span");
+        star.textContent = "★";
+        star.style.color = j < Math.round(p.rating) ? "#f59e0b" : "#e2e8f0";
+        star.style.fontSize = "1.125rem";
         starsEl.appendChild(star);
       }
-      var ratingSpan = document.createElement('span');
-      ratingSpan.style.fontSize = '0.875rem';
-      ratingSpan.style.fontWeight = '600';
-      ratingSpan.style.color = '#334155';
-      ratingSpan.style.marginLeft = '4px';
-      ratingSpan.textContent = p.rating + '/5';
-      starsEl.appendChild(ratingSpan);
+      var rspan = document.createElement("span");
+      rspan.style.cssText = "font-size:0.875rem;font-weight:600;color:#334155;margin-left:4px;";
+      rspan.textContent = p.rating + "/5";
+      starsEl.appendChild(rspan);
     }
 
-    var whyEl = document.getElementById('result-why');
+    var whyEl = document.getElementById("result-why");
     if (whyEl) {
-      var why = whys[answers.objectif] && whys[answers.objectif][answers.budget]
-        ? whys[answers.objectif][answers.budget]
-        : '';
+      var why = whys[obj] && whys[obj][src] && whys[obj][src][bdgt]
+        ? whys[obj][src][bdgt]
+        : "";
       whyEl.textContent = why;
     }
 
-    show('step-result');
+    show("step-result");
     setProgress(100);
   }
 
-  // Clicks sur les choix
-  var choices = document.querySelectorAll('.diag-choice');
-  choices.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var step = btn.getAttribute('data-step');
-      var val  = btn.getAttribute('data-val');
+  // ── Listeners clics choix ────────────────────────────────────────────────
 
-      if (step === '1') {
-        answers.objectif = val;
-        show('step-2');
-        setProgress(66);
-      } else if (step === '2') {
-        answers.budget = val;
-        show('step-3');
-        setProgress(83);
-      } else if (step === '3') {
-        answers.format = val;
-        fillResult();
-      }
-    });
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest(".diag-choice");
+    if (!btn) return;
+    var step = btn.getAttribute("data-step");
+    var val  = btn.getAttribute("data-val");
+    if (!step || !val) return;
+
+    if (step === "1") {
+      answers.objectif = val;
+      renderStep2(val);
+      show("step-2");
+      setProgress(25);
+    } else if (step === "3") {
+      answers.source = val;
+      show("step-4");
+      setProgress(75);
+    } else if (step === "4") {
+      answers.budget = val;
+      show("step-email");
+      setProgress(90);
+    }
   });
 
-  // Retour
-  var back1 = document.getElementById('diag-back-1');
-  if (back1) back1.addEventListener('click', function () { show('step-1'); setProgress(33); });
-  var back2 = document.getElementById('diag-back-2');
-  if (back2) back2.addEventListener('click', function () { show('step-2'); setProgress(66); });
+  // ── Boutons retour ───────────────────────────────────────────────────────
 
-  // Restart
-  var restart = document.getElementById('diag-restart');
-  if (restart) restart.addEventListener('click', function () {
-    answers = { objectif: '', budget: '', format: '' };
-    // Reset email form
-    var formWrap = document.getElementById('email-form-wrap');
-    var successEl = document.getElementById('email-success');
-    var inputEl = document.getElementById('diag-email-input');
-    if (formWrap) formWrap.classList.remove('hidden');
-    if (successEl) successEl.classList.add('hidden');
-    if (inputEl) inputEl.value = '';
-    show('step-1');
-    setProgress(33);
-  });
+  function on(id, fn) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener("click", fn);
+  }
 
-  // Soumission email
-  var emailForm = document.getElementById('diag-email-form');
+  on("diag-back-1", function () { show("step-1"); setProgress(25); });
+  on("diag-back-2", function () { show("step-2"); setProgress(25); });
+  on("diag-back-3", function () { show("step-3"); setProgress(50); });
+  on("diag-back-4", function () { show("step-4"); setProgress(75); });
+
+  // ── Soumission email ─────────────────────────────────────────────────────
+
+  var emailForm = document.getElementById("diag-email-form");
   if (emailForm) {
-    emailForm.addEventListener('submit', function (e) {
+    emailForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      var inputEl = document.getElementById('diag-email-input');
-      var errorEl = document.getElementById('diag-email-error');
-      var btnText = document.getElementById('diag-email-btn-text');
-      var spinner = document.getElementById('diag-email-spinner');
-      var btn     = document.getElementById('diag-email-btn');
 
-      var email = inputEl ? inputEl.value.trim() : '';
+      var inputEl   = document.getElementById("diag-email-input");
+      var errorEl   = document.getElementById("diag-email-error");
+      var btnText   = document.getElementById("diag-email-btn-text");
+      var spinner   = document.getElementById("diag-email-spinner");
+      var btn       = document.getElementById("diag-email-btn");
+
+      var email = inputEl ? inputEl.value.trim() : "";
       var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (!emailRe.test(email)) {
-        if (errorEl) errorEl.classList.remove('hidden');
+        if (errorEl) errorEl.classList.remove("hidden");
         return;
       }
-      if (errorEl) errorEl.classList.add('hidden');
+      if (errorEl) errorEl.classList.add("hidden");
 
       // UI loading
-      if (btnText) btnText.textContent = 'Envoi en cours…';
-      if (spinner) spinner.classList.remove('hidden');
+      if (btnText) btnText.textContent = "Envoi en cours…";
+      if (spinner) spinner.classList.remove("hidden");
       if (btn) btn.disabled = true;
 
-      // Récupérer les infos produit recommandé
-      var slug = (reco[answers.objectif] && reco[answers.objectif][answers.budget])
-        ? reco[answers.objectif][answers.budget]
-        : 'nutriandco-collagene-naticol';
+      // Slug recommandé
+      var src  = answers.source || "peu_importe";
+      var bdgt = answers.budget || "standard";
+      var obj  = answers.objectif || "peau";
+      var slug = reco[obj] && reco[obj][src] && reco[obj][src][bdgt]
+        ? reco[obj][src][bdgt]
+        : "nutriandco-collagene-naticol";
       var p = produitsData[slug] || {};
 
-      fetch('/api/diagnostic-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      fetch("/api/diagnostic-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: email,
-          objectif: answers.objectif,
-          budget: answers.budget,
-          format: answers.format,
-          productSlug: p.slug || slug,
-          productTitle: p.title || '',
-          productBrand: p.brand || '',
+          email:        email,
+          objectif:     answers.objectif,
+          situation:    answers.situation,
+          source:       answers.source,
+          budget:       answers.budget,
+          productSlug:  p.slug || slug,
+          productTitle: p.title || "",
+          productBrand: p.brand || "",
         }),
       })
-      .then(function (res) { return res.json(); })
-      .then(function () {
-        var formWrap = document.getElementById('email-form-wrap');
-        var successEl = document.getElementById('email-success');
-        if (formWrap) formWrap.classList.add('hidden');
-        if (successEl) successEl.classList.remove('hidden');
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
       })
-      .catch(function () {
-        if (btnText) btnText.textContent = 'Recevoir mon protocole →';
-        if (spinner) spinner.classList.add('hidden');
+      .then(function () {
+        fillResult();
+      })
+      .catch(function (err) {
+        console.error("diagnostic-lead error:", err);
+        // On affiche quand même le résultat si l'API échoue
+        fillResult();
+        if (btnText) btnText.textContent = "Voir ma recommandation →";
+        if (spinner) spinner.classList.add("hidden");
         if (btn) btn.disabled = false;
-        if (errorEl) {
-          errorEl.textContent = 'Une erreur est survenue. Réessayez.';
-          errorEl.classList.remove('hidden');
-        }
       });
     });
   }
+
+  // ── Restart ──────────────────────────────────────────────────────────────
+
+  on("diag-restart", function () {
+    answers = { objectif: "", situation: "", source: "", budget: "" };
+    var inputEl = document.getElementById("diag-email-input");
+    if (inputEl) inputEl.value = "";
+    var btn = document.getElementById("diag-email-btn");
+    var btnText = document.getElementById("diag-email-btn-text");
+    var spinner = document.getElementById("diag-email-spinner");
+    if (btn) btn.disabled = false;
+    if (btnText) btnText.textContent = "Voir ma recommandation →";
+    if (spinner) spinner.classList.add("hidden");
+    show("step-1");
+    setProgress(25);
+  });
+
 })();
 </script>

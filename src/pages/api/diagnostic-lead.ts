@@ -8,12 +8,14 @@
  *   id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
  *   email        text NOT NULL,
  *   objectif     text,
+ *   situation    text,
+ *   source       text,
  *   budget       text,
- *   format       text,
  *   product_slug text,
  *   created_at   timestamptz DEFAULT now()
  * );
  * CREATE INDEX ON diagnostic_leads (email);
+ * CREATE INDEX ON diagnostic_leads (objectif);
  * ─────────────────────────────────────────────────────
  *
  * ENV requis : SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY
@@ -39,6 +41,49 @@ const BUDGET_LABELS: Record<string, string> = {
   eco:      'économique (< 25 €/mois)',
   standard: 'standard (25–45 €/mois)',
   premium:  'premium (> 45 €/mois)',
+};
+
+const SOURCE_LABELS: Record<string, string> = {
+  marin:       'marin (poisson)',
+  bovin:       'bovin (bœuf)',
+  peu_importe: 'sans préférence',
+};
+
+const SITUATION_LABELS: Record<string, Record<string, string>> = {
+  peau:          { premiers_signes: 'Premiers signes', anti_age_actif: 'Anti-âge actif', secheresse: 'Peau très sèche' },
+  articulations: { prevention: 'Prévention', douleurs: 'Douleurs régulières', post_blessure: 'Post-blessure' },
+  sport:         { endurance: 'Endurance', force: 'Force & musculation', recuperation: 'Récupération' },
+  cheveux:       { chute: 'Chute de cheveux', fragilite: 'Fragilité', croissance: 'Brillance & pousse' },
+  vitalite:      { fatigue: 'Fatigue chronique', sommeil: 'Sommeil', global: 'Santé globale' },
+};
+
+// Intro personnalisée selon situation
+const SITUATION_INTROS: Record<string, Record<string, string>> = {
+  peau: {
+    premiers_signes: "Vous commencez au bon moment : la prévention avant 40 ans est bien plus efficace que la correction. Les études montrent que les effets sont d'autant plus marqués qu'on démarre tôt.",
+    anti_age_actif:  "À votre stade, la supplémentation donne ses meilleurs résultats — les études cliniques observent les améliorations les plus importantes sur la tranche 40–60 ans.",
+    secheresse:      "Pour une peau très sèche, le duo collagène hydrolysé + acide hyaluronique est exactement la combinaison documentée. L'AH oral fixe l'eau en profondeur là où la crème ne pénètre pas.",
+  },
+  articulations: {
+    prevention:    "La prévention est la stratégie la plus rentable — le cartilage ne se régénère pas facilement. Commencer avant les douleurs chroniques fait toute la différence sur le long terme.",
+    douleurs:      "Pour les douleurs régulières, les études recommandent soit 10 g/jour de peptides hydrolysés sur 12–24 semaines, soit UC-II® 40 mg/jour. Les deux mécanismes sont complémentaires.",
+    post_blessure: "En phase de récupération post-traumatique, la fenêtre de synthèse de collagène est naturellement accélérée. La supplémentation exploite et amplifie ce mécanisme de réparation.",
+  },
+  sport: {
+    endurance:    "L'endurance sollicite tendons et ligaments de façon répétitive — c'est là que le collagène fait la différence entre performer et se blesser. Le timing pré-effort est clé.",
+    force:        "Pour la force, le collagène cible les tendons et ligaments que la whey (riche en leucine, idéale pour les muscles) ne touche pas. Les deux sont complémentaires.",
+    recuperation: "Pour la récupération tendineuse, 15 g de peptides + vitamine C 45–60 min avant l'effort augmente significativement la synthèse de collagène dans les tissus sollicités (Shaw et al., 2017).",
+  },
+  cheveux: {
+    chute:      "La chute de cheveux a souvent une composante nutritionnelle sous-évaluée. Le collagène + biotine + zinc constitue la triade de référence pour la densité capillaire.",
+    fragilite:  "La fragilité des ongles et cheveux signale un déficit en précurseurs de kératine — glycine, proline, hydroxyproline. C'est exactement le profil du collagène marin type I.",
+    croissance: "Pour la brillance et la pousse, la patience est de mise : comptez 3 à 6 mois (le cycle capillaire est long), mais les résultats sont durables une fois le protocole bien engagé.",
+  },
+  vitalite: {
+    fatigue: "La fatigue chronique peut avoir une composante nutritionnelle en glycine — le collagène en est la source alimentaire la plus concentrée, avec des effets mesurables sur l'énergie en 4–8 semaines.",
+    sommeil: "La glycine du collagène (3 g avant le coucher) améliore objectivement la qualité du sommeil profond selon une étude randomisée (Bannai et al., 2012). Prendre le soir pour maximiser cet effet.",
+    global:  "Pour une approche globale, le multi-collagène (types I, II, III, V, X) couvre l'ensemble des tissus : peau, cartilage, os, intestins, vaisseaux. Le format le plus polyvalent qui soit.",
+  },
 };
 
 // ─── Contenu personnalisé par objectif ────────────────────────────────────
@@ -128,21 +173,33 @@ const CONTENT: Record<string, ObjectifContent> = {
 
 function buildEmailHtml(params: {
   objectif: string;
+  situation: string;
+  source: string;
   budget: string;
   productTitle: string;
   productBrand: string;
   productSlug: string;
 }): string {
-  const { objectif, budget, productTitle, productBrand, productSlug } = params;
+  const { objectif, situation, source, budget, productTitle, productBrand, productSlug } = params;
 
-  const objectifLabel = OBJECTIF_LABELS[objectif] ?? objectif;
-  const budgetLabel   = BUDGET_LABELS[budget] ?? budget;
-  const content       = CONTENT[objectif] ?? CONTENT.peau;
-  const productUrl    = `${SITE}/produit/${productSlug}`;
+  const objectifLabel   = OBJECTIF_LABELS[objectif] ?? objectif;
+  const budgetLabel     = BUDGET_LABELS[budget] ?? budget;
+  const sourceLabel     = SOURCE_LABELS[source] ?? source;
+  const situationLabel  = (SITUATION_LABELS[objectif] ?? {})[situation] ?? '';
+  const situationIntro  = (SITUATION_INTROS[objectif] ?? {})[situation] ?? '';
+  const content         = CONTENT[objectif] ?? CONTENT.peau;
+  const productUrl      = `${SITE}/produit/${productSlug}`;
 
   const protocolItems = content.protocol
     .map(item => `<li style="padding:6px 0;color:#334155;font-size:14px;line-height:1.6;">${item}</li>`)
     .join('');
+
+  // Badge résumé du profil
+  const profileBadges = [
+    situationLabel ? `<span style="background:#e2e8f0;color:#334155;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin:2px;">${situationLabel}</span>` : '',
+    sourceLabel    ? `<span style="background:#e2e8f0;color:#334155;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin:2px;">Collagène ${sourceLabel}</span>` : '',
+    budgetLabel    ? `<span style="background:#e2e8f0;color:#334155;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin:2px;">Budget ${budgetLabel}</span>` : '',
+  ].filter(Boolean).join('');
 
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -156,17 +213,22 @@ function buildEmailHtml(params: {
 
     <!-- Header -->
     <div style="background:linear-gradient(135deg,#d44d2e,#b83a1e);padding:32px;text-align:center;">
-      <p style="margin:0 0 8px;color:rgba(255,255,255,0.75);font-size:13px;letter-spacing:0.05em;text-transform:uppercase;">Guide Collagène</p>
+      <p style="margin:0 0 8px;color:rgba(255,255,255,0.75);font-size:13px;letter-spacing:0.05em;text-transform:uppercase;">Guide Collagène · Diagnostic personnalisé</p>
       <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;line-height:1.3;">
-        Votre protocole personnalisé<br/>
-        <span style="font-weight:400;font-size:16px;opacity:0.9;">${objectifLabel}</span>
+        Votre protocole — ${objectifLabel}
       </h1>
     </div>
 
     <div style="padding:32px;">
 
-      <!-- Intro -->
-      <p style="margin:0 0 24px;font-size:15px;color:#475569;line-height:1.7;">
+      <!-- Badges profil -->
+      ${profileBadges ? `<div style="margin-bottom:20px;text-align:center;">${profileBadges}</div>` : ''}
+
+      <!-- Intro situation personnalisée -->
+      ${situationIntro ? `<p style="margin:0 0 16px;font-size:15px;color:#0f172a;font-weight:600;line-height:1.6;border-left:3px solid #d44d2e;padding-left:14px;">${situationIntro}</p>` : ''}
+
+      <!-- Intro générale -->
+      <p style="margin:0 0 24px;font-size:14px;color:#475569;line-height:1.7;">
         ${content.intro}
       </p>
 
@@ -235,7 +297,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: 'Corps JSON invalide.' }), { status: 400, headers });
   }
 
-  const { email, objectif, budget, format, productSlug, productTitle, productBrand } = body;
+  const { email, objectif, situation, source, budget, productSlug, productTitle, productBrand } = body;
 
   // Validation email
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -259,9 +321,10 @@ export const POST: APIRoute = async ({ request }) => {
         },
         body: JSON.stringify({
           email,
-          objectif: objectif ?? null,
-          budget:   budget ?? null,
-          format:   format ?? null,
+          objectif:     objectif   ?? null,
+          situation:    situation  ?? null,
+          source:       source     ?? null,
+          budget:       budget     ?? null,
           product_slug: productSlug ?? null,
         }),
       });
@@ -285,11 +348,13 @@ export const POST: APIRoute = async ({ request }) => {
     to:   email,
     subject: `Votre protocole collagène — ${objectifLabel}`,
     html: buildEmailHtml({
-      objectif:     objectif ?? 'peau',
-      budget:       budget ?? 'standard',
+      objectif:     objectif   ?? 'peau',
+      situation:    situation  ?? '',
+      source:       source     ?? 'peu_importe',
+      budget:       budget     ?? 'standard',
       productTitle: productTitle ?? '',
       productBrand: productBrand ?? '',
-      productSlug:  productSlug ?? 'nutriandco-collagene-naticol',
+      productSlug:  productSlug  ?? 'nutriandco-collagene-naticol',
     }),
   });
 
