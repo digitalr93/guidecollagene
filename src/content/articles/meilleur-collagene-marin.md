@@ -14,6 +14,11 @@ tags:
   - Naticol
   - Peptan
 featured: true
+featuredProducts:
+  - sunday-natural-collagene-marin
+  - nutriandco-collagene-naticol
+  - novoma-collagene-marin-pur
+  - dynveo-collagene-marin-2000da
 faq:
   - question: "Quel est le meilleur collagène marin pour la peau ?"
     answer: "Les produits utilisant Naticol® (Nutri&Co, Sunday Natural, Twenty DC) ou Verisol® ont les meilleures preuves cliniques pour la peau spécifiquement. À 10g/jour pendant minimum 8 semaines."

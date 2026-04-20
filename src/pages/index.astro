@@ -2,16 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const featuredProducts = await getCollection('produits', ({ data }) => data.featured && !data.draft);
-const recentArticles = await getCollection('articles', ({ data }) => !data.draft);
+const allProducts = await getCollection('produits', ({ data }) => !data.draft);
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 
-featuredProducts.sort((a, b) => b.data.rating - a.data.rating);
-recentArticles.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+allProducts.sort((a, b) => b.data.rating - a.data.rating);
+allArticles.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
-const top3 = featuredProducts.slice(0, 3);
-const latestArticles = recentArticles.slice(0, 6);
+const featuredProducts = allProducts.filter(p => p.data.featured).slice(0, 3);
+const featuredArticle  = allArticles.find(a => a.data.featured) ?? allArticles[0];
+const latestArticles   = allArticles.filter(a => a.id !== featuredArticle?.id).slice(0, 6);
 
-// JSON-LD WebSite
+const categories = [
+  { slug: 'marin',    label: 'Collagène marin',   icon: '🐟', desc: 'Le plus étudié pour la peau' },
+  { slug: 'bovin',    label: 'Collagène bovin',    icon: '🥩', desc: 'Peptides type I & III' },
+  { slug: 'peptides', label: 'Peptides purs',      icon: '🧪', desc: 'Certifiés Peptan® Naticol®' },
+  { slug: 'vegetal',  label: 'Option végétale',    icon: '🌿', desc: 'Cofacteurs & silicium' },
+];
+
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -20,130 +27,341 @@ const websiteSchema = {
   description: 'Le guide de référence sur les compléments de collagène.',
   potentialAction: {
     '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: 'https://guidecollagene.fr/recherche?q={search_term_string}',
-    },
+    target: { '@type': 'EntryPoint', urlTemplate: 'https://guidecollagene.fr/recherche?q={search_term_string}' },
     'query-input': 'required name=search_term_string',
   },
 };
 ---
 
 <BaseLayout
-  title="Guide Collagène — Comparatifs & Avis Produits"
-  description="Guides d'achat experts, comparatifs indépendants et avis détaillés sur les meilleurs compléments de collagène. Marin, bovin, végétal, peptides."
+  title="Guide Collagène 2026 — Comparatifs & Avis Indépendants"
+  description="Guides d'achat experts, comparatifs indépendants et avis détaillés sur les meilleurs compléments de collagène 2026. Marin, bovin, végétal — basé sur les études cliniques."
 >
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 
-  <!-- Hero -->
-  <section class="bg-gradient-to-br from-brand-50 via-white to-emerald-50 py-20 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <span class="badge bg-brand-100 text-brand-700 mb-4">Guide indépendant 2026</span>
-      <h1 class="text-5xl font-bold text-slate-900 mb-6 leading-tight">
-        Trouver le meilleur<br />complément de <span class="text-brand-600">collagène</span>
-      </h1>
-      <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-        Comparatifs indépendants, analyses scientifiques et avis vérifiés pour choisir le collagène
-        adapté à vos besoins — sans bullshit.
-      </p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="/comparatif" class="btn-primary text-base px-8 py-4">
-          Voir le comparatif complet
-        </a>
-        <a href="/guide/comment-choisir" class="btn-secondary text-base px-8 py-4">
-          Guide d'achat
-        </a>
+  <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center py-16 lg:py-24">
+
+        <!-- Texte -->
+        <div>
+          <span class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1.5 rounded-full mb-6 border border-brand-100">
+            <span class="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
+            Guide indépendant · Mis à jour avril 2026
+          </span>
+
+          <h1 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+            Quel collagène choisir<br />
+            <span class="text-brand-600">sans se faire avoir</span>&nbsp;?
+          </h1>
+
+          <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+            On lit les études à votre place, on compare les matières premières et on vous dit franchement ce qui vaut le coup — et ce qui ne vaut rien.
+          </p>
+
+          <div class="flex flex-wrap gap-3 mb-10">
+            <a href="/guide/meilleur-collagene-marin" class="btn-primary px-6 py-3 text-base">
+              Notre top 2026 →
+            </a>
+            <a href="/guide/comment-choisir" class="btn-secondary px-6 py-3 text-base">
+              Guide d'achat
+            </a>
+          </div>
+
+          <!-- Preuves sociales -->
+          <div class="flex flex-wrap gap-6 text-sm text-slate-500">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Aucun produit sponsorisé
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Basé sur les études cliniques
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Mise à jour régulière
+            </div>
+          </div>
+        </div>
+
+        <!-- Image hero -->
+        <div class="relative hidden lg:block">
+          <div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-amber-50 rounded-3xl transform rotate-3"></div>
+          <img
+            src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80"
+            alt="Femme active et en bonne santé qui prend soin d'elle"
+            width="800" height="600"
+            class="relative rounded-3xl object-cover w-full aspect-[4/3] shadow-xl"
+            loading="eager"
+          />
+          <!-- Badge flottant -->
+          <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-lg px-4 py-3 border border-slate-100">
+            <p class="text-xs text-slate-500 mb-0.5">Meilleur choix 2026</p>
+            <p class="font-bold text-slate-900 text-sm">Sunday Natural Naticol®</p>
+            <div class="flex items-center gap-1 mt-0.5">
+              <span class="text-amber-400 text-xs">★★★★★</span>
+              <span class="text-xs font-medium text-slate-700">4.8/5</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Top 3 produits -->
-  {top3.length > 0 && (
-    <section class="max-w-7xl mx-auto px-4 py-16">
-      <div class="text-center mb-10">
-        <h2 class="text-3xl font-bold text-slate-900 mb-3">Nos meilleures recommandations</h2>
-        <p class="text-slate-600">Sélectionnés et testés par notre équipe de rédaction</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        {top3.map((p, i) => (
-          <article class="card hover:shadow-md transition-shadow relative">
-            {i === 0 && (
-              <span class="absolute -top-3 left-4 badge bg-amber-100 text-amber-800 font-semibold">
-                ⭐ Meilleur choix
-              </span>
-            )}
-            {p.data.image && (
-              <img
-                src={p.data.image}
-                alt={p.data.imageAlt ?? p.data.title}
-                class="w-full h-48 object-contain mb-4 rounded-lg bg-slate-50"
-              />
-            )}
-            <div class="badge bg-emerald-100 text-emerald-700 mb-2">{p.data.category}</div>
-            <h3 class="font-bold text-slate-900 mb-1">{p.data.title}</h3>
-            <p class="text-sm text-slate-500 mb-3">{p.data.brand}</p>
-            <div class="flex items-center gap-1 mb-4">
-              <span class="text-amber-400">{'★'.repeat(Math.round(p.data.rating))}</span>
-              <span class="text-sm font-medium">{p.data.rating}/5</span>
-            </div>
-            <a href={`/produit/${p.id}`} class="btn-primary w-full text-center text-sm">
-              Voir l'avis complet
-            </a>
-          </article>
-        ))}
-      </div>
-      <div class="text-center mt-8">
-        <a href="/comparatif" class="text-brand-600 hover:text-brand-800 font-medium">
-          Voir tous les produits →
-        </a>
-      </div>
-    </section>
-  )}
-
-  <!-- Guide d'achat résumé -->
-  <section class="bg-slate-50 py-16 px-4">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-slate-900 mb-8 text-center">Comment choisir son collagène ?</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <!-- ═══ BARRE DE STATS ══════════════════════════════════════════════ -->
+  <section class="bg-slate-900 py-8 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
         {[
-          { icon: '🐟', title: 'Type de collagène', desc: 'Marin, bovin ou végétal : chaque source a ses avantages selon vos objectifs.' },
-          { icon: '🧪', title: 'Forme & dosage', desc: 'Poudre, gélules ou liquide. Visez 5–10 g de peptides par jour pour des effets mesurables.' },
-          { icon: '📋', title: 'Certifications', desc: 'Préférez les produits certifiés EFSA, Halal/Casher si besoin, et sans additifs inutiles.' },
-          { icon: '💰', title: 'Rapport qualité/prix', desc: 'Calculez le coût par gramme de collagène plutôt que le prix de la boîte.' },
-        ].map(({ icon, title, desc }) => (
-          <div class="card text-center">
-            <div class="text-4xl mb-3" aria-hidden="true">{icon}</div>
-            <h3 class="font-semibold text-slate-900 mb-2">{title}</h3>
-            <p class="text-sm text-slate-600">{desc}</p>
+          { value: `${allArticles.length}`, label: 'Articles rédigés' },
+          { value: `${allProducts.length}`, label: 'Produits analysés' },
+          { value: '10 ans', label: 'D\'expérience terrain' },
+          { value: '0', label: 'Contenu sponsorisé' },
+        ].map(({ value, label }) => (
+          <div>
+            <p class="text-3xl font-bold text-brand-400 mb-1">{value}</p>
+            <p class="text-sm text-slate-400">{label}</p>
           </div>
         ))}
       </div>
-      <div class="text-center mt-8">
-        <a href="/guide/comment-choisir" class="btn-primary">Lire le guide complet</a>
+    </div>
+  </section>
+
+  <!-- ═══ CATÉGORIES ══════════════════════════════════════════════════ -->
+  <section class="max-w-6xl mx-auto px-4 py-14">
+    <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">Choisissez votre type de collagène</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {categories.map(({ slug, label, icon, desc }) => (
+        <a href={`/categorie/${slug}`}
+           class="group flex flex-col items-center text-center p-6 rounded-2xl border border-slate-200 bg-white hover:border-brand-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <span class="text-4xl mb-3" aria-hidden="true">{icon}</span>
+          <h3 class="font-bold text-slate-900 mb-1 group-hover:text-brand-600 transition-colors">{label}</h3>
+          <p class="text-xs text-slate-500">{desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══ TOP PRODUITS ════════════════════════════════════════════════ -->
+  {featuredProducts.length > 0 && (
+    <section class="bg-gradient-to-br from-brand-50 to-amber-50/30 py-16 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
+          <div>
+            <p class="text-brand-600 font-semibold text-sm mb-1 uppercase tracking-wide">Sélection éditoriale</p>
+            <h2 class="text-3xl font-bold text-slate-900">Les meilleurs collagènes en 2026</h2>
+          </div>
+          <a href="/comparatif" class="text-sm font-medium text-brand-600 hover:text-brand-800 whitespace-nowrap">
+            Voir les {allProducts.length} produits →
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          {featuredProducts.map((p, i) => (
+            <article class:list={[
+              'relative bg-white rounded-2xl border overflow-hidden hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5',
+              i === 0 ? 'border-brand-300 shadow-md' : 'border-slate-200'
+            ]}>
+              {i === 0 && (
+                <div class="bg-brand-600 text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase">
+                  ⭐ Meilleur choix 2026
+                </div>
+              )}
+              {i === 1 && (
+                <div class="bg-amber-500 text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase">
+                  💰 Meilleur rapport qualité/prix
+                </div>
+              )}
+              {i === 2 && (
+                <div class="bg-slate-700 text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase">
+                  🏆 Notre coup de cœur
+                </div>
+              )}
+
+              <div class="p-5">
+                <!-- Image ou initiales -->
+                <div class="flex items-center gap-4 mb-4">
+                  {p.data.image ? (
+                    <img src={p.data.image} alt={p.data.title} width="64" height="64"
+                         class="w-16 h-16 object-contain rounded-xl bg-slate-50 flex-shrink-0" loading="lazy" />
+                  ) : (
+                    <div class="w-16 h-16 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                      {p.data.brand.slice(0, 2).toUpperCase()}
+                    </div>
+                  )}
+                  <div class="min-w-0">
+                    <p class="text-xs text-slate-400 mb-0.5">{p.data.brand}</p>
+                    <h3 class="font-bold text-slate-900 text-sm leading-snug line-clamp-2">{p.data.title}</h3>
+                  </div>
+                </div>
+
+                <!-- Note -->
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="flex">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <svg class:list={['w-4 h-4', j < Math.round(p.data.rating) ? 'text-amber-400' : 'text-slate-200']}
+                           fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    ))}
+                  </div>
+                  <span class="text-sm font-semibold text-slate-700">{p.data.rating}/5</span>
+                </div>
+
+                {p.data.price && (
+                  <p class="text-xl font-bold text-slate-900 mb-4">
+                    {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency ?? 'EUR' })}
+                  </p>
+                )}
+
+                <a href={`/produit/${p.id}`}
+                   class:list={[
+                     'block w-full text-center text-sm font-semibold py-2.5 rounded-xl transition-colors',
+                     i === 0
+                       ? 'bg-brand-600 hover:bg-brand-700 text-white'
+                       : 'bg-slate-100 hover:bg-slate-200 text-slate-900'
+                   ]}>
+                  Voir l'avis complet →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══ ARTICLE FEATURED ════════════════════════════════════════════ -->
+  {featuredArticle && (
+    <section class="max-w-6xl mx-auto px-4 py-14">
+      <p class="text-brand-600 font-semibold text-sm mb-4 uppercase tracking-wide">À lire absolument</p>
+      <a href={`/guide/${featuredArticle.id}`}
+         class="group grid md:grid-cols-2 gap-8 items-center bg-white rounded-3xl border border-slate-200 overflow-hidden hover:shadow-lg transition-all duration-200">
+        {featuredArticle.data.image && (
+          <div class="overflow-hidden aspect-video md:aspect-auto md:h-72">
+            <img
+              src={featuredArticle.data.image}
+              alt={featuredArticle.data.imageAlt ?? featuredArticle.data.title}
+              width="600" height="400"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+        )}
+        <div class="p-8">
+          <span class="badge bg-brand-100 text-brand-700 mb-3">{featuredArticle.data.category}</span>
+          <h2 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors leading-snug">
+            {featuredArticle.data.title}
+          </h2>
+          <p class="text-slate-600 mb-6 line-clamp-3 leading-relaxed">{featuredArticle.data.description}</p>
+          <span class="inline-flex items-center gap-2 text-brand-600 font-semibold text-sm group-hover:gap-3 transition-all">
+            Lire l'article complet
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </span>
+        </div>
+      </a>
+    </section>
+  )}
+
+  <!-- ═══ DERNIERS ARTICLES ═══════════════════════════════════════════ -->
+  {latestArticles.length > 0 && (
+    <section class="bg-slate-50 py-16 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
+          <div>
+            <p class="text-brand-600 font-semibold text-sm mb-1 uppercase tracking-wide">Contenu éditorial</p>
+            <h2 class="text-3xl font-bold text-slate-900">Derniers articles</h2>
+          </div>
+          <a href="/guide" class="text-sm font-medium text-brand-600 hover:text-brand-800 whitespace-nowrap">
+            Tous les guides ({allArticles.length}) →
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {latestArticles.map((a) => (
+            <article class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+              {a.data.image ? (
+                <div class="aspect-video overflow-hidden">
+                  <img
+                    src={a.data.image}
+                    alt={a.data.imageAlt ?? a.data.title}
+                    width="400" height="225"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div class="aspect-video bg-gradient-to-br from-brand-50 to-amber-50 flex items-center justify-center">
+                  <span class="text-5xl" aria-hidden="true">💊</span>
+                </div>
+              )}
+              <div class="p-5">
+                <span class="badge bg-brand-100 text-brand-700 mb-3">{a.data.category}</span>
+                <h3 class="font-bold text-slate-900 mb-2 leading-snug line-clamp-2 group-hover:text-brand-600 transition-colors">
+                  <a href={`/guide/${a.id}`}>{a.data.title}</a>
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 line-clamp-2">{a.data.description}</p>
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                  <time datetime={a.data.publishedAt.toISOString()}>
+                    {a.data.publishedAt.toLocaleDateString('fr-FR', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </time>
+                  <span class="text-brand-600 font-medium group-hover:underline">Lire →</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══ POURQUOI NOUS FAIRE CONFIANCE ═══════════════════════════════ -->
+  <section class="max-w-5xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-bold text-slate-900 mb-10 text-center">Pourquoi nous faire confiance ?</h2>
+    <div class="grid sm:grid-cols-3 gap-8">
+      {[
+        {
+          icon: '🔬',
+          title: 'Approche scientifique',
+          desc: 'Chaque affirmation est sourcée — étude clinique ou méta-analyse, jamais une fiche marketing.',
+        },
+        {
+          icon: '🚫',
+          title: 'Indépendance totale',
+          desc: 'Aucun produit n\'est référencé contre rémunération. Les liens affiliés financent le site, pas les avis.',
+        },
+        {
+          icon: '🔄',
+          title: 'Mis à jour régulièrement',
+          desc: 'Les formules changent, les études arrivent. On re-teste et on met à jour chaque trimestre.',
+        },
+      ].map(({ icon, title, desc }) => (
+        <div class="text-center">
+          <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4" aria-hidden="true">{icon}</div>
+          <h3 class="font-bold text-slate-900 mb-2">{title}</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══ CTA FINAL ════════════════════════════════════════════════════ -->
+  <section class="bg-slate-900 py-16 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Prêt à choisir votre collagène ?</h2>
+      <p class="text-slate-400 mb-8 text-lg">
+        Notre comparatif classe {allProducts.length} produits sur 5 critères objectifs.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/comparatif" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base">
+          Voir le comparatif complet →
+        </a>
+        <a href="/guide/meilleur-collagene-marin" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base border border-white/20">
+          Top marin 2026
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Articles récents -->
-  {latestArticles.length > 0 && (
-    <section class="max-w-7xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold text-slate-900 mb-8">Derniers articles</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {latestArticles.map((a) => (
-          <article class="card hover:shadow-md transition-shadow">
-            <span class="badge bg-brand-100 text-brand-700 mb-2">{a.data.category}</span>
-            <h3 class="font-bold text-slate-900 mb-2 leading-snug">
-              <a href={`/guide/${a.id}`} class="hover:text-brand-600 transition-colors">
-                {a.data.title}
-              </a>
-            </h3>
-            <p class="text-sm text-slate-600 mb-4 line-clamp-2">{a.data.description}</p>
-            <time class="text-xs text-slate-400" datetime={a.data.publishedAt.toISOString()}>
-              {a.data.publishedAt.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </time>
-          </article>
-        ))}
-      </div>
-    </section>
-  )}
 </BaseLayout>

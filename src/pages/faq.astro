@@ -1,0 +1,309 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_URL } from '../lib/seo';
+
+const categories = [
+  {
+    id: 'choisir',
+    label: 'Choisir son collagène',
+    icon: '🎯',
+    questions: [
+      {
+        q: 'Quelle est la différence entre collagène marin et collagène bovin ?',
+        a: 'Le collagène marin est extrait de la peau ou des arêtes de poissons. Il est riche en type I et se distingue par un faible poids moléculaire qui facilite l\'absorption. Le collagène bovin provient des peaux et os de bovins. Il contient du type I et du type III, intéressant pour la peau, les muscles et les tendons. Les deux ont des preuves d\'efficacité. Le choix dépend de vos objectifs, de vos convictions (halal, kasher) et d\'éventuelles allergies aux poissons.',
+      },
+      {
+        q: 'Qu\'est-ce que le collagène hydrolysé et pourquoi est-ce mieux ?',
+        a: 'Le collagène hydrolysé (ou "peptides de collagène") est du collagène découpé en petits fragments par hydrolyse enzymatique. Ces fragments (di/tripeptides) sont absorbés directement par l\'intestin grêle et passent dans la circulation sanguine. Le collagène natif (non hydrolysé) est trop gros pour être absorbé intact — il est simplement digéré comme n\'importe quelle protéine. L\'hydrolyse est donc indispensable pour une efficacité optimale.',
+      },
+      {
+        q: 'Que signifient les certifications Peptan®, Naticol® et Verisol® ?',
+        a: 'Ce sont des marques de peptides de collagène certifiés par leurs fabricants respectifs : Peptan® (Rousselot), Naticol® (Weishardt), Verisol® (GELITA). Chacune garantit un poids moléculaire contrôlé, une traçabilité de la matière première et des études cliniques indépendantes. Un produit certifié vous donne la certitude d\'un hydrolysat de qualité reproductible, contrairement aux génériques dont on ne peut pas vérifier l\'hydrolyse réelle.',
+      },
+      {
+        q: 'Comment choisir entre poudre, gélules et liquide ?',
+        a: 'La poudre est le format le plus économique au gramme et permet les doses élevées (10 g) facilement. Les gélules sont plus pratiques mais coûtent plus cher et nécessitent d\'avaler beaucoup de capsules pour atteindre 5–10 g. Les formats liquides (shots) sont pratiques mais souvent sous-dosés et 2 à 4 fois plus chers. Si l\'objectif est l\'efficacité, la poudre pure sans arômes reste la référence.',
+      },
+      {
+        q: 'Peut-on prendre du collagène si on est végétarien ou végétalien ?',
+        a: 'Les collagènes marin et bovin ne sont pas végétaux. Il n\'existe pas encore de collagène vegan disponible en grande distribution (la biotechnologie de fermentation microbienne est en développement). Les végans peuvent stimuler leur production endogène de collagène avec de la vitamine C, du silicium organique (BioSil®), du zinc, de la glycine, et des peptides de soja fermenté. Ces approches sont moins directes mais réelles.',
+      },
+      {
+        q: 'Le prix est-il un indicateur de qualité ?',
+        a: 'Partiellement. Un collagène marin certifié (Naticol® ou Peptan®) ne peut pas se vendre à moins de 0,40€ par portion de 10 g en dessous de laquelle la matière première serait suspecte. Mais un prix élevé ne garantit pas la qualité : certaines marques premium facturent surtout leur marketing. Le critère clé est le coût au gramme de peptides certifiés, pas le prix de la boîte.',
+      },
+    ],
+  },
+  {
+    id: 'dosage',
+    label: 'Dosage & façon de prendre',
+    icon: '💊',
+    questions: [
+      {
+        q: 'Quelle dose de collagène prendre par jour ?',
+        a: 'Les études cliniques utilisent des doses de 2,5 g à 15 g selon l\'objectif. Pour la peau : 5 à 10 g/jour (Naticol®, Verisol®). Pour les articulations : 10 g de peptides hydrolysés ou 40 mg d\'UC-II® non dénaturé. Pour le sommeil via la glycine : 10 g de collagène = ~3 g de glycine. La dose minimale efficace sur la peau est de 5 g/jour sur 8 semaines minimum.',
+      },
+      {
+        q: 'À quel moment de la journée prendre le collagène ?',
+        a: 'Il n\'y a pas de moment magique. Le matin à jeun maximise l\'absorption car il n\'y a pas de compétition avec d\'autres protéines. Le soir est intéressant pour la glycine (amélioration du sommeil). Avant l\'entraînement (60 min avant) est idéal pour les tendons, car les peptides se retrouvent dans la circulation au moment du stress mécanique qui stimule les fibroblastes. La régularité quotidienne compte plus que l\'heure.',
+      },
+      {
+        q: 'Faut-il prendre de la vitamine C avec le collagène ?',
+        a: 'Oui, c\'est fortement recommandé. La vitamine C est un cofacteur obligatoire des enzymes prolyl hydroxylase et lysyl hydroxylase, qui stabilisent la structure hélicoïdale du collagène. Sans vitamine C, les fibres produites sont instables. 60 à 200 mg de vitamine C pris en même temps que le collagène suffisent. La plupart des formules complètes l\'incluent déjà.',
+      },
+      {
+        q: 'Combien de temps faut-il prendre du collagène avant de voir des résultats ?',
+        a: 'Cela dépend de la cible : pour la peau, les premières améliorations de l\'hydratation sont visibles à 4–8 semaines, les effets sur les rides à 12–16 semaines. Pour les articulations, 90 jours minimum (cycle cartilage). Pour les cheveux et ongles, 3 à 6 mois (cycle pilaire). Les études utilisent systématiquement des protocoles de 8 à 24 semaines. Attendez minimum 3 mois avant de juger.',
+      },
+      {
+        q: 'Peut-on prendre du collagène en continu ou faut-il faire des pauses ?',
+        a: 'Les études cliniques longues (jusqu\'à 12 mois) ne montrent pas de saturation ni d\'effet de rebond à l\'arrêt. La prise continue est généralement recommandée pour un effet durable, notamment pour la peau et les articulations. Certains praticiens suggèrent des cycles de 3 mois ON / 1 mois OFF pour des raisons pratiques (coût, observance), mais ce n\'est pas scientifiquement indispensable.',
+      },
+      {
+        q: 'Peut-on mélanger le collagène à du café ou du thé chaud ?',
+        a: 'Oui. Les peptides de collagène sont stables jusqu\'à 90°C environ. Mélangés dans un café ou une tisane chaude, ils ne se dégradent pas. L\'absorption reste identique. Évitez en revanche les acides forts (jus de citron pur, vinaigre) en grande quantité qui peuvent partiellement dénaturer les peptides.',
+      },
+    ],
+  },
+  {
+    id: 'effets',
+    label: 'Effets & résultats',
+    icon: '✨',
+    questions: [
+      {
+        q: 'Le collagène améliore-t-il vraiment la peau ?',
+        a: 'Oui, avec des données cliniques solides. Les études sur Naticol® et Verisol® montrent des réductions de 15 à 22 % de la profondeur des rides à 12 semaines, et des améliorations de 20 à 30 % de l\'élasticité et de l\'hydratation. Ces mesures sont objectives (cutomètre, dermatoscope), pas des questionnaires. Les effets sont plus marqués chez les personnes de plus de 40 ans et/ou carencées en protéines.',
+      },
+      {
+        q: 'Le collagène aide-t-il les douleurs articulaires ?',
+        a: 'Oui, selon deux mécanismes distincts. Le collagène hydrolysé type I (Peptan®) apporte des peptides qui stimulent les chondrocytes et réduisent la dégradation du cartilage. L\'UC-II® (type II non dénaturé) agit par tolérance orale en réduisant l\'inflammation auto-immune. Une méta-analyse de 2021 sur 25 études montre une réduction significative de la douleur articulaire avec le collagène hydrolysé. L\'UC-II® bat la glucosamine+chondroïtine dans les études directes.',
+      },
+      {
+        q: 'Le collagène fait-il vraiment pousser les cheveux ?',
+        a: 'Indirectement. Le collagène apporte glycine et proline, précurseurs de la kératine capillaire. Il renforce aussi le tissu conjonctif du derme périfolliculaire. Des études sur Verisol® montrent une augmentation de 12 % de l\'épaisseur des cheveux à 16 semaines. Les effets sont plus marqués en cas de carence protéique ou de vieillissement. Ce n\'est pas un traitement de l\'alopécie androgénétique.',
+      },
+      {
+        q: 'Le collagène aide-t-il à mieux dormir ?',
+        a: 'Oui, via la glycine. 10 g de collagène apportent ~3 g de glycine, un neurotransmetteur inhibiteur qui abaisse la température corporelle centrale et améliore l\'architecture du sommeil. Des études en double aveugle montrent une réduction du temps d\'endormissement (–7 min), moins d\'éveils nocturnes et une meilleure vigilance le lendemain. À prendre 30–60 min avant le coucher.',
+      },
+      {
+        q: 'Le collagène fait-il grossir ?',
+        a: 'Non dans sa forme pure. 10 g de peptides de collagène représentent 37–40 kcal, sans glucides ni lipides. Certaines formules aromatisées et sucrées (shots, gummies) peuvent ajouter 50 à 120 kcal par portion. De plus, le collagène est une protéine très satiétogène — il peut même aider à réduire l\'appétit. Choisissez une poudre pure sans arômes si vous surveillez votre apport calorique.',
+      },
+      {
+        q: 'Le collagène aide-t-il vraiment les sportifs ?',
+        a: 'Oui, surtout pour les tendons et ligaments. Une étude de Shaw et al. (2017) montre qu\'une prise de 15 g de collagène + vitamine C, 1 heure avant l\'entraînement, augmente de 65 % la synthèse de collagène dans les tendons. Cela réduit le risque de tendinites et accélère la récupération des tissus conjonctifs. L\'effet sur la masse musculaire est moindre qu\'avec la whey (moins de leucine), mais complémentaire.',
+      },
+    ],
+  },
+  {
+    id: 'securite',
+    label: 'Sécurité & contre-indications',
+    icon: '🛡️',
+    questions: [
+      {
+        q: 'Le collagène marin est-il dangereux pour les allergiques aux poissons ?',
+        a: 'Oui — c\'est la contre-indication principale. Le collagène marin contient des protéines résiduelles de poisson qui peuvent déclencher une réaction allergique chez les personnes sensibles, même après hydrolyse. Si vous avez une allergie documentée aux poissons ou crustacés, évitez strictement le collagène marin et optez pour du collagène bovin ou une alternative végétale.',
+      },
+      {
+        q: 'Peut-on prendre du collagène pendant la grossesse ?',
+        a: 'Par précaution, la supplémentation n\'est pas recommandée pendant la grossesse en l\'absence d\'études cliniques spécifiques. Les besoins en protéines augmentent mais peuvent être couverts par l\'alimentation. Demandez l\'avis de votre sage-femme ou médecin. La glycine apportée par le collagène est naturellement présente dans de nombreux aliments (bouillon d\'os, viandes) sans danger connu.',
+      },
+      {
+        q: 'Le collagène interagit-il avec des médicaments ?',
+        a: 'Aucune interaction majeure documentée n\'existe avec les médicaments courants. Quelques précautions : les formules avec vitamine C haute dose (>500 mg) peuvent légèrement influencer l\'INR des patients sous AVK (anticoagulants) — à surveiller. Les peptides de poisson ont un léger effet inhibiteur de l\'ECA (hypotenseur) qui reste cliniquement non significatif aux doses standard. Informez quand même votre médecin si vous prenez des traitements chroniques.',
+      },
+      {
+        q: 'Le collagène peut-il provoquer des effets secondaires ?',
+        a: 'Le collagène est très bien toléré. Les effets les plus fréquents (5–10 % des utilisateurs) sont des légères nausées ou lourdeurs digestives en début de prise, souvent liées à une prise à jeun ou à une dose trop élevée d\'emblée. Un goût ou arrière-goût de poisson signale un produit de faible qualité (hydrolyse insuffisante). Commencez par 5 g/jour la première semaine et montez progressivement.',
+      },
+      {
+        q: 'Les personnes souffrant d\'insuffisance rénale peuvent-elles prendre du collagène ?',
+        a: 'Non sans avis médical. L\'insuffisance rénale chronique (IRC) implique souvent un régime hypoprotéique strict. Ajouter 10 g de protéines par jour (collagène) peut dépasser les quotas autorisés et surcharger les reins. Consultez votre néphrologue avant toute supplémentation protéique.',
+      },
+    ],
+  },
+  {
+    id: 'produits',
+    label: 'Produits & marques',
+    icon: '🏆',
+    questions: [
+      {
+        q: 'Quelle marque de collagène choisir en 2026 ?',
+        a: 'Pour le marin : Sunday Natural Naticol® (meilleure qualité), Nutri&Co Naticol® (meilleur rapport qualité/prix français), Nutripure Peptan® (pureté, fabrication France). Pour le bovin : Nutripure Collagène Bovin, Nutri&Co Bovin Peptan®. Pour les articulations spécifiques : Sunday Natural Type II UC-II®. Privilégiez toujours les produits avec matière première certifiée et certificat d\'analyse disponible.',
+      },
+      {
+        q: 'Pourquoi le Sunday Natural est souvent cité comme meilleur choix ?',
+        a: 'Sunday Natural (marque allemande) publie un certificat d\'analyse par lot avec pureté documentée >98 %, suit les bonnes pratiques de fabrication pharmaceutiques (GMP), utilise des peptides Naticol® certifiés et affiche une transparence totale sur la traçabilité. C\'est le standard de référence en termes de rigueur qualité. Son seul inconvénient est son prix plus élevé.',
+      },
+      {
+        q: 'Les marques de grande distribution (Yves Rocher, L\'Oréal…) sont-elles fiables ?',
+        a: 'Méfiance. Les produits de grande distribution mélangent souvent beaucoup d\'arômes, d\'édulcorants et d\'agents de charge. La teneur réelle en peptides actifs est rarement indiquée clairement, et les matières premières sont rarement certifiées (Peptan®, Naticol®). La notoriété d\'une marque cosmétique ne garantit pas la qualité d\'un complément alimentaire.',
+      },
+      {
+        q: 'Quel est le meilleur collagène pour le rapport qualité/prix en 2026 ?',
+        a: 'Novoma Collagène Marin Pur reste le meilleur rapport qualité/prix du marché : un seul ingrédient, marque française sérieuse, bon dosage, prix accessible (~27,90€/mois). Pour un niveau supérieur avec peptide certifié, Nutri&Co Le Collagène Naticol® (34,90€) est le meilleur équilibre certifications/prix. Sunday Natural est le haut de gamme à ~41,90€.',
+      },
+      {
+        q: 'Peut-on faire confiance aux avis Amazon pour choisir son collagène ?',
+        a: 'Avec beaucoup de prudence. Les avis Amazon sont facilement manipulables (achats vérifiés non = achat réel, fermes à avis, notes gonflées au lancement). Focalisez-vous sur les critères objectifs : matière première certifiée, composition (liste d\'ingrédients courte), transparence du fabricant, et avis de sources indépendantes non incentivées.',
+      },
+    ],
+  },
+];
+
+// JSON-LD FAQPage
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: categories.flatMap(c =>
+    c.questions.map(item => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    }))
+  ),
+};
+
+const totalQuestions = categories.reduce((acc, c) => acc + c.questions.length, 0);
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'FAQ', item: `${SITE_URL}/faq` },
+  ],
+};
+---
+
+<BaseLayout
+  title={`FAQ Collagène — ${totalQuestions} questions répondues par des experts (2026)`}
+  description="Toutes les réponses sur le collagène : choisir, doser, effets, contre-indications, meilleures marques. FAQ complète basée sur les études cliniques."
+  canonical={`${SITE_URL}/faq`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-slate-500 mb-8" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-slate-800">Accueil</a></li>
+        <li>›</li>
+        <li class="text-slate-800">FAQ</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-12 text-center">
+      <span class="badge bg-brand-100 text-brand-700 mb-4">{totalQuestions} questions</span>
+      <h1 class="text-4xl font-bold text-slate-900 mb-4">Foire aux questions — Collagène</h1>
+      <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+        Toutes les réponses claires et sourcées aux questions les plus fréquentes sur les compléments de collagène.
+      </p>
+    </header>
+
+    <!-- Navigation catégories -->
+    <nav class="flex flex-wrap gap-2 mb-12 justify-center" aria-label="Catégories FAQ">
+      {categories.map(c => (
+        <a
+          href={`#${c.id}`}
+          class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 bg-white text-sm font-medium text-slate-700 hover:border-brand-300 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+        >
+          <span aria-hidden="true">{c.icon}</span>
+          {c.label}
+          <span class="ml-1 text-xs text-slate-400">({c.questions.length})</span>
+        </a>
+      ))}
+    </nav>
+
+    <!-- Accordéon par catégorie -->
+    <div class="space-y-12">
+      {categories.map((cat) => (
+        <section id={cat.id}>
+          <h2 class="flex items-center gap-3 text-xl font-bold text-slate-900 mb-6 pb-3 border-b border-slate-200">
+            <span class="text-2xl" aria-hidden="true">{cat.icon}</span>
+            {cat.label}
+          </h2>
+
+          <div class="space-y-2" data-faq-group>
+            {cat.questions.map((item, idx) => (
+              <div class="faq-item border border-slate-200 rounded-xl overflow-hidden bg-white hover:border-brand-200 transition-colors">
+                <button
+                  class="faq-trigger w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-slate-900 hover:text-brand-600 transition-colors"
+                  aria-expanded="false"
+                  data-index={`${cat.id}-${idx}`}
+                >
+                  <span class="flex-1 leading-snug">{item.q}</span>
+                  <svg
+                    class="faq-icon flex-shrink-0 w-5 h-5 text-slate-400 transition-transform duration-300"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div class="faq-body hidden px-5 pb-5">
+                  <div class="pt-1 border-t border-slate-100">
+                    <p class="text-slate-600 leading-relaxed mt-3 text-sm">{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- CTA bas de page -->
+    <div class="mt-16 bg-brand-50 border border-brand-100 rounded-2xl p-8 text-center">
+      <p class="text-lg font-bold text-slate-900 mb-2">Une question pas encore répondue ?</p>
+      <p class="text-slate-600 mb-6 text-sm">Consultez nos guides détaillés ou notre comparatif complet.</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href="/guide" class="btn-primary">Lire les guides →</a>
+        <a href="/comparatif" class="btn-secondary">Voir le comparatif</a>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  // Accordéon FAQ
+  document.querySelectorAll<HTMLButtonElement>('.faq-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item   = btn.closest('.faq-item')!;
+      const body   = item.querySelector<HTMLElement>('.faq-body')!;
+      const icon   = btn.querySelector<SVGElement>('.faq-icon')!;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Ferme tous les autres dans le même groupe
+      const group = item.closest('[data-faq-group]')!;
+      group.querySelectorAll<HTMLElement>('.faq-item').forEach((other) => {
+        if (other !== item) {
+          other.querySelector<HTMLElement>('.faq-body')!.classList.add('hidden');
+          other.querySelector<HTMLButtonElement>('.faq-trigger')!.setAttribute('aria-expanded', 'false');
+          other.querySelector<SVGElement>('.faq-icon')!.style.transform = '';
+        }
+      });
+
+      // Toggle courant
+      if (isOpen) {
+        body.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        icon.style.transform = '';
+      } else {
+        body.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+
+  // Ouvre automatiquement le premier item de chaque catégorie
+  document.querySelectorAll<HTMLElement>('[data-faq-group]').forEach((group) => {
+    const firstBtn = group.querySelector<HTMLButtonElement>('.faq-trigger');
+    firstBtn?.click();
+  });
+</script>

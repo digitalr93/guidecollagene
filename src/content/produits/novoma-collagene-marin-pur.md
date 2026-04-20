@@ -7,6 +7,7 @@ format: poudre
 merchant: novoma
 affiliateUrl: https://novoma.com/products/collagene-marin-poudre
 price: 27.9
+image: https://logo.clearbit.com/novoma.fr
 rating: 4.4
 reviewCount: 0
 pros:

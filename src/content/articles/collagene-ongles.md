@@ -13,6 +13,10 @@ tags:
   - kératine
   - biotine
 featured: false
+featuredProducts:
+  - vital-proteins-marine-collagen
+  - nutriandco-collagene-naticol
+  - granions-collagene-marin-ah
 faq:
   - question: "Le collagène renforce-t-il vraiment les ongles ?"
     answer: "Une étude clinique sur Verisol® (Biotin® Verisol, 2,5g/j pendant 24 semaines) a montré une réduction de 42 % de la fréquence des ongles cassants et une augmentation de 12 % de la croissance. Ce sont des données solides."

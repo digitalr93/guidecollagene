@@ -13,6 +13,10 @@ tags:
   - douleur
   - cartilage
 featured: true
+featuredProducts:
+  - sunday-natural-collagene-type-2
+  - valebio-collagene-marin-articulations
+  - nutriandco-collagene-bovin-peptan
 image: https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Femme active faisant du sport, genoux en mouvement"
 faq:

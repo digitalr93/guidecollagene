@@ -11,6 +11,10 @@ tags:
   - UC-II
   - cartilage
   - douleur articulaire
+featuredProducts:
+  - valebio-collagene-marin-articulations
+  - sunday-natural-collagene-type-2
+  - nutriandco-collagene-bovin-peptan
 faq:
   - question: "Le collagène est-il efficace pour les douleurs articulaires ?"
     answer: "Oui, avec deux approches différentes : le collagène hydrolysé (type I/III, 10g/j) et le collagène UC-II® natif (type II, 40mg/j). Le UC-II® dispose d'études comparatives montrant une supériorité sur la glucosamine + chondroïtine."

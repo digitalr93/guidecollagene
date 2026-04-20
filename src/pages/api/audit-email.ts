@@ -152,7 +152,7 @@ export const GET: APIRoute = async () => {
   const resend = new Resend(apiKey);
 
   const { error } = await resend.emails.send({
-    from: 'Guide Collagène <audit@guidecollagene.fr>',
+    from: 'Guide Collagène <onboarding@resend.dev>',
     to: RECIPIENT,
     subject: `📊 Audit quotidien — ${today}`,
     html,

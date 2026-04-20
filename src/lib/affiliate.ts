@@ -36,13 +36,8 @@ export function buildAffiliateUrl(params: AffiliateParams): string {
 
   const url = new URL(affiliateUrl);
 
-  // UTM tracking
+  // UTM tracking — source uniquement
   url.searchParams.set('utm_source', 'guidecollagene');
-  url.searchParams.set('utm_medium', 'affiliation');
-  url.searchParams.set('utm_campaign', productId);
-  if (position !== undefined) {
-    url.searchParams.set('utm_content', `pos${position}`);
-  }
 
   return url.toString();
 }

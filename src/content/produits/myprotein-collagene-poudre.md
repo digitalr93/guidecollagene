@@ -7,6 +7,7 @@ format: poudre
 merchant: myprotein
 affiliateUrl: https://www.myprotein.fr/nutrition-sportive/collagene-en-poudre/11649117.html
 price: 16.99
+image: https://logo.clearbit.com/myprotein.com
 rating: 3.9
 reviewCount: 0
 pros:

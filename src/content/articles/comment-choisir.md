@@ -12,6 +12,11 @@ tags:
   - choisir
   - comparatif
 featured: true
+featuredProducts:
+  - sunday-natural-collagene-marin
+  - nutriandco-collagene-naticol
+  - vital-proteins-collagen-peptides
+  - novoma-collagene-marin-pur
 faq:
   - question: "Quelle est la différence entre collagène marin et bovin ?"
     answer: "Le collagène marin (issu de poissons) est riche en type I et présente une biodisponibilité supérieure de ~1,5×. Le collagène bovin (peau et os de bovins) contient les types I et III, avec un coût généralement moindre."

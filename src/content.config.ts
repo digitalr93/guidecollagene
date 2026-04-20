@@ -23,6 +23,7 @@ const articles = defineCollection({
         })
       )
       .optional(),
+    featuredProducts: z.array(z.string()).optional(),
   }),
 });
 

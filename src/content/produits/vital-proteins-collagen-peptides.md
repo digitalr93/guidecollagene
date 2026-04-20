@@ -7,6 +7,7 @@ merchant: amazon
 affiliateUrl: https://www.amazon.fr/dp/B00K6FS32K
 price: 39.99
 currency: EUR
+image: https://logo.clearbit.com/vitalproteins.com
 rating: 4.7
 reviewCount: 2847
 pros:

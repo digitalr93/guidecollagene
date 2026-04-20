@@ -11,6 +11,11 @@ tags:
   - récupération
   - tendons
   - performance
+featuredProducts:
+  - vital-proteins-collagen-peptides
+  - nutripure-collagene-marin-peptan
+  - bulk-hydrolysed-collagen-peptides
+  - nutriandco-collagene-bovin-peptan
 faq:
   - question: "Le collagène est-il utile pour les sportifs ?"
     answer: "Oui, notamment pour la santé tendineuse et ligamentaire. Une étude clé (Shaw et al., 2017) montre qu'une prise de 15g avant l'entraînement augmente significativement la synthèse de collagène dans les tendons."

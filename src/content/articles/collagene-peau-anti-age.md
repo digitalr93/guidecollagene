@@ -13,6 +13,11 @@ tags:
   - fermeté
   - hydratation
 featured: true
+featuredProducts:
+  - nutriandco-collagene-naticol
+  - sunday-natural-collagene-marin
+  - twentydc-peau-magnifique
+  - dlab-absolu-collagene
 faq:
   - question: "Le collagène en poudre agit-il vraiment sur les rides ?"
     answer: "Des études cliniques randomisées démontrent une réduction des rides mesurables après 8 à 12 semaines de supplémentation à 2,5–10g/jour. L'effet est modéré mais réel et statistiquement significatif dans plusieurs études indépendantes."

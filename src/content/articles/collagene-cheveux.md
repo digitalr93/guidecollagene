@@ -13,6 +13,10 @@ tags:
   - perte de cheveux
   - kératine
 featured: false
+featuredProducts:
+  - vital-proteins-marine-collagen
+  - nutriandco-collagene-naticol
+  - twentydc-peau-magnifique
 faq:
   - question: "Le collagène fait-il vraiment pousser les cheveux ?"
     answer: "Les études montrent que les peptides de collagène stimulent les fibroblastes du follicule pileux et apportent des acides aminés précurseurs de la kératine (glycine, proline). Les résultats sont modestes mais réels, surtout en cas de carence protéique ou de stress oxydatif."
