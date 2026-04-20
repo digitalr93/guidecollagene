@@ -9,7 +9,7 @@ merchant: nutrimuscle
 affiliateUrl: https://nmsquad.link/02ocm
 price: 29.90
 currency: EUR
-rating: 4.6
+rating: 4.8
 reviewCount: 1240
 pros:
   - "Formule ultra-pure, zéro additif ni excipient"

@@ -9,7 +9,7 @@ merchant: nutrimuscle
 affiliateUrl: https://nmsquad.link/02ocm
 price: 24.90
 currency: EUR
-rating: 4.5
+rating: 4.8
 reviewCount: 890
 pros:
   - "Bovins d'élevage extensif (grass-fed)"
