@@ -213,6 +213,7 @@ function buildEmailHtml(params: {
 
     <!-- Header -->
     <div style="background:linear-gradient(135deg,#d44d2e,#b83a1e);padding:32px;text-align:center;">
+      <img src="${SITE}/favicon.svg" alt="Guide Collagène" width="40" height="40" style="display:block;margin:0 auto 12px;" />
       <p style="margin:0 0 8px;color:rgba(255,255,255,0.75);font-size:13px;letter-spacing:0.05em;text-transform:uppercase;">Guide Collagène · Diagnostic personnalisé</p>
       <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;line-height:1.3;">
         Votre protocole — ${objectifLabel}
