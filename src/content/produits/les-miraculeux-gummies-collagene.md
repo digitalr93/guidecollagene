@@ -1,13 +1,13 @@
 ---
-title: "Gummies Collagène — Les Miraculeux"
-description: "Gummies au collagène de Les Miraculeux : format bonbon mâchable, collagène bovin + vitamine C, pratique mais dosage limité."
-brand: Les Miraculeux
+title: "Gummies Collagène — Mium Lab"
+description: "Gummies au collagène de Mium Lab : format bonbon mâchable, collagène bovin + vitamine C, pratique mais dosage limité."
+brand: Mium Lab
 category: bovin
 format: gummies
-merchant: lesmiraculeux
-affiliateUrl: https://lesmiraculeux.com/products/gummies-collagene
+merchant: miumlab
+affiliateUrl: https://miumlab.com/products/gummies-collagene
 price: 19.9
-image: /logos/les-miraculeux.png
+image: /logos/mium-lab.webp
 rating: 3.6
 reviewCount: 0
 pros:
@@ -30,4 +30,4 @@ featured: false
 
 ## Présentation
 
-Les Miraculeux propose le format gummies pour rendre la supplémentation en collagène plus accessible et agréable. À noter : le format gummies implique nécessairement un dosage en collagène pur bien inférieur à 5g/jour — en dessous du seuil d'efficacité démontré par les études cliniques. Adapté comme complément d'une routine déjà établie, pas comme source principale.
+Mium Lab propose le format gummies pour rendre la supplémentation en collagène plus accessible et agréable. À noter : le format gummies implique nécessairement un dosage en collagène pur bien inférieur à 5g/jour — en dessous du seuil d'efficacité démontré par les études cliniques. Adapté comme complément d'une routine déjà établie, pas comme source principale.

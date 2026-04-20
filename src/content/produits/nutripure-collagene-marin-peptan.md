@@ -7,7 +7,7 @@ format: poudre
 merchant: nutripure
 affiliateUrl: https://www.nutripure.fr/fr/articulations/60-collagene-marin-peptan.html
 price: 39.9
-image: /logos/nutripure.png
+image: /logos/nutripure.webp
 rating: 4.5
 reviewCount: 0
 pros:

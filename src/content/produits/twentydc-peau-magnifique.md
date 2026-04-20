@@ -7,7 +7,7 @@ format: poudre
 merchant: twentydc
 affiliateUrl: https://twentydc.com/products/collagene-marin-peau-magnifique
 price: 42.0
-image: /logos/twentydc.png
+image: /logos/twentydc.webp
 rating: 4.3
 reviewCount: 0
 pros:
