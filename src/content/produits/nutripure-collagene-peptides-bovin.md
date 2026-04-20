@@ -7,7 +7,7 @@ format: poudre
 merchant: nutripure
 affiliateUrl: https://www.nutripure.fr/fr/60-complement-alimentaire-collagene
 price: 37.9
-image: https://logo.clearbit.com/nutripure.fr
+image: /logos/nutripure.png
 rating: 4.5
 reviewCount: 0
 pros:

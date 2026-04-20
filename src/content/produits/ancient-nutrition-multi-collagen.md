@@ -7,7 +7,7 @@ format: poudre
 merchant: ancientnutrition
 affiliateUrl: https://ancientnutrition.com/products/multi-collagen-protein-pure
 price: 54.9
-image: https://logo.clearbit.com/ancientnutrition.com
+image: /logos/ancient-nutrition.png
 rating: 4.2
 reviewCount: 0
 pros:

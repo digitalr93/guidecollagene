@@ -7,7 +7,7 @@ format: gelules
 merchant: biocyte
 affiliateUrl: https://www.biocyte.com/fr/produit/collagene-express-gelules
 price: 24.9
-image: https://logo.clearbit.com/biocyte.com
+image: /logos/biocyte.png
 rating: 3.9
 reviewCount: 0
 pros:

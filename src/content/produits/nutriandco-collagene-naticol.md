@@ -7,7 +7,7 @@ format: poudre
 merchant: nutriandco
 affiliateUrl: https://nutriandco.com/fr/collagene-marin/
 price: 34.9
-image: https://logo.clearbit.com/nutriandco.com
+image: /logos/nutriandco.png
 rating: 4.6
 reviewCount: 0
 pros:

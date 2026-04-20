@@ -251,14 +251,25 @@ const breadcrumbSchema = {
         {faq?.length && (
           <section class="mt-16 border-t border-slate-200 pt-10">
             <h2 class="text-2xl font-bold text-slate-900 mb-6">Questions fréquentes</h2>
-            <dl class="space-y-6">
-              {faq.map((item) => (
-                <div>
-                  <dt class="font-semibold text-slate-900 mb-2">{item.question}</dt>
-                  <dd class="text-slate-600">{item.answer}</dd>
+            <div class="space-y-2" id="article-faq">
+              {faq.map((item, i) => (
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                  <button
+                    type="button"
+                    class="faq-btn w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-slate-900 hover:bg-slate-50 transition-colors gap-4"
+                    aria-expanded={i === 0 ? 'true' : 'false'}
+                  >
+                    <span>{item.question}</span>
+                    <svg class="faq-chevron flex-shrink-0 w-5 h-5 text-brand-500 transition-transform duration-200" style={i === 0 ? 'transform:rotate(180deg)' : ''} viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <div class="faq-panel px-5 pb-4 text-slate-600 leading-relaxed" style={i === 0 ? '' : 'display:none'}>
+                    {item.answer}
+                  </div>
                 </div>
               ))}
-            </dl>
+            </div>
           </section>
         )}
       </article>
@@ -277,4 +288,29 @@ const breadcrumbSchema = {
 
     </div>
   </div>
+<script>
+  document.querySelectorAll('#article-faq .faq-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const panel = btn.nextElementSibling as HTMLElement;
+      const chevron = btn.querySelector('.faq-chevron') as HTMLElement;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Fermer tous les autres
+      document.querySelectorAll('#article-faq .faq-btn').forEach((b) => {
+        const p = b.nextElementSibling as HTMLElement;
+        const c = b.querySelector('.faq-chevron') as HTMLElement;
+        b.setAttribute('aria-expanded', 'false');
+        if (p) p.style.display = 'none';
+        if (c) c.style.transform = '';
+      });
+
+      // Ouvrir celui-ci si était fermé
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        if (panel) panel.style.display = '';
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>
 </BaseLayout>

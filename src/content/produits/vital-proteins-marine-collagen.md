@@ -7,7 +7,7 @@ format: poudre
 merchant: vitalproteins
 affiliateUrl: https://www.vitalproteins.fr/marine-collagen-221g/13110292.html
 price: 44.99
-image: https://logo.clearbit.com/vitalproteins.com
+image: /logos/vital-proteins.png
 rating: 4.3
 reviewCount: 0
 pros:

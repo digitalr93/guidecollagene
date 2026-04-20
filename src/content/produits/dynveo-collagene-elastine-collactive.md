@@ -7,7 +7,7 @@ format: poudre
 merchant: dynveo
 affiliateUrl: https://dynveo.fr/collagene-et-elastine-synergie.html
 price: 44.9
-image: https://logo.clearbit.com/dynveo.com
+image: /logos/dynveo.png
 rating: 4.3
 reviewCount: 0
 pros:

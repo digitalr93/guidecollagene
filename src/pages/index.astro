@@ -111,24 +111,6 @@ const websiteSchema = {
     </div>
   </section>
 
-  <!-- ═══ BARRE DE STATS ══════════════════════════════════════════════ -->
-  <section class="bg-slate-900 py-8 px-4">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        {[
-          { value: `${allArticles.length}`, label: 'Articles rédigés' },
-          { value: `${allProducts.length}`, label: 'Produits analysés' },
-          { value: '10 ans', label: 'D\'expérience terrain' },
-          { value: '✓', label: 'Contenu sponsorisé' },
-        ].map(({ value, label }) => (
-          <div>
-            <p class="text-3xl font-bold text-brand-400 mb-1">{value}</p>
-            <p class="text-sm text-slate-400">{label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <!-- ═══ CATÉGORIES ══════════════════════════════════════════════════ -->
   <section class="max-w-6xl mx-auto px-4 py-14">

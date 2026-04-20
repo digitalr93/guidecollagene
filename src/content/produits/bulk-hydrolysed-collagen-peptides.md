@@ -7,7 +7,7 @@ format: poudre
 merchant: bulk
 affiliateUrl: https://www.bulk.com/fr/peptides-de-collagene.html
 price: 19.99
-image: https://logo.clearbit.com/bulk.com
+image: /logos/bulk.png
 rating: 4.0
 reviewCount: 0
 pros:
