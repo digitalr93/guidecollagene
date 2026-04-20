@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import DiagnosticWidget from '../components/DiagnosticWidget.astro';
 import { getCollection } from 'astro:content';
 
 const allProducts = await getCollection('produits', ({ data }) => !data.draft);
@@ -127,6 +128,9 @@ const websiteSchema = {
     </div>
   </section>
 
+  <!-- ═══ DIAGNOSTIC WIDGET ══════════════════════════════════════════ -->
+  <DiagnosticWidget />
+
   <!-- ═══ TOP PRODUITS ════════════════════════════════════════════════ -->
   {featuredProducts.length > 0 && (
     <section class="bg-gradient-to-br from-brand-50 to-amber-50/30 py-16 px-4">
@@ -141,83 +145,69 @@ const websiteSchema = {
           </a>
         </div>
 
-        {/* Labels pour les 6 produits */}
-        {(() => {
-          const labels = [
-            { bg: 'bg-brand-600',  text: '⭐ Meilleur choix 2026' },
-            { bg: 'bg-amber-500',  text: '💰 Meilleur rapport qualité/prix' },
-            { bg: 'bg-slate-700',  text: '🏆 Notre coup de cœur' },
-            { bg: 'bg-teal-600',   text: '🐟 Meilleur marin' },
-            { bg: 'bg-purple-600', text: '💪 Idéal sport' },
-            { bg: 'bg-rose-500',   text: '✨ Top peau & beauté' },
-          ];
-          return null;
-        })()}
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {featuredProducts.map((p, i) => {
-            const labels = [
+            const LABELS = [
               { bg: 'bg-brand-600',  text: '⭐ Meilleur choix 2026' },
               { bg: 'bg-amber-500',  text: '💰 Meilleur rapport Q/P' },
               { bg: 'bg-slate-700',  text: '🏆 Notre coup de cœur' },
-              { bg: 'bg-teal-600',   text: '🐟 Meilleur marin' },
-              { bg: 'bg-purple-600', text: '💪 Idéal sport' },
+              { bg: 'bg-teal-600',   text: '🐟 Meilleur collagène marin' },
+              { bg: 'bg-purple-600', text: '💪 Idéal pour le sport' },
               { bg: 'bg-rose-500',   text: '✨ Top peau & beauté' },
             ];
-            const label = labels[i];
+            const lbl = LABELS[i] ?? LABELS[0];
             return (
-            <article class:list={[
-              'relative bg-white rounded-2xl border overflow-hidden hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5',
-              i === 0 ? 'border-brand-300 shadow-md' : 'border-slate-200'
-            ]}>
-              <div class:list={['text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase', label.bg]}>
-                {label.text}
-              </div>
-
-              <div class="p-5">
-                <!-- Image ou initiales -->
-                <div class="flex items-center gap-4 mb-4">
-                  {p.data.image ? (
-                    <img src={p.data.image} alt={p.data.title} width="64" height="64"
-                         class="w-16 h-16 object-contain rounded-xl bg-slate-50 flex-shrink-0" loading="lazy" />
-                  ) : (
-                    <div class="w-16 h-16 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
-                      {p.data.brand.slice(0, 2).toUpperCase()}
-                    </div>
-                  )}
-                  <div class="min-w-0">
-                    <p class="text-xs text-slate-400 mb-0.5">{p.data.brand}</p>
-                    <h3 class="font-bold text-slate-900 text-sm leading-snug line-clamp-2">{p.data.title}</h3>
-                  </div>
+              <article class:list={[
+                'bg-white rounded-2xl border overflow-hidden hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5',
+                i === 0 ? 'border-brand-300 shadow-md' : 'border-slate-200'
+              ]}>
+                <div class:list={['text-white text-xs font-bold px-4 py-2 text-center tracking-wide uppercase', lbl.bg]}>
+                  {lbl.text}
                 </div>
-
-                <!-- Note -->
-                <div class="flex items-center gap-2 mb-3">
-                  <div class="flex">
+                <div class="p-5">
+                  <div class="flex items-center gap-4 mb-4">
+                    {p.data.image ? (
+                      <>
+                        <img src={p.data.image} alt={p.data.brand} width="64" height="64"
+                             class="w-16 h-16 object-contain rounded-xl bg-slate-50 border border-slate-100 p-1 flex-shrink-0"
+                             loading="lazy"
+                             onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden');" />
+                        <div hidden class="w-16 h-16 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                          {p.data.brand.slice(0,2).toUpperCase()}
+                        </div>
+                      </>
+                    ) : (
+                      <div class="w-16 h-16 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                        {p.data.brand.slice(0,2).toUpperCase()}
+                      </div>
+                    )}
+                    <div class="min-w-0">
+                      <p class="text-xs text-slate-400 mb-0.5">{p.data.brand}</p>
+                      <h3 class="font-bold text-slate-900 text-sm leading-snug line-clamp-2">{p.data.title}</h3>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-1.5 mb-3">
                     {Array.from({ length: 5 }).map((_, j) => (
                       <svg class:list={['w-4 h-4', j < Math.round(p.data.rating) ? 'text-amber-400' : 'text-slate-200']}
-                           fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                           fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
                     ))}
+                    <span class="text-sm font-semibold text-slate-700 ml-1">{p.data.rating}/5</span>
                   </div>
-                  <span class="text-sm font-semibold text-slate-700">{p.data.rating}/5</span>
+                  {p.data.price && (
+                    <p class="text-2xl font-bold text-slate-900 mb-4">
+                      {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency ?? 'EUR' })}
+                    </p>
+                  )}
+                  <a href={`/produit/${p.id}`} class:list={[
+                    'block w-full text-center text-sm font-semibold py-2.5 rounded-xl transition-colors',
+                    i === 0 ? 'bg-brand-600 hover:bg-brand-700 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-900'
+                  ]}>
+                    Voir l'avis complet →
+                  </a>
                 </div>
-
-                {p.data.price && (
-                  <p class="text-xl font-bold text-slate-900 mb-4">
-                    {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency ?? 'EUR' })}
-                  </p>
-                )}
-
-                <a href={`/produit/${p.id}`}
-                   class:list={[
-                     'block w-full text-center text-sm font-semibold py-2.5 rounded-xl transition-colors',
-                     i === 0
-                       ? 'bg-brand-600 hover:bg-brand-700 text-white'
-                       : 'bg-slate-100 hover:bg-slate-200 text-slate-900'
-                   ]}>
-                  Voir l'avis complet →
-                </a>
-              </div>
-            </article>
+              </article>
             );
           })}
         </div>

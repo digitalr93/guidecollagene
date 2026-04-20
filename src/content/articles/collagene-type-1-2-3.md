@@ -1,7 +1,7 @@
 ---
 title: "Collagène type I, II et III : quelles différences et lequel choisir ?"
 description: "Types de collagène I, II, III : rôles distincts, localisations dans le corps et quel type choisir selon vos objectifs peau, articulations ou muscles."
-image: https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1200&q=80
+image: https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80
 imageAlt: "Illustration scientifique des types de collagène et protéines"
 publishedAt: 2026-04-05
 author: Le pro du collagène

@@ -1,0 +1,307 @@
+---
+/**
+ * DiagnosticWidget.astro
+ * Quiz interactif 3 étapes → recommandation produit ciblée
+ */
+import { getCollection } from 'astro:content';
+
+const produits = await getCollection('produits', p => !p.data.draft);
+
+// Matrice de recommandations [objectif][budget] → slug produit
+const reco: Record<string, Record<string, string>> = {
+  peau: {
+    eco:      'novoma-collagene-marin-pur',
+    standard: 'nutriandco-collagene-naticol',
+    premium:  'sunday-natural-collagene-marin',
+  },
+  articulations: {
+    eco:      'valebio-collagene-marin-articulations',
+    standard: 'nutriandco-collagene-bovin-peptan',
+    premium:  'sunday-natural-collagene-type-2',
+  },
+  sport: {
+    eco:      'bulk-hydrolysed-collagen-peptides',
+    standard: 'nutripure-collagene-marin-peptan',
+    premium:  'vital-proteins-collagen-peptides',
+  },
+  cheveux: {
+    eco:      'novoma-collagene-marin-pur',
+    standard: 'vital-proteins-marine-collagen',
+    premium:  'nutriandco-collagene-naticol',
+  },
+  vitalite: {
+    eco:      'myprotein-collagene-poudre',
+    standard: 'ancient-nutrition-multi-collagen',
+    premium:  'dlab-absolu-collagene',
+  },
+};
+
+// Pré-sérialiser les données produits pour le client
+const produitsData = produits.reduce<Record<string, {title:string; brand:string; price?:number; rating:number; image?:string; slug:string}>>((acc, p) => {
+  acc[p.id] = {
+    title:  p.data.title,
+    brand:  p.data.brand,
+    price:  p.data.price,
+    rating: p.data.rating,
+    image:  p.data.image,
+    slug:   p.id,
+  };
+  return acc;
+}, {});
+---
+
+<section class="bg-gradient-to-br from-brand-600 to-brand-800 py-16 px-4" id="diagnostic">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-8">
+      <span class="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+        Outil gratuit
+      </span>
+      <h2 class="text-3xl font-bold text-white mb-3">Quel collagène vous convient ?</h2>
+      <p class="text-brand-100">3 questions · Résultat immédiat · Sélection personnalisée</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" id="diag-card">
+
+      <!-- Barre de progression -->
+      <div class="h-1.5 bg-slate-100">
+        <div id="diag-progress" class="h-full bg-brand-500 transition-all duration-500" style="width:33%"></div>
+      </div>
+
+      <!-- Étapes -->
+      <div id="diag-steps" class="p-8">
+
+        <!-- Étape 1 : Objectif -->
+        <div id="step-1">
+          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 1 / 3</p>
+          <h3 class="text-xl font-bold text-slate-900 mb-6">Quel est votre objectif principal ?</h3>
+          <div class="grid grid-cols-1 gap-3">
+            {[
+              { val: 'peau',         icon: '✨', label: 'Peau & anti-âge',          desc: 'Rides, fermeté, éclat' },
+              { val: 'articulations',icon: '🦴', label: 'Articulations & mobilité',  desc: 'Douleurs, cartilage, souplesse' },
+              { val: 'sport',        icon: '💪', label: 'Sport & récupération',      desc: 'Tendons, performance, récupération' },
+              { val: 'cheveux',      icon: '💆', label: 'Cheveux & ongles',          desc: 'Pousse, résistance, brillance' },
+              { val: 'vitalite',     icon: '⚡', label: 'Vitalité & énergie',        desc: 'Sommeil, fatigue, bien-être général' },
+            ].map(o => (
+              <button
+                type="button"
+                data-step="1"
+                data-val={o.val}
+                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group"
+              >
+                <span class="text-2xl">{o.icon}</span>
+                <div>
+                  <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
+                  <p class="text-xs text-slate-500">{o.desc}</p>
+                </div>
+                <svg class="ml-auto w-5 h-5 text-slate-300 group-hover:text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Étape 2 : Budget -->
+        <div id="step-2" style="display:none">
+          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 2 / 3</p>
+          <h3 class="text-xl font-bold text-slate-900 mb-6">Quel budget mensuel ?</h3>
+          <div class="grid grid-cols-1 gap-3">
+            {[
+              { val: 'eco',      icon: '💶', label: 'Économique',  desc: 'Moins de 25 €/mois' },
+              { val: 'standard', icon: '💳', label: 'Standard',    desc: '25 à 45 €/mois' },
+              { val: 'premium',  icon: '💎', label: 'Premium',     desc: 'Plus de 45 €/mois' },
+            ].map(o => (
+              <button
+                type="button"
+                data-step="2"
+                data-val={o.val}
+                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group"
+              >
+                <span class="text-2xl">{o.icon}</span>
+                <div>
+                  <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
+                  <p class="text-xs text-slate-500">{o.desc}</p>
+                </div>
+                <svg class="ml-auto w-5 h-5 text-slate-300 group-hover:text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            ))}
+          </div>
+          <button id="diag-back-1" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">
+            ← Retour
+          </button>
+        </div>
+
+        <!-- Étape 3 : Format -->
+        <div id="step-3" style="display:none">
+          <p class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-1">Étape 3 / 3</p>
+          <h3 class="text-xl font-bold text-slate-900 mb-6">Quel format préférez-vous ?</h3>
+          <div class="grid grid-cols-1 gap-3">
+            {[
+              { val: 'poudre',  icon: '🥄', label: 'Poudre',   desc: 'À diluer dans eau, café, smoothie — meilleur rapport Q/P' },
+              { val: 'gelules', icon: '💊', label: 'Gélules',   desc: 'Pratiques, sans goût — idéal en déplacement' },
+              { val: 'peu',     icon: '🤷', label: 'Peu importe', desc: 'Je veux le plus efficace' },
+            ].map(o => (
+              <button
+                type="button"
+                data-step="3"
+                data-val={o.val}
+                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group"
+              >
+                <span class="text-2xl">{o.icon}</span>
+                <div>
+                  <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
+                  <p class="text-xs text-slate-500">{o.desc}</p>
+                </div>
+                <svg class="ml-auto w-5 h-5 text-slate-300 group-hover:text-brand-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            ))}
+          </div>
+          <button id="diag-back-2" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">
+            ← Retour
+          </button>
+        </div>
+
+        <!-- Résultat -->
+        <div id="step-result" style="display:none">
+          <div class="text-center mb-6">
+            <span class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-sm font-semibold px-4 py-2 rounded-full border border-brand-200">
+              ✅ Notre recommandation personnalisée
+            </span>
+          </div>
+
+          <div id="result-card" class="border-2 border-brand-200 rounded-xl overflow-hidden mb-5">
+            <div class="bg-brand-600 text-white text-xs font-bold text-center py-2 uppercase tracking-wide">
+              ⭐ Sélection pour votre profil
+            </div>
+            <div class="p-5">
+              <div class="flex items-center gap-4 mb-4">
+                <div id="result-logo" class="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden"></div>
+                <div>
+                  <p id="result-brand" class="text-xs text-slate-500 mb-0.5"></p>
+                  <h4 id="result-title" class="font-bold text-slate-900 text-base leading-snug"></h4>
+                </div>
+              </div>
+              <div id="result-stars" class="flex items-center gap-1 mb-3"></div>
+              <p id="result-price" class="text-2xl font-bold text-slate-900 mb-1"></p>
+              <p id="result-why" class="text-sm text-slate-600 mb-5 leading-relaxed"></p>
+              <a id="result-cta" href="#" class="block w-full text-center bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 rounded-xl transition-colors text-base">
+                Voir la fiche complète →
+              </a>
+            </div>
+          </div>
+
+          <button id="diag-restart" type="button" class="w-full text-sm text-slate-400 hover:text-slate-700 text-center py-2">
+            ↺ Recommencer le diagnostic
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ reco, produitsData }}>
+  let answers = { objectif: '', budget: '' };
+
+  const show = (id) => {
+    ['step-1','step-2','step-3','step-result'].forEach(s => {
+      document.getElementById(s).style.display = s === id ? '' : 'none';
+    });
+  };
+
+  const setProgress = (pct) => {
+    document.getElementById('diag-progress').style.width = pct + '%';
+  };
+
+  // Raisons personnalisées par objectif
+  const whys = {
+    peau: {
+      eco:      'Peptides marins purs, sans additifs. Rapport qualité/prix imbattable pour débuter.',
+      standard: 'Peptides Naticol® certifiés — le plus étudié pour la peau en France. 10g/jour.',
+      premium:  'Fabrication GMP pharmaceutique, Naticol® certifié, certificat d'analyse par lot.',
+    },
+    articulations: {
+      eco:      'Formule marin + glucosamine pour les articulations. Très bon rapport qualité/prix.',
+      standard: 'Peptan® bovin certifié, le standard de référence pour les articulations.',
+      premium:  'UC-II® non dénaturé à 40mg — mécanisme d'action supérieur à la glucosamine.',
+    },
+    sport: {
+      eco:      'Poudre pure sans arômes, dosage libre. Idéal pour les sportifs qui gèrent leur nutrition.',
+      standard: 'Peptan® certifié, dosage optimal, soluble à froid. La référence du sportif sérieux.',
+      premium:  'Standard international, dosage validé en compétition, format sport pratique.',
+    },
+    cheveux: {
+      eco:      'Peptides marins purs à petit prix — efficace pour les précurseurs de kératine.',
+      standard: 'Collagène marin type I + biodisponibilité élevée. Spécifique cheveux & ongles.',
+      premium:  'Naticol® + études cliniques sur la qualité capillaire. Le choix des professionnels.',
+    },
+    vitalite: {
+      eco:      'Poudre économique à dissoudre dans votre boisson du matin. Simple et efficace.',
+      standard: 'Multi-collagène types I, II, III, V, X — couverture complète pour la vitalité globale.',
+      premium:  'Formule concentrée avec actifs complémentaires. Le choix des exigeants.',
+    },
+  };
+
+  document.querySelectorAll('.diag-choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const step = btn.dataset.step;
+      const val  = btn.dataset.val;
+
+      if (step === '1') {
+        answers.objectif = val;
+        show('step-2');
+        setProgress(66);
+      } else if (step === '2') {
+        answers.budget = val;
+        show('step-3');
+        setProgress(100);
+      } else if (step === '3') {
+        // Déterminer le slug recommandé
+        const slug = reco[answers.objectif]?.[answers.budget] ?? 'nutriandco-collagene-naticol';
+        const p = produitsData[slug];
+        if (!p) return;
+
+        // Remplir le résultat
+        const logoEl = document.getElementById('result-logo');
+        if (p.image) {
+          logoEl.innerHTML = `<img src="${p.image}" alt="${p.brand}" class="w-full h-full object-contain p-1" onerror="this.parentElement.textContent='${p.brand.slice(0,2).toUpperCase()}'" />`;
+        } else {
+          logoEl.textContent = p.brand.slice(0,2).toUpperCase();
+          logoEl.className += ' bg-brand-600 text-white font-bold text-xl';
+        }
+
+        document.getElementById('result-brand').textContent  = p.brand;
+        document.getElementById('result-title').textContent  = p.title;
+        document.getElementById('result-cta').href           = `/produit/${p.slug}`;
+
+        if (p.price) {
+          document.getElementById('result-price').textContent = p.price.toLocaleString('fr-FR', { style:'currency', currency:'EUR' });
+        }
+
+        const starsEl = document.getElementById('result-stars');
+        starsEl.innerHTML = '';
+        for (let j = 0; j < 5; j++) {
+          const star = document.createElement('span');
+          star.textContent = '★';
+          star.className = j < Math.round(p.rating) ? 'text-amber-400 text-lg' : 'text-slate-200 text-lg';
+          starsEl.appendChild(star);
+        }
+        const ratingSpan = document.createElement('span');
+        ratingSpan.className = 'text-sm font-semibold text-slate-700 ml-1';
+        ratingSpan.textContent = `${p.rating}/5`;
+        starsEl.appendChild(ratingSpan);
+
+        const why = whys[answers.objectif]?.[answers.budget] ?? '';
+        document.getElementById('result-why').textContent = why;
+
+        show('step-result');
+      }
+    });
+  });
+
+  document.getElementById('diag-back-1').addEventListener('click', () => { show('step-1'); setProgress(33); });
+  document.getElementById('diag-back-2').addEventListener('click', () => { show('step-2'); setProgress(66); });
+  document.getElementById('diag-restart').addEventListener('click', () => {
+    answers = { objectif: '', budget: '' };
+    show('step-1');
+    setProgress(33);
+  });
+</script>
