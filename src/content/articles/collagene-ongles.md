@@ -24,6 +24,20 @@ faq:
     answer: "Les ongles poussent de 3 mm par mois. Les études montrent des résultats après 3 à 6 mois de supplémentation continue. Ne vous attendez pas à des effets avant 12 semaines."
   - question: "Faut-il associer biotine et collagène ?"
     answer: "La biotine et le collagène ont des mécanismes complémentaires. La biotine est un cofacteur enzymatique de la synthèse de kératine. Le collagène apporte les acides aminés précurseurs. L'association est logique mais pas obligatoire si votre alimentation est équilibrée."
+  - question: "Le collagène marin est-il préférable au bovin pour les ongles ?"
+    answer: "Les deux types (marin type I et bovin type I+III) apportent des acides aminés identiques (glycine, proline) pour la kératine. Le collagène marin a une biodisponibilité légèrement supérieure, ce qui peut représenter un avantage à dose égale. L'étude Verisol® sur les ongles utilisait des peptides marins — c'est la référence la mieux documentée pour cet usage."
+  - question: "Les ongles striés verticalement peuvent-ils être améliorés par le collagène ?"
+    answer: "Les stries longitudinales (verticales) sont un signe de vieillissement normal lié à la dégradation du tissu conjonctif sous-unguéal. Le collagène peut ralentir ce processus en renforçant la matrice dermique. L'étude Verisol® a montré des améliorations de l'aspect général des ongles chez 64 % des participantes après 24 semaines. Les stries transversales (horizontales), elles, indiquent souvent un choc ou une maladie systémique — bilan médical recommandé."
+  - question: "Quelle dose de vitamine C associer au collagène pour les ongles ?"
+    answer: "75 à 200 mg de vitamine C est suffisant pour optimiser la synthèse de collagène. La vitamine C est le cofacteur obligatoire de la prolyl hydroxylase, enzyme qui finalise la structure des fibres de collagène. Un verre de jus d'orange (75 mg) ou un comprimé de vitamine C 200 mg pris avec la dose de collagène suffit."
+  - question: "Le collagène peut-il aider en cas d'ongles qui se dédoublent ?"
+    answer: "Le dédoublement des ongles (onychoschisie) est souvent lié à une fragilité du tissu conjonctif sous-unguéal, à des carences en protéines ou fer, ou à des traumatismes répétés (eau, détergents). Le collagène peut renforcer la matrice si la cause est structurelle. Mais en cas de dédoublement sévère ou persistant, vérifiez d'abord la ferritine, la TSH et le zinc avant de conclure à un besoin en collagène."
+  - question: "Peut-on voir une différence sur les ongles avec une dose de 2,5 g/jour seulement ?"
+    answer: "Oui — l'étude Verisol® démontrant une réduction de 42 % des ongles cassants utilisait exactement 2,5 g/jour pendant 24 semaines. Cette dose est efficace avec les peptides Verisol® spécifiquement. Pour des peptides non certifiés ou d'une marque moins documentée, une dose de 5 à 10 g/jour est plus prudente pour des effets comparables."
+  - question: "Le zinc seul peut-il remplacer le collagène pour les ongles ?"
+    answer: "Non, les deux agissent sur des mécanismes différents. Le zinc est cofacteur des métalloprotéinases et de la synthèse de kératine — une carence en zinc fragmente souvent les ongles. Le collagène apporte les acides aminés structurels. Si vous avez des taches blanches sur les ongles (signe possible d'un déficit en zinc), priorisez d'abord un bilan et une correction du zinc, puis ajoutez le collagène."
+  - question: "À quel moment de la journée prendre le collagène pour les ongles ?"
+    answer: "Il n'existe pas de consensus scientifique sur le timing optimal pour un effet sur les ongles. La régularité quotidienne prime sur le moment précis. Prendre le collagène le matin à jeun ou avec le petit-déjeuner favorise l'ancrage d'une habitude. L'absorption à jeun peut être légèrement meilleure (moins de compétition avec d'autres protéines alimentaires)."
 ---
 
 ## Les ongles et le collagène : les bases

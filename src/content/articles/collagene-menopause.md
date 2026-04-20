@@ -22,6 +22,20 @@ faq:
     answer: "Oui, les peptides de collagène de type II (UC-II® ou hydrolysat type II) ont des preuves d'efficacité sur la réduction des douleurs articulaires, indépendamment des hormones. Des études à 90 jours montrent une réduction significative de la raideur matinale."
   - question: "Faut-il associer collagène et hormones (THS) à la ménopause ?"
     answer: "Ce sont deux approches complémentaires. Le THS agit sur les causes hormonales de la perte de collagène. La supplémentation en peptides apporte les briques de reconstruction. La décision du THS relève de votre médecin. Le collagène peut être pris dans tous les cas."
+  - question: "Quelle dose de collagène est recommandée pendant la ménopause ?"
+    answer: "Les études sur les femmes de 45 à 65 ans utilisent des doses de 5 à 10 g/jour de peptides hydrolysés pour les effets cutanés, et 40 mg/jour d'UC-II® pour les douleurs articulaires. Pour une action simultanée sur la peau et les articulations, une dose de 10 g/jour de collagène hydrolysé (type I ou I+III) associée à 120 mg d'acide hyaluronique est la formule la mieux documentée."
+  - question: "Le collagène peut-il ralentir l'ostéoporose post-ménopausique ?"
+    answer: "Les données sont encourageantes mais non définitives. L'étude de König et al. (2018) sur 131 femmes post-ménopausées montre une amélioration de la densité minérale osseuse de la colonne et du col du fémur après 12 mois à 5 g/jour. L'os contient 90 % de collagène de type I dans sa matrice organique — apporter des précurseurs peut soutenir la reconstruction. Cela ne remplace pas les bisphosphonates ou le traitement médical de l'ostéoporose avérée."
+  - question: "Le collagène aide-t-il contre la sécheresse cutanée de la ménopause ?"
+    answer: "Oui. La perte de collagène et d'acide hyaluronique dermique explique en partie la sécheresse cutanée post-ménopausique. Les études avec Naticol® et Verisol® montrent des améliorations significatives de l'hydratation cutanée (corneométrie) après 8 semaines. Une formule combinant collagène + acide hyaluronique oral est particulièrement adaptée à cet objectif."
+  - question: "Le collagène est-il compatible avec un traitement hormonal de la ménopause (THS) ?"
+    answer: "Oui, aucune interaction entre les peptides de collagène et les œstrogènes/progestatifs du THS n'est documentée. Les deux approches sont complémentaires : le THS agit en amont sur la cause (déficit hormonal), le collagène apporte les briques de reconstruction structurelle. Si vous prenez un THS transdermique ou oral, vous pouvez ajouter le collagène sans risque connu."
+  - question: "Le collagène peut-il améliorer la libido ou les symptômes vaginaux de la ménopause ?"
+    answer: "Le collagène de type I est présent dans les tissus vaginaux et sa dégradation à la ménopause contribue à l'atrophie vulvovaginale. La supplémentation en collagène peut théoriquement soutenir ces tissus, mais aucune étude clinique spécifique sur la sécheresse vaginale ou la libido n'a été publiée à ce jour. Pour ces symptômes, les œstrogènes locaux (crèmes vaginales) sont le traitement de référence."
+  - question: "À quel moment de la ménopause est-il le plus utile de commencer le collagène ?"
+    answer: "Le plus tôt est le mieux. Commencer en périménopause (irrégularités du cycle, avant la ménopause confirmée) permet d'amortir la chute abrupte qui suit. Les 5 premières années post-ménopause, où 30 % du collagène cutané est perdu, sont la période la plus critique pour l'intervention. Il n'est jamais trop tard pour commencer, mais l'effet est plus marqué si la dégradation n'est pas trop avancée."
+  - question: "Quels nutriments associer au collagène pour les femmes ménopausées ?"
+    answer: "La combinaison optimale documentée pour les femmes ménopausées : collagène (10 g/j) + acide hyaluronique (120 mg/j) + vitamine C (200 mg/j) + vitamine D (1000–2000 UI/j pour les os) + magnésium (pour les douleurs musculaires et le sommeil). Le zinc (10–15 mg/j) complète l'action sur la synthèse de collagène et la santé cutanée."
 ---
 
 ## Ménopause et collagène : une relation directe

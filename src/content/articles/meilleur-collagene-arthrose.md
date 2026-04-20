@@ -26,6 +26,20 @@ faq:
     answer: "UC-II® non dénaturé : 40 mg/j (dose très précise, ne pas augmenter). Collagène hydrolysé type I/II : 10 g/j. Les deux approches ont des mécanismes différents et ne doivent pas être confondues."
   - question: "Combien de temps pour voir des effets sur l'arthrose ?"
     answer: "Les études UC-II® montrent des résultats significatifs à 90 jours. Les peptides hydrolysés montrent des effets sur la douleur et la mobilité à 12–24 semaines. L'arthrose est une maladie chronique — il faut accepter un protocole long terme."
+  - question: "Peut-on prendre UC-II® et collagène hydrolysé en même temps pour l'arthrose ?"
+    answer: "Oui, les mécanismes sont complémentaires. UC-II® (40 mg/j) réduit l'inflammation via tolérance orale. Les peptides hydrolysés (10 g/j) stimulent la reconstruction par les chondrocytes. Certains rhumatologues recommandent cette double approche pour les arthroses modérées à sévères. Les deux sont pris à des doses différentes et n'interfèrent pas l'un avec l'autre."
+  - question: "Le collagène pour l'arthrose est-il remboursé par l'assurance maladie ?"
+    answer: "Non. Les compléments alimentaires de collagène ne sont pas remboursés par l'Assurance Maladie française, quel que soit l'indication. Certaines mutuelles proposent des forfaits 'médecines douces' ou 'compléments nutritionnels' qui peuvent couvrir partiellement ces achats — vérifiez votre contrat. Le coût mensuel varie de 28€ (UC-II® Sunday Natural) à 55€ (formules premium)."
+  - question: "L'arthrose de la main répond-elle au collagène comme l'arthrose du genou ?"
+    answer: "Les études cliniques sont surtout conduites sur le genou (articulation la plus facilement mesurable). L'arthrose des doigts, du pouce (rhizarthrose) et du poignet implique les mêmes mécanismes cartilagineux. Par analogie mécanistique, les mêmes protocoles (UC-II® ou peptides hydrolysés) devraient être efficaces, mais les données spécifiques aux mains sont moins abondantes."
+  - question: "Faut-il arrêter les anti-inflammatoires quand on commence le collagène ?"
+    answer: "Non, pas spontanément. Le collagène agit lentement (3 à 6 mois) et ne remplace pas les anti-inflammatoires pour la gestion de la douleur à court terme. La décision de réduire les AINS doit être discutée avec votre médecin après évaluation des bénéfices du collagène. Dans les études cliniques, certains patients ont pu réduire leur consommation d'antalgiques après 6 mois de supplémentation."
+  - question: "La physiothérapie est-elle plus efficace que le collagène pour l'arthrose ?"
+    answer: "Les deux ne sont pas en compétition — ils agissent à des niveaux différents. La kinésithérapie renforce les muscles péri-articulaires, améliore la mobilité et réduit la pression sur le cartilage. Le collagène soutient la reconstruction du cartilage et réduit l'inflammation. Les guidelines de l'OARSI (Osteoarthritis Research Society International) recommandent l'exercice en première ligne — le collagène est un soutien complémentaire."
+  - question: "L'injection de collagène dans le genou est-elle différente de la supplémentation orale ?"
+    answer: "Oui, ce sont des approches radicalement différentes. Les injections articulaires médicales utilisent généralement de l'acide hyaluronique (viscosupplémentation), pas du collagène. Des essais cliniques sur l'injection de collagène native existent, mais ce n'est pas une pratique standard. La supplémentation orale distribue les peptides dans tout l'organisme via le sang, sans ciblage articulaire direct."
+  - question: "Le curcuma ou l'oméga-3 sont-ils plus efficaces que le collagène pour l'arthrose ?"
+    answer: "Pas forcément plus, mais sur des mécanismes différents. L'oméga-3 (EPA, DHA à 2–4 g/j) a un effet anti-inflammatoire documenté sur l'arthrose. Le curcuma (curcumine, 400–1200 mg/j de forme biodisponible) réduit les médiateurs inflammatoires. Le collagène agit sur la reconstruction structurelle. L'association curcumine + oméga-3 + UC-II® est la triade complémentaire la mieux documentée pour l'arthrose."
 ---
 
 ## Arthrose et collagène : quel mécanisme ?

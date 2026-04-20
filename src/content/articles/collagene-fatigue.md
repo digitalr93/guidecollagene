@@ -21,6 +21,20 @@ faq:
     answer: "Oui. La glycine est un neurotransmetteur inhibiteur dans le cerveau. Elle abaisse la température corporelle centrale (nécessaire à l'endormissement) et améliore l'architecture du sommeil. 10 g de collagène apportent ~3 g de glycine — la dose active utilisée dans les études."
   - question: "À quelle heure prendre le collagène pour réduire la fatigue ?"
     answer: "Le soir, 1 heure avant le coucher, si l'objectif est d'améliorer le sommeil. Le matin à jeun, si l'objectif est la récupération musculaire ou articulaire. Les deux prises (matin + soir) sont possibles en fractionnant la dose totale."
+  - question: "Combien de glycine contient une dose de collagène ?"
+    answer: "Le collagène est composé à 33 % de glycine. 10 g de collagène apportent donc environ 3 g de glycine — exactement la dose utilisée dans les études japonaises sur le sommeil et la fatigue (Bannai & Kawai, 2012 ; Yamadera et al., 2007). C'est un argument solide pour préférer la poudre aux gélules dosées à 500 mg."
+  - question: "La glycine seule est-elle aussi efficace que le collagène pour la fatigue ?"
+    answer: "Oui, si l'objectif est uniquement le sommeil. Les études sur la fatigue utilisent de la glycine pure (3 g), pas du collagène entier. La glycine pure est moins chère et plus directe. Le collagène a l'avantage d'apporter simultanément des bénéfices pour la peau, les articulations et les tendons en plus de la glycine."
+  - question: "Le collagène peut-il aider en cas de fatigue sportive chronique ?"
+    answer: "Oui, via deux mécanismes : la glycine améliore le sommeil et donc la récupération nocturne, et les peptides stimulent la réparation des tissus conjonctifs (tendons, ligaments) qui se dégradent à l'entraînement intensif. Shaw et al. (2017) ont montré une augmentation de 65 % de la synthèse de collagène tendineux avec 15 g de collagène + vitamine C avant l'entraînement."
+  - question: "Le collagène est-il utile contre le burn-out ?"
+    answer: "Non directement. Le burn-out est un syndrome d'épuisement professionnel à composante psychologique et neuro-endocrinienne. Le collagène ne traite pas ses causes. La glycine peut améliorer marginalement la qualité du sommeil dégradée par le burn-out, mais ce n'est pas un traitement. Un accompagnement médical et psychologique est indispensable."
+  - question: "Peut-on associer collagène et magnésium contre la fatigue ?"
+    answer: "Oui, l'association est pertinente. Le magnésium est impliqué dans plus de 300 réactions enzymatiques dont la production d'ATP, et il a des effets documentés sur la qualité du sommeil. Collagène (glycine) + magnésium bisglycinate le soir est une combinaison classique sans interactions négatives connues. Des produits comme Ana Maria Lajusticia combinent les deux."
+  - question: "Combien de temps avant de ressentir un effet sur la fatigue ?"
+    answer: "L'effet de la glycine sur le sommeil peut se ressentir dès la première semaine selon les études de Yamadera et al. L'amélioration de la récupération sportive est mesurable à 4–6 semaines. En cas de fatigue chronique liée à des douleurs articulaires ou tendineuses, l'effet peut prendre 8 à 12 semaines — temps nécessaire à la réparation structurelle des tissus."
+  - question: "Le collagène perturbe-t-il le sommeil s'il est pris le matin ?"
+    answer: "Non. La glycine prise le matin n'induit pas de somnolence diurne — au contraire, les études montrent qu'elle améliore la vigilance cognitive le lendemain d'une prise vespérale. La glycine n'est pas sédative au sens pharmacologique : elle améliore la qualité du sommeil sans effet soporifique hors contexte nocturne."
 ---
 
 ## Collagène et fatigue : les mécanismes réels

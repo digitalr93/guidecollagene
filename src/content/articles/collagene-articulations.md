@@ -22,6 +22,20 @@ faq:
     answer: "Une étude comparant UC-II® à glucosamine + chondroïtine a conclu à la supériorité du UC-II® à 40mg/j pour réduire l'inconfort articulaire. Le collagène hydrolysé (peptides) a également des données solides. La glucosamine reste utile mais son niveau de preuve est aujourd'hui contesté."
   - question: "Quel type de collagène pour les articulations ?"
     answer: "Le collagène de type II (UC-II® ou cartilage de poulet) est le plus spécifique aux articulations. Le collagène de type I hydrolysé (Peptan® bovin) a aussi des preuves d'efficacité articulaire mais par un mécanisme différent."
+  - question: "Peut-on combiner UC-II® et collagène hydrolysé pour les articulations ?"
+    answer: "Oui, les deux ont des mécanismes complémentaires. L'UC-II® (40 mg) agit par tolérance immunologique, le collagène hydrolysé (10 g) par apport anabolique aux chondrocytes. Les prendre ensemble peut être pertinent en cas d'inconfort articulaire marqué, mais les coûts s'additionnent. Commencer par l'un ou l'autre est une approche raisonnable."
+  - question: "Le collagène remplace-t-il les anti-inflammatoires pour les douleurs articulaires ?"
+    answer: "Non. Le collagène n'a pas d'effet antalgique rapide comparable aux AINS (ibuprofène, naproxène). Son action est progressive (12 à 24 semaines) et préventive/structurelle. Pour une crise aiguë, les anti-inflammatoires restent le traitement de référence. Le collagène s'utilise en complément sur le long terme, pas en substitut d'un traitement médical."
+  - question: "Le collagène pour les articulations est-il utile pour les sports à impact ?"
+    answer: "Oui, les sportifs pratiquant des activités à fort impact articulaire (course, sports de pivot, musculation lourde) constituent une population cible documentée. L'étude de Clark et al. (2008) sur 147 athlètes universitaires montre une réduction significative de la douleur articulaire après 24 semaines à 10 g/jour. Le protocole pré-entraînement (15 g + vit C) est plus adapté à la prévention tendineuse."
+  - question: "Existe-t-il un âge minimum ou maximum pour prendre du collagène pour les articulations ?"
+    answer: "Il n'y a pas d'âge minimum officiel, mais la supplémentation est surtout pertinente à partir de 30–35 ans (début du déclin articulaire) ou en cas de pratique sportive intensive. Pour les personnes âgées (>70 ans), les études UC-II® ont inclus des participants jusqu'à 75 ans avec de bons profils de tolérance. Aucun âge maximum n'est contre-indiqué en l'absence de maladies rénales."
+  - question: "La chondroïtine et le collagène sont-ils substituables ?"
+    answer: "Non, ils ont des mécanismes différents. La chondroïtine est un glycosaminoglycane qui soutient directement la matrice du cartilage et inhibe les enzymes de dégradation. Le collagène apporte des acides aminés structurels ou induit une tolérance immunitaire (UC-II®). Des études comparatives montrent l'UC-II® supérieur à la glucosamine + chondroïtine, mais les mécanismes ne s'annulent pas."
+  - question: "Y a-t-il des signes que le collagène fonctionne pour mes articulations ?"
+    answer: "Les premiers signes subjectifs apparaissent généralement après 4 à 8 semaines : légère diminution de la raideur matinale, meilleure mobilité en début d'activité. Les effets sur la douleur à l'effort se mesurent à 12 semaines. Si aucune amélioration n'est perceptible après 3 mois de supplémentation correcte (dose + régularité), le mécanisme en cause est peut-être non articulaire et nécessite un avis médical."
+  - question: "Le collagène aide-t-il pour les douleurs au genou spécifiquement ?"
+    answer: "Le genou est l'articulation la plus étudiée dans les essais cliniques sur le collagène. L'étude de Crowley et al. (2009) portait spécifiquement sur l'inconfort du genou avec l'UC-II® ; l'étude de Clark et al. (2008) montrait les effets les plus marqués sur le genou et la cheville. Les preuves sont donc plus solides pour le genou que pour d'autres articulations."
 ---
 
 ## Le cartilage articulaire : une cible difficile

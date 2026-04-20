@@ -24,6 +24,20 @@ faq:
     answer: "Les études cliniques utilisent généralement des doses de 5 à 10 g de peptides de collagène hydrolysé par jour. En dessous de 2,5 g, les effets sont généralement insuffisants."
   - question: "Quand voir les premiers effets du collagène ?"
     answer: "La majorité des études cliniques observent des améliorations mesurables après 8 à 12 semaines de supplémentation régulière."
+  - question: "Comment vérifier la qualité d'un collagène avant d'acheter ?"
+    answer: "Exigez : (1) une matière première certifiée (Peptan®, Naticol®, Verisol®, UC-II®) avec mention du fournisseur, (2) un certificat d'analyse par lot (CoA) accessible sur demande ou en ligne, (3) un poids moléculaire indiqué (idéalement < 3000 Da), (4) une composition transparente sans additifs non justifiés. Les marques sérieuses publient ces informations sans que vous ayez à les demander."
+  - question: "Le prix d'un collagène est-il un indicateur de qualité ?"
+    answer: "Partiellement. Les peptides certifiés (Peptan®, Naticol®) justifient un prix au gramme plus élevé car ils incluent des études cliniques et des contrôles qualité rigoureux. Mais certains produits surcotés misent sur le packaging plutôt que la qualité de la matière première. Comparez toujours le coût pour 10 g de collagène pur par jour — pas le prix affiché sur la boîte."
+  - question: "Gélules, poudre ou liquide : quel format choisir ?"
+    answer: "La poudre est le format de référence pour les doses thérapeutiques (5–15 g/jour). Elle offre le meilleur rapport qualité/prix et se dissout dans café, smoothie ou eau. Les gélules sont pratiques mais contraignantes à haute dose (10–20 gélules pour 10 g). Les liquides (shots) sont coûteux et souvent sous-dosés. Pour le UC-II® articulaire, les gélules suffisent (40 mg/jour seulement)."
+  - question: "Doit-on choisir un collagène avec ou sans arômes ajoutés ?"
+    answer: "Sans arômes est préférable : vous évitez les édulcorants (aspartame, acésulfame K, maltodextrine) qui peuvent perturber le microbiome à haute dose. Un bon collagène hydrolysé certifié est pratiquement inodore et insipide — facile à intégrer dans n'importe quelle boisson. Si vous avez du mal à avaler la poudre neutre, les arômes naturels (fraises, vanille) avec du stevia sont les moins problématiques."
+  - question: "Faut-il choisir un collagène certifié MSC pour le marin ?"
+    answer: "La certification MSC (Marine Stewardship Council) garantit une pêche durable et traçable. C'est un critère éthique et environnemental important, pas un critère d'efficacité directe. Elle réduit le risque de contamination aux métaux lourds (poissons issus de zones de pêche contrôlées) et garantit que l'achat ne finance pas la surpêche. Si vous êtes sensible à ces enjeux, priorisez les marques qui l'affichent."
+  - question: "Peut-on prendre deux types de collagène en même temps ?"
+    answer: "Oui. La combinaison la plus courante est collagène hydrolysé (type I/III, 10 g/j) pour la peau et les structures générales + UC-II® natif (40 mg/j) pour les articulations. Les deux mécanismes sont complémentaires. Il n'existe pas d'interaction négative documentée entre les deux. Certains produits comme Ancient Nutrition Multi Collagen proposent les types I, II et III dans une formule unique, mais les doses de type II restent inférieures au UC-II® natif."
+  - question: "Comment lire l'étiquette d'un collagène pour ne pas se faire avoir ?"
+    answer: "Vérifiez dans l'ordre : (1) la dose de collagène par portion (en grammes, pas en mg), (2) le nom du peptide breveté si présent, (3) la liste des ingrédients (le collagène doit être le premier), (4) la présence de vitamine C dans la formule (ou à ajouter vous-même), (5) l'absence d'additifs inutiles (dioxyde de titane, agents de charge, édulcorants artificiels). Un produit qui met en avant la 'biodisponibilité maximale' sans mentionner le poids moléculaire réel est suspect."
 ---
 
 ## Pourquoi le choix du collagène est crucial

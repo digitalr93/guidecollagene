@@ -19,6 +19,20 @@ faq:
     answer: "Pour les articulations, le collagène bovin (types I et III) ou le collagène UC-II® (type II, natif) sont généralement recommandés. Le collagène marin est surtout riche en type I, plus orienté peau."
   - question: "Le collagène marin a-t-il un goût de poisson ?"
     answer: "Un collagène marin de qualité (Peptan®, Naticol®) doit être pratiquement inodore et insipide. Un goût ou une odeur de poisson marqués indiquent une matière première de mauvaise qualité ou une hydrolyse insuffisante."
+  - question: "Le collagène bovin est-il adapté aux personnes halal ou casher ?"
+    answer: "Le collagène bovin peut être certifié halal si les bovins sont abattus selon les rites islamiques et que la production est certifiée. La certification casher est plus rare car le collagène est souvent issu de peaux (traitement hors cadre traditionnel). Vérifiez les logos de certification sur le produit. Le collagène marin (poisson à écailles) est généralement casher et halal plus facilement."
+  - question: "Le collagène bovin peut-il transmettre des maladies comme la vache folle (ESB) ?"
+    answer: "Le risque est considéré comme extrêmement faible avec les collagènes modernes. Depuis la crise de l'ESB, les réglementations européennes excluent les matières à risque spécifié (cerveau, moelle épinière) de la production de collagène. Les peaux et os utilisés pour le collagène sont soumis à des contrôles vétérinaires stricts. Les certifications grass-fed et les producteurs européens offrent des garanties supplémentaires."
+  - question: "Le collagène marin issu de l'aquaculture est-il de moins bonne qualité que celui de pêche sauvage ?"
+    answer: "Pas nécessairement. L'aquaculture contrôlée (tilapia, saumon) permet de maîtriser l'alimentation des poissons et limite les contaminations aux métaux lourds. La pêche sauvage (morue, thon) peut exposer à des teneurs plus élevées en métaux si les zones de pêche sont contaminées. La certification MSC ou de l'aquaculture responsable est plus importante que le mode d'élevage en lui-même."
+  - question: "Peut-on associer collagène marin et bovin pour couvrir tous les types ?"
+    answer: "C'est possible mais rarement nécessaire. Le collagène marin (type I) et le bovin (types I + III) se chevauchent largement en termes de bénéfices. Associer bovin hydrolysé + UC-II® natif de poulet (type II) est plus pertinent si vous cherchez à couvrir peau + articulations. Des formules multi-collagène (Ancient Nutrition Multi Collagen) proposent cette association dans un seul produit."
+  - question: "Le collagène de porc est-il comparable au marin ou au bovin ?"
+    answer: "Le collagène porcin (extrait de couennes de porc) est très similaire au bovin en termes de types (I et III) et de biodisponibilité. Il est souvent moins cher. Son principal inconvénient est qu'il est interdit pour les personnes suivant un régime halal ou casher. En termes d'efficacité pure, les études ne montrent pas de différence significative avec le bovin."
+  - question: "À quel rythme comparer les prix entre marin et bovin ?"
+    answer: "Comparez toujours le coût pour 10 g de collagène pur par jour (dose de référence). Le bovin standard coûte 0,20–0,40 €/jour, le bovin premium 0,40–0,70 €/jour. Le marin standard 0,35–0,60 €/jour, le marin premium 0,60–1,00 €/jour. Sur 3 mois (durée minimum recommandée), la différence peut atteindre 30 à 60 € entre le bovin standard et le marin premium."
+  - question: "Le collagène marin est-il mieux pour les femmes et le bovin pour les sportifs ?"
+    answer: "Ce découpage est trop simpliste. Le collagène marin (type I) est légèrement préférable pour la peau grâce à sa biodisponibilité supérieure — pertinent pour toute personne avec un objectif cutané, quel que soit le genre. Le bovin (types I + III) est légèrement plus complet pour les articulations et muscles. Les sportifs peuvent utiliser les deux selon leur objectif principal (peau vs tendons vs articulations)."
 ---
 
 ## Le débat marin vs bovin : ce qui compte vraiment

@@ -24,6 +24,20 @@ faq:
     answer: "Le collagène de type I (marin ou bovin) apporte la plus grande quantité de glycine et proline, précurseurs de la kératine. Les peptides Verisol® ont des données spécifiques sur l'épaisseur des cheveux."
   - question: "Combien de temps pour voir des résultats sur les cheveux ?"
     answer: "Le cycle de croissance pilaire dure 3 à 6 mois. Les études utilisent des protocoles de 90 à 180 jours. Ne vous attendez pas à des résultats avant 3 mois minimum."
+  - question: "Quelle dose de collagène pour les cheveux ?"
+    answer: "Les études sur les peptides Verisol® utilisent des doses de 2,5 à 5 g/jour pour les effets capillaires. Pour des peptides non brevetés, une dose de 10 g/jour est plus prudente. La durée minimale est de 12 semaines, idéalement 6 mois pour évaluer correctement l'effet sur le cycle pilaire complet."
+  - question: "Le collagène peut-il traiter l'alopécie androgénétique (calvitie) ?"
+    answer: "Non. L'alopécie androgénétique (calvitie masculine ou féminine de type andrologique) est causée par la sensibilité des follicules à la DHT (dihydrotestostérone). Le collagène n'agit pas sur ce mécanisme hormonal. Seuls le finastéride, le minoxidil et les traitements médicaux spécifiques ont des preuves d'efficacité dans ce cas."
+  - question: "Faut-il associer biotine et collagène pour les cheveux ?"
+    answer: "L'association est logique car les mécanismes sont complémentaires : la biotine est un cofacteur enzymatique de la synthèse de kératine, le collagène apporte les acides aminés précurseurs. La biotine à 2,5 mg/jour est la dose utilisée dans les études. Attention : la biotine peut fausser certains tests biologiques (TSH, hormones) — informez votre médecin si vous en prenez."
+  - question: "Le collagène marin est-il préférable au bovin pour les cheveux ?"
+    answer: "Les deux contiennent du collagène de type I riche en glycine et proline, précurseurs de la kératine. Le collagène marin a une biodisponibilité légèrement supérieure (~1,5×), ce qui peut être avantageux à doses égales. En pratique, la qualité du peptide (Verisol®, Peptan®) et la régularité de la supplémentation comptent davantage que la source."
+  - question: "Peut-on prendre du collagène en cas de chute de cheveux post-partum ?"
+    answer: "La chute post-partum (effluvium télogène) est déclenchée par la brusque chute d'hormones après l'accouchement — pas par un déficit en collagène. La supplémentation pendant l'allaitement n'est pas recommandée par précaution. Après l'arrêt de l'allaitement, le collagène peut soutenir la repousse si une carence protéique y contribue. Un bilan fer et ferritine est prioritaire."
+  - question: "Le silicium organique est-il supérieur au collagène pour les cheveux ?"
+    answer: "Ils agissent par des mécanismes différents. Le silicium organique (BioSil®, 10 mg/j d'acide orthosilicique) stimule directement les fibroblastes du derme périfolliculaire et a des études cliniques sur la résistance et l'épaisseur des cheveux. Le collagène apporte des acides aminés précurseurs. Pour un effet maximal, l'association des deux est plus efficace qu'un seul."
+  - question: "Est-ce que le stress agit sur les cheveux et le collagène peut-il aider ?"
+    answer: "Le stress chronique élève le cortisol, qui inhibe les fibroblastes et augmente la dégradation du collagène. Il peut aussi déclencher un effluvium télogène (chute diffuse des cheveux). Le collagène peut partiellement contrecarrer la dégradation structurelle, mais sans gestion du stress sous-jacent, l'effet restera limité. La glycine du collagène a également des propriétés anti-stress documentées in vitro."
 ---
 
 ## Le collagène et les cheveux : ce que dit la science

@@ -18,6 +18,20 @@ faq:
     answer: "Le collagène est une protéine structurelle qui donne sa fermeté à la peau. L'acide hyaluronique est un polysaccharide qui retient l'eau dans les tissus (il peut fixer jusqu'à 1000 fois son poids en eau). L'un donne de la structure, l'autre de l'hydratation."
   - question: "L'acide hyaluronique oral est-il efficace ?"
     answer: "Les études récentes montrent que l'acide hyaluronique de bas poids moléculaire (< 300 kDa) est partiellement absorbé et stimule la production endogène d'HA dans la peau. Les doses efficaces sont de 80 à 200 mg/jour."
+  - question: "Quelle dose d'acide hyaluronique oral est recommandée avec le collagène ?"
+    answer: "Les études utilisent des doses de 80 à 200 mg/jour d'acide hyaluronique hydrolysé (bas poids moléculaire). Une dose de 120 mg est la plus utilisée dans les études combinées collagène + AH. En dessous de 50 mg, les effets sont anecdotiques."
+  - question: "Collagène + AH + vitamine C : quelle est la meilleure formule ?"
+    answer: "Une étude publiée dans Nutrients (2021) a montré que la combinaison 10 g de collagène + 120 mg d'AH + 40 mg de vitamine C produit une réduction 28 % plus importante des rides et une amélioration 35 % supérieure de l'élasticité par rapport au collagène seul. C'est la triade la plus documentée pour la peau en 2026."
+  - question: "Peut-on prendre collagène et acide hyaluronique à des moments différents ?"
+    answer: "Oui, le timing relatif n'a pas d'impact clinique prouvé. Pour la praticité, prendre les deux ensemble le matin (ou le soir) est suffisant. Si votre produit de collagène ne contient pas d'AH, vous pouvez prendre un complément d'AH séparé au même repas ou à un autre moment."
+  - question: "Les crèmes à l'acide hyaluronique sont-elles aussi efficaces que la supplémentation orale ?"
+    answer: "Non pour l'effet structurel profond. L'AH topique de haut poids moléculaire reste en surface et hydrate temporairement. L'AH de bas poids moléculaire topique peut pénétrer partiellement. Mais pour stimuler la production endogène d'AH dans le derme, la voie orale est plus efficace. Les deux approches sont complémentaires."
+  - question: "L'acide hyaluronique et le collagène ont-ils des contre-indications communes ?"
+    answer: "Les deux sont généralement bien tolérés. Les personnes allergiques aux poissons doivent éviter les formules à base de collagène marin (l'AH n'est pas concerné). L'AH injectable médical ne doit pas être confondu avec les suppléments oraux — les contre-indications sont différentes. La supplémentation orale est déconseillée pendant la grossesse par précaution."
+  - question: "Le collagène marin ou bovin est-il préférable pour une formule avec AH ?"
+    answer: "Pour un objectif peau (hydratation, rides, fermeté), le collagène marin type I est légèrement préférable car sa biodisponibilité est supérieure (~1,5×) et son profil en acides aminés est optimal pour la peau. Le bovin (types I + III) est aussi efficace et moins cher. L'AH est compatible avec les deux sources."
+  - question: "Combien de temps faut-il pour voir des résultats avec la combinaison collagène + AH ?"
+    answer: "Les premières améliorations de l'hydratation peuvent être ressenties après 4 semaines. Les effets sur l'élasticité et les rides sont mesurables à 8–12 semaines dans les études cliniques. Pour des résultats durables, un protocole de 3 à 6 mois est recommandé, avec continuation au-delà pour maintenir les effets."
 ---
 
 ## Collagène vs acide hyaluronique : deux mécanismes complémentaires

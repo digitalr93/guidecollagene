@@ -18,6 +18,20 @@ faq:
     answer: "Il n'existe pas de données cliniques prouvant qu'un moment est supérieur à un autre pour la supplémentation quotidienne. La clé est la régularité. Pour le sport, une fenêtre spécifique existe : 30–60 min avant l'entraînement."
   - question: "Faut-il prendre le collagène avec de la vitamine C ?"
     answer: "Oui, la vitamine C est un cofacteur essentiel de la synthèse de collagène. L'associer (75–500mg) améliore l'utilisation des peptides absorbés. Beaucoup de produits l'intègrent déjà dans leur formule."
+  - question: "Peut-on prendre le collagène avec le café du matin ?"
+    answer: "Oui. Les peptides de collagène hydrolysé résistent bien à la chaleur jusqu'à 80–90°C et se dissolvent correctement dans le café. Le café ne dégrade pas les peptides. Si votre produit contient de la vitamine C, le café légèrement acide peut accélérer son oxydation — préférez l'ajouter à un café refroidi ou dans une autre boisson. L'impact pratique sur l'efficacité reste minime."
+  - question: "Le collagène doit-il être pris à jeun ou avec un repas ?"
+    answer: "Aucune étude ne démontre que la prise à jeun est supérieure à la prise avec les repas. À jeun, il y a moins de compétition avec d'autres acides aminés alimentaires pour l'absorption intestinale — avantage théorique. Avec un repas, la tolérance digestive est généralement meilleure. Choisissez ce qui favorise votre régularité."
+  - question: "Peut-on fractionner la dose de collagène en plusieurs prises ?"
+    answer: "Oui, diviser 10 g en deux prises de 5 g (matin et soir) est parfaitement valide et peut améliorer la tolérance digestive. Pour l'effet sport (Shaw et al.), la dose de 15 g doit être prise en une seule fois, 1 heure avant l'entraînement, pour créer le pic de concentration plasmatique nécessaire."
+  - question: "Combien de temps doit durer une cure de collagène ?"
+    answer: "Un minimum de 8 semaines est nécessaire pour des effets mesurables sur la peau ; 12 à 24 semaines pour les articulations. La plupart des experts recommandent des cures de 3 à 6 mois en continu, éventuellement suivies d'une pause d'un mois. Il n'y a pas de données montrant qu'une supplémentation continue à long terme est nocive, donc maintenir la supplémentation est une option valide."
+  - question: "Le collagène est-il moins efficace si on ne fait pas d'exercice ?"
+    answer: "Pour les effets sur la peau, non : la supplémentation quotidienne agit indépendamment de l'activité physique. Pour les tendons et ligaments, l'exercice est nécessaire pour diriger les peptides vers les tissus cibles — l'augmentation du flux sanguin local lors de l'activité physique est un facteur clé de l'efficacité (démontré par Shaw et al., 2017). Sans exercice, les effets sur les tendons sont moins importants."
+  - question: "Peut-on prendre du collagène lors d'un déplacement ou en voyage ?"
+    answer: "Oui, la poudre de collagène se transporte bien dans un petit récipient étanche, sans risque de dégradation à température ambiante pendant quelques jours. Pour les longs voyages, les dosettes individuelles ou les gélules (bien que moins efficaces en dose) sont pratiques. La continuité de la supplémentation est importante — quelques jours d'interruption ne rompent pas l'effet clinique, mais les pauses prolongées retardent les résultats."
+  - question: "Les personnes âgées doivent-elles ajuster la dose de collagène ?"
+    answer: "Il n'existe pas de recommandation officielle d'ajustement de dose selon l'âge pour les adultes en bonne santé. Les études incluent des participants jusqu'à 75 ans avec les mêmes doses que les adultes jeunes. En revanche, les personnes âgées avec insuffisance rénale légère à modérée doivent consulter leur médecin avant d'ajouter 10 à 15 g/jour de protéines à leur alimentation."
 ---
 
 ## Le dosage : la variable la plus importante

@@ -21,6 +21,20 @@ faq:
     answer: "30 à 60 minutes avant le coucher, de préférence dans une boisson chaude (infusion, lait végétal). La chaleur de la boisson accélère l'absorption et la boisson chaude en elle-même est relaxante."
   - question: "Peut-on prendre du collagène avec de la mélatonine ?"
     answer: "Oui, les deux sont complémentaires. La mélatonine régule le cycle circadien, la glycine améliore l'architecture du sommeil (qualité). On peut les prendre ensemble. Commencez par une faible dose de mélatonine (0,5 mg) et ajustez."
+  - question: "Quelle dose de collagène prendre le soir pour améliorer le sommeil ?"
+    answer: "Les études sur la glycine utilisent 3 g de glycine pure. 10 g de collagène contiennent environ 3 g de glycine. C'est la dose cible. Vous pouvez commencer à 5 g (1,5 g de glycine) et augmenter selon la tolérance. Au-delà de 15 g le soir, des inconforts digestifs sont possibles chez certaines personnes."
+  - question: "Le collagène peut-il remplacer les somnifères ?"
+    answer: "Non. La glycine du collagène améliore la qualité du sommeil de manière modérée chez des personnes avec un sommeil légèrement perturbé. Elle n'a pas la puissance des hypnotiques (zolpidem, benzodiazépines) et ne traite pas les troubles du sommeil pathologiques (insomnie sévère, apnée du sommeil). Pour une insomnie chronique, une consultation spécialisée (TCC-I, polysomnographie) est nécessaire."
+  - question: "La glycine du collagène crée-t-elle une dépendance ?"
+    answer: "Non. La glycine est un acide aminé naturellement présent dans l'organisme, sans propriété addictive documentée. Contrairement aux somnifères et aux benzodiazépines, l'arrêt de la glycine ou du collagène ne provoque pas d'effet rebond ni de syndrome de sevrage. On peut l'utiliser au long cours sans crainte de dépendance."
+  - question: "Le collagène améliore-t-il le sommeil profond ou le sommeil paradoxal ?"
+    answer: "Les études de Yamadera et al. suggèrent une amélioration de l'architecture globale du sommeil avec réduction du temps d'endormissement et des éveils nocturnes. Le mécanisme via les récepteurs NMDA influence le sommeil lent profond (SWS). L'inhibition des neurones du locus coeruleus par la glycine joue aussi un rôle dans la régulation du sommeil paradoxal (REM)."
+  - question: "Faut-il prendre du collagène dans une boisson chaude pour l'effet sommeil ?"
+    answer: "Ce n'est pas obligatoire, mais c'est conseillé. La boisson chaude en elle-même favorise la relaxation et la vasodilatation périphérique — mécanisme complémentaire à l'action de la glycine sur la température corporelle centrale. Les peptides de collagène se dissolvent bien dans l'eau chaude ou froide sans perte d'efficacité. Un lait végétal chaud + collagène + une pincée de cannelle est une formule soir populaire."
+  - question: "Le collagène aide-t-il en cas d'insomnie liée aux douleurs articulaires nocturnes ?"
+    answer: "Oui, indirectement. Les douleurs articulaires nocturnes (arthrose, tendinites) sont une cause fréquente d'insomnie. Sur le long terme (12 à 24 semaines), la supplémentation en collagène peut réduire l'inconfort articulaire, ce qui améliore mécaniquement la qualité du sommeil. La glycine contribue en parallèle à l'amélioration directe du sommeil. Les deux effets se cumulent."
+  - question: "Le magnésium est-il plus efficace que le collagène pour dormir ?"
+    answer: "Les deux ont des mécanismes différents. Le magnésium (bisglycinate ou glycinate, 200–300 mg) est un antagoniste du glutamate et un activateur du GABA — effet relaxant musculaire et neurologique bien documenté. La glycine agit sur la thermorégulation et les récepteurs NMDA. L'association collagène (pour la glycine) + magnésium bisglycinate le soir est supérieure à chacun pris seul."
 ---
 
 ## La glycine : le somnifère naturel du collagène

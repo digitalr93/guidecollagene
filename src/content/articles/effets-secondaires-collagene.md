@@ -18,6 +18,20 @@ faq:
     answer: "Certaines personnes rapportent une légère lourdeur digestive en début de supplémentation, notamment à hautes doses. Commencer à 5g/jour et augmenter progressivement limite ces désagréments."
   - question: "Le collagène est-il déconseillé aux femmes enceintes ?"
     answer: "Par principe de précaution, la supplémentation n'est pas recommandée pendant la grossesse et l'allaitement, faute d'études de sécurité spécifiques dans ces populations."
+  - question: "Le collagène peut-il provoquer des maux de tête ?"
+    answer: "Non documenté spécifiquement. Des maux de tête en début de supplémentation peuvent survenir si vous consommez un produit riche en additifs (arômes artificiels, édulcorants) ou si vous augmentez trop rapidement la dose. Les peptides de collagène purs ne provoquent pas de céphalées dans les études cliniques. Si des maux de tête persistent, vérifiez d'abord la composition du produit."
+  - question: "Le collagène peut-il aggraver l'acné ?"
+    answer: "Aucune preuve que les peptides de collagène aggravent l'acné. Certaines formules enrichies en hormones de croissance bovines ou mal purifiées pourraient théoriquement stimuler les androgènes cutanés, mais ce n'est pas documenté avec les peptides standard. Si vous constatez une aggravation après une prise, regardez d'abord les autres ingrédients de la formule (arômes, édulcorants, additifs)."
+  - question: "Les effets secondaires du collagène disparaissent-ils avec le temps ?"
+    answer: "En général, oui. Les troubles digestifs légers (ballonnements, lourdeur) observés chez certaines personnes en début de supplémentation s'estompent souvent après 1 à 2 semaines d'adaptation. Pour accélérer l'adaptation : commencer à 5 g/jour, prendre avec un repas, augmenter progressivement sur 2 semaines jusqu'à la dose cible."
+  - question: "Le collagène peut-il causer une prise de poids ?"
+    answer: "Non dans sa forme pure. 10 g de peptides représentent environ 37–40 kcal, sans glucides ni lipides. Une prise de poids serait uniquement imputable à des formules très sucrées (shots, beauty drinks) ou gummies avec des sucres ajoutés en quantité significative. Vérifiez l'étiquette nutritionnelle."
+  - question: "Le collagène peut-il interagir avec des médicaments courants ?"
+    answer: "Aucune interaction majeure documentée avec la grande majorité des médicaments courants (antibiotiques, antidépresseurs, contraceptifs, antihypertenseurs standards). Les seules interactions théoriques concernent les anticoagulants (via les formules à haute dose de vitamine C ou vitamine E) et les traitements néphrologiques (pour les patients sous régime hypoprotéique). En cas de doute, informez votre médecin ou pharmacien."
+  - question: "Le collagène peut-il provoquer une hypercalcémie ?"
+    answer: "Uniquement avec les formules qui associent collagène et calcium à hautes doses. Le collagène pur n'apporte pas de calcium. Des cas d'hypercalcémie ont été rapportés avec des compléments combinés à des doses excessives de calcium (> 2000 mg/jour). Surveillez l'apport total en calcium si votre produit est enrichi, surtout si vous prenez déjà un supplément de calcium ou de vitamine D."
+  - question: "À quelle dose le collagène devient-il problématique ?"
+    answer: "Les études de sécurité n'ont pas établi de dose maximale officielle. Des doses jusqu'à 15–20 g/jour sont utilisées dans des études cliniques sans effets indésirables significatifs. À très hautes doses (> 30 g/jour), les troubles digestifs et la charge protéique pour les reins deviennent des préoccupations pratiques. Pour les populations à risque (maladie rénale, grossesse), même 10 g/jour nécessitent un avis médical."
 ---
 
 ## Les effets secondaires du collagène : ce que les études rapportent

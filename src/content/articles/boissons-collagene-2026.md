@@ -19,6 +19,22 @@ faq:
     answer: "Les shots Granions (format liquide prêt-à-boire avec AH) et les formules Twenty DC se distinguent par leurs matières premières certifiées et leur dosage correct. Évitez les shots < 5g de collagène."
   - question: "Le collagène dans les boissons résiste-t-il à la chaleur ?"
     answer: "Les peptides de collagène sont relativement stables à la chaleur jusqu'à 80–90°C. Les infusions chaudes ne dégradent pas significativement les peptides. Par contre, évitez les formules acidifiées avec vitamine C dans des contenants plastique chauffés."
+  - question: "Quelle quantité de collagène doit contenir une boisson pour être efficace ?"
+    answer: "La dose minimale cliniquement validée est de 2,5 g pour les peptides Verisol® et de 5 à 10 g pour les peptides standard (Peptan®, Naticol®). Une boisson contenant moins de 2,5 g de peptides certifiés est insuffisante pour produire des effets mesurables. La plupart des shots vendus entre 1€ et 3€ sont en dessous de ce seuil."
+  - question: "Les infusions 'collagène boost' contiennent-elles vraiment du collagène ?"
+    answer: "Non, les infusions dites 'collagène' ne contiennent pas de collagène. Elles apportent des cofacteurs de synthèse endogène (vitamine C, prêle, ortie, silicium), pas des peptides de collagène. L'intérêt est réel mais différent : elles stimulent votre propre production plutôt que d'en apporter de l'extérieur."
+  - question: "Peut-on dissoudre du collagène en poudre dans une boisson froide ?"
+    answer: "Oui, les peptides de collagène hydrolysé de qualité (< 3 kDa) se dissolvent très bien dans l'eau froide, contrairement à la gélatine classique qui nécessite la chaleur. Les produits qui ne se dissolvent pas correctement à froid indiquent généralement un poids moléculaire plus élevé et donc une biodisponibilité moindre."
+  - question: "Le café ou le thé dégradent-ils le collagène ?"
+    answer: "Non, mélanger du collagène dans un café (< 80°C) ou un thé ne dégrade pas les peptides. La caféine n'interagit pas avec le collagène. L'acidité du café peut légèrement affecter la stabilité de la vitamine C si votre produit en contient, mais les peptides eux-mêmes restent intacts."
+  - question: "Les boissons collagène sont-elles adaptées aux personnes diabétiques ?"
+    answer: "Les poudres pures de collagène (sans sucre ajouté) n'impactent pas significativement la glycémie — les protéines du collagène ont un index insulinique bas. En revanche, les shots sucrés ou boissons aromatisées peuvent contenir 10 à 25 g de sucres par portion, incompatibles avec un contrôle glycémique strict."
+  - question: "Quand prendre sa boisson de collagène pour maximiser l'efficacité ?"
+    answer: "Pour la peau et l'usage général, le moment de la journée n'a pas d'impact clinique démontré — la régularité prime. Pour les tendons et ligaments, 30 à 60 minutes avant l'entraînement physique optimise le transport des peptides vers les tissus conjonctifs sollicités (Shaw et al., 2017)."
+  - question: "Le marché des boissons collagène est-il régulé en France ?"
+    answer: "En France et dans l'UE, les compléments alimentaires liquides sont soumis à la réglementation générale des compléments (Directive 2002/46/CE). Les allégations santé sont encadrées par le règlement EFSA — mais 'collagène' ne figure pas dans la liste des allégations autorisées en Europe, ce qui signifie que les marques ne peuvent pas revendiquer d'effets thérapeutiques. Les allégations cosmétiques ('peau lisse', 'éclat') ne sont pas régulées de la même façon."
+  - question: "Faut-il associer un autre actif à la boisson de collagène ?"
+    answer: "La vitamine C est l'association la plus utile et documentée — elle est cofacteur de la synthèse de collagène. Vérifiez que votre boisson en contient au moins 75 mg par portion. L'acide hyaluronique (80–200 mg/j) est une seconde association pertinente pour la peau. Le zinc (10–15 mg/j) et le cuivre peuvent compléter une formule complète."
 ---
 
 ## La tendance beauty drink : d'où ça vient ?

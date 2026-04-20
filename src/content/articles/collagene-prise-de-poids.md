@@ -21,6 +21,20 @@ faq:
     answer: "Le collagène est une protéine à fort effet satiétogène. Des études montrent qu'il réduit mieux l'appétit que d'autres protéines (caséine, soja) à teneur équivalente. En supplémentation dans un régime modéré, il peut contribuer à préserver la masse musculaire pendant une perte de poids."
   - question: "Combien de calories dans un complément de collagène ?"
     answer: "Poudre pure 10 g : 35–40 kcal. Shot liquide sucré 30 mL : 50–120 kcal selon les sucres ajoutés. Gummies (2 gummies standard) : 15–30 kcal. Toujours vérifier l'étiquette nutritionnelle."
+  - question: "Le collagène est-il compatible avec un régime cétogène (keto) ?"
+    answer: "Oui, le collagène pur est 100 % compatible avec le régime keto. 10 g de peptides apportent 37–40 kcal sous forme de protéines et 0 g de glucides. Il ne sort pas de la cétose. La glycine contenue dans le collagène est même glucogénique à haute dose théoriquement, mais les quantités supplémentées sont trop faibles pour affecter la cétose en pratique."
+  - question: "Le collagène aide-t-il à préserver les muscles pendant un régime ?"
+    answer: "Les protéines en général aident à préserver la masse musculaire en restriction calorique, mais le collagène est moins efficace que la whey sur ce point en raison de sa faible teneur en leucine (acide aminé déclencheur de la synthèse protéique musculaire). Il est cependant bénéfique pour maintenir la qualité des tendons et ligaments pendant les phases de perte de poids avec activité physique."
+  - question: "Le collagène peut-il remplacer un shake protéiné ?"
+    answer: "Non. Le collagène est une protéine incomplète (pauvre en tryptophane et leucine) qui ne couvre pas les besoins en acides aminés essentiels. Il ne devrait pas être utilisé comme source principale de protéines. En complément d'une alimentation riche en protéines complètes (viandes, poissons, légumineuses), il apporte des acides aminés spécifiques pour les tissus conjonctifs."
+  - question: "Les gummies de collagène font-elles grossir ?"
+    answer: "Par leur teneur en collagène, non. Mais la plupart des gummies contiennent 4 à 6 g de sucres par portion pour 2 à 5 g de collagène seulement. Une consommation quotidienne de 2 gummies × 2 prises = 8–12 g de sucre ajouté, soit ~30–50 kcal de sucre supplémentaires. Ce n'est pas significatif en soi, mais c'est inefficace comme mode de supplémentation comparé à la poudre pure."
+  - question: "Le collagène augmente-t-il la glycémie ?"
+    answer: "Non, les peptides de collagène ont un impact négligeable sur la glycémie. Leur index glycémique est quasi nul. Ils n'induisent pas de pic insulinique comparable aux glucides. Pour les personnes diabétiques ou en surveillance glycémique, la poudre pure de collagène (sans sucres ajoutés) est sans risque. Attention uniquement aux formules aromatisées sucrées avec du sirop de glucose ou du saccharose."
+  - question: "Peut-on prendre du collagène dans le cadre d'un jeûne intermittent ?"
+    answer: "Techniquement, 40 kcal de collagène interrompent le jeûne métabolique. Pour les jeûnes intermittents standards (16/8), prendre le collagène dans la fenêtre alimentaire est préférable. Certains adeptes du jeûne prennent une petite dose de collagène (<5 g) pendant le jeûne pour préserver les tissus conjonctifs sans impact calorique significatif — mais cela sort strictement du cadre du jeûne."
+  - question: "Le collagène est-il utile pendant une prise de masse sportive ?"
+    answer: "En phase de prise de masse, le collagène joue un rôle de soutien des tissus conjonctifs soumis à des charges élevées. Il ne contribue pas directement à la masse musculaire (pauvre en leucine), mais renforce tendons, ligaments et cartilages qui subissent des contraintes importantes lors de l'entraînement lourd. L'association avec la whey (anabolisme musculaire) et le collagène (santé tendineuse) est le protocole le plus complet."
 ---
 
 ## Collagène et prise de poids : la réponse directe
