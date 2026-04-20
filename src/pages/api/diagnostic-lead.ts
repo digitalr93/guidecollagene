@@ -344,7 +344,7 @@ export const POST: APIRoute = async ({ request }) => {
   const objectifLabel = OBJECTIF_LABELS[objectif] ?? 'Collagène';
 
   const { error } = await resend.emails.send({
-    from: 'Guide Collagène <onboarding@resend.dev>',
+    from: 'Guide Collagène <noreply@guidecollagene.fr>',
     to:   email,
     subject: `Votre protocole collagène — ${objectifLabel}`,
     html: buildEmailHtml({
