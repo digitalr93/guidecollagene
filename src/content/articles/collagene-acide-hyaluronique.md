@@ -1,6 +1,8 @@
 ---
 title: "Collagène et acide hyaluronique : association, différences et efficacité"
 description: "Collagène ou acide hyaluronique ? Faut-il les prendre ensemble ? On explique les rôles respectifs, les synergies prouvées, et les formules qui valent le coup."
+image: https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Soins de la peau avec sérums et compléments hyaluronique"
 publishedAt: 2026-01-25
 updatedAt: 2026-04-01
 author: Le pro du collagène

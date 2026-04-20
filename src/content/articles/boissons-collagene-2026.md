@@ -1,6 +1,8 @@
 ---
 title: "Boissons au collagène en 2026 : tendance, efficacité et meilleures options"
 description: "Beauty drinks, shots, infusions... Le marché des boissons collagène explose. Efficaces ou gadgets ? On décortique les formules, les dosages et les vrais leaders du segment."
+image: https://images.unsplash.com/photo-1543362906-acfc16c67564?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Boissons et shots au collagène alignés sur une table"
 publishedAt: 2026-03-01
 updatedAt: 2026-04-10
 author: Le pro du collagène

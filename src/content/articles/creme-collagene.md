@@ -1,6 +1,8 @@
 ---
 title: "Crème au collagène : efficace ou arnaque ? Ce que la science dit en 2026"
 description: "Les crèmes au collagène envahissent les rayons beauté. Mais le collagène topique pénètre-t-il vraiment la peau ? On fait le tri entre promesses marketing et réalité scientifique."
+image: https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=80
+imageAlt: "Crèmes et soins au collagène sur une surface blanche"
 publishedAt: 2026-02-05
 updatedAt: 2026-04-10
 author: Le pro du collagène

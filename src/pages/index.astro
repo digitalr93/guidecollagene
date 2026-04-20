@@ -8,7 +8,7 @@ const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 allProducts.sort((a, b) => b.data.rating - a.data.rating);
 allArticles.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
-const featuredProducts = allProducts.filter(p => p.data.featured).slice(0, 3);
+const featuredProducts = allProducts.slice(0, 6);
 const featuredArticle  = allArticles.find(a => a.data.featured) ?? allArticles[0];
 const latestArticles   = allArticles.filter(a => a.id !== featuredArticle?.id).slice(0, 6);
 
@@ -141,27 +141,37 @@ const websiteSchema = {
           </a>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
-          {featuredProducts.map((p, i) => (
+        {/* Labels pour les 6 produits */}
+        {(() => {
+          const labels = [
+            { bg: 'bg-brand-600',  text: '⭐ Meilleur choix 2026' },
+            { bg: 'bg-amber-500',  text: '💰 Meilleur rapport qualité/prix' },
+            { bg: 'bg-slate-700',  text: '🏆 Notre coup de cœur' },
+            { bg: 'bg-teal-600',   text: '🐟 Meilleur marin' },
+            { bg: 'bg-purple-600', text: '💪 Idéal sport' },
+            { bg: 'bg-rose-500',   text: '✨ Top peau & beauté' },
+          ];
+          return null;
+        })()}
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {featuredProducts.map((p, i) => {
+            const labels = [
+              { bg: 'bg-brand-600',  text: '⭐ Meilleur choix 2026' },
+              { bg: 'bg-amber-500',  text: '💰 Meilleur rapport Q/P' },
+              { bg: 'bg-slate-700',  text: '🏆 Notre coup de cœur' },
+              { bg: 'bg-teal-600',   text: '🐟 Meilleur marin' },
+              { bg: 'bg-purple-600', text: '💪 Idéal sport' },
+              { bg: 'bg-rose-500',   text: '✨ Top peau & beauté' },
+            ];
+            const label = labels[i];
+            return (
             <article class:list={[
               'relative bg-white rounded-2xl border overflow-hidden hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5',
               i === 0 ? 'border-brand-300 shadow-md' : 'border-slate-200'
             ]}>
-              {i === 0 && (
-                <div class="bg-brand-600 text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase">
-                  ⭐ Meilleur choix 2026
-                </div>
-              )}
-              {i === 1 && (
-                <div class="bg-amber-500 text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase">
-                  💰 Meilleur rapport qualité/prix
-                </div>
-              )}
-              {i === 2 && (
-                <div class="bg-slate-700 text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase">
-                  🏆 Notre coup de cœur
-                </div>
-              )}
+              <div class:list={['text-white text-xs font-bold px-4 py-1.5 text-center tracking-wide uppercase', label.bg]}>
+                {label.text}
+              </div>
 
               <div class="p-5">
                 <!-- Image ou initiales -->
@@ -208,7 +218,8 @@ const websiteSchema = {
                 </a>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
