@@ -1,13 +1,12 @@
 ---
 /**
  * DiagnosticWidget.astro
- * Quiz interactif 3 étapes → recommandation produit ciblée
+ * Quiz interactif 3 étapes → recommandation produit + capture email
  */
 import { getCollection } from 'astro:content';
 
 const produits = await getCollection('produits', p => !p.data.draft);
 
-// Matrice de recommandations [objectif][budget] → slug produit
 const reco: Record<string, Record<string, string>> = {
   peau: {
     eco:      'novoma-collagene-marin-pur',
@@ -36,8 +35,9 @@ const reco: Record<string, Record<string, string>> = {
   },
 };
 
-// Pré-sérialiser les données produits pour le client
-const produitsData = produits.reduce<Record<string, {title:string; brand:string; price?:number; rating:number; image?:string; slug:string}>>((acc, p) => {
+const produitsData = produits.reduce<Record<string, {
+  title: string; brand: string; price?: number; rating: number; image?: string; slug: string;
+}>>((acc, p) => {
   acc[p.id] = {
     title:  p.data.title,
     brand:  p.data.brand,
@@ -67,7 +67,6 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
         <div id="diag-progress" class="h-full bg-brand-500 transition-all duration-500" style="width:33%"></div>
       </div>
 
-      <!-- Étapes -->
       <div id="diag-steps" class="p-8">
 
         <!-- Étape 1 : Objectif -->
@@ -76,18 +75,14 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
           <h3 class="text-xl font-bold text-slate-900 mb-6">Quel est votre objectif principal ?</h3>
           <div class="grid grid-cols-1 gap-3">
             {[
-              { val: 'peau',         icon: '✨', label: 'Peau & anti-âge',          desc: 'Rides, fermeté, éclat' },
-              { val: 'articulations',icon: '🦴', label: 'Articulations & mobilité',  desc: 'Douleurs, cartilage, souplesse' },
-              { val: 'sport',        icon: '💪', label: 'Sport & récupération',      desc: 'Tendons, performance, récupération' },
-              { val: 'cheveux',      icon: '💆', label: 'Cheveux & ongles',          desc: 'Pousse, résistance, brillance' },
-              { val: 'vitalite',     icon: '⚡', label: 'Vitalité & énergie',        desc: 'Sommeil, fatigue, bien-être général' },
+              { val: 'peau',          icon: '✨', label: 'Peau & anti-âge',         desc: 'Rides, fermeté, éclat' },
+              { val: 'articulations', icon: '🦴', label: 'Articulations & mobilité', desc: 'Douleurs, cartilage, souplesse' },
+              { val: 'sport',         icon: '💪', label: 'Sport & récupération',     desc: 'Tendons, performance, récupération' },
+              { val: 'cheveux',       icon: '💆', label: 'Cheveux & ongles',         desc: 'Pousse, résistance, brillance' },
+              { val: 'vitalite',      icon: '⚡', label: 'Vitalité & énergie',       desc: 'Sommeil, fatigue, bien-être général' },
             ].map(o => (
-              <button
-                type="button"
-                data-step="1"
-                data-val={o.val}
-                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group"
-              >
+              <button type="button" data-step="1" data-val={o.val}
+                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group">
                 <span class="text-2xl">{o.icon}</span>
                 <div>
                   <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
@@ -105,16 +100,12 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
           <h3 class="text-xl font-bold text-slate-900 mb-6">Quel budget mensuel ?</h3>
           <div class="grid grid-cols-1 gap-3">
             {[
-              { val: 'eco',      icon: '💶', label: 'Économique',  desc: 'Moins de 25 €/mois' },
-              { val: 'standard', icon: '💳', label: 'Standard',    desc: '25 à 45 €/mois' },
-              { val: 'premium',  icon: '💎', label: 'Premium',     desc: 'Plus de 45 €/mois' },
+              { val: 'eco',      icon: '💶', label: 'Économique', desc: 'Moins de 25 €/mois' },
+              { val: 'standard', icon: '💳', label: 'Standard',   desc: '25 à 45 €/mois' },
+              { val: 'premium',  icon: '💎', label: 'Premium',    desc: 'Plus de 45 €/mois' },
             ].map(o => (
-              <button
-                type="button"
-                data-step="2"
-                data-val={o.val}
-                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group"
-              >
+              <button type="button" data-step="2" data-val={o.val}
+                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group">
                 <span class="text-2xl">{o.icon}</span>
                 <div>
                   <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
@@ -124,9 +115,7 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
               </button>
             ))}
           </div>
-          <button id="diag-back-1" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">
-            ← Retour
-          </button>
+          <button id="diag-back-1" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
         </div>
 
         <!-- Étape 3 : Format -->
@@ -135,16 +124,12 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
           <h3 class="text-xl font-bold text-slate-900 mb-6">Quel format préférez-vous ?</h3>
           <div class="grid grid-cols-1 gap-3">
             {[
-              { val: 'poudre',  icon: '🥄', label: 'Poudre',   desc: 'À diluer dans eau, café, smoothie — meilleur rapport Q/P' },
-              { val: 'gelules', icon: '💊', label: 'Gélules',   desc: 'Pratiques, sans goût — idéal en déplacement' },
-              { val: 'peu',     icon: '🤷', label: 'Peu importe', desc: 'Je veux le plus efficace' },
+              { val: 'poudre',  icon: '🥄', label: 'Poudre',      desc: 'À diluer dans eau, café, smoothie — meilleur rapport Q/P' },
+              { val: 'gelules', icon: '💊', label: 'Gélules',      desc: 'Pratiques, sans goût — idéal en déplacement' },
+              { val: 'peu',     icon: '🤷', label: 'Peu importe',  desc: 'Je veux le plus efficace' },
             ].map(o => (
-              <button
-                type="button"
-                data-step="3"
-                data-val={o.val}
-                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group"
-              >
+              <button type="button" data-step="3" data-val={o.val}
+                class="diag-choice flex items-center gap-4 w-full text-left px-4 py-3 rounded-xl border-2 border-slate-200 hover:border-brand-400 hover:bg-brand-50 transition-all duration-150 group">
                 <span class="text-2xl">{o.icon}</span>
                 <div>
                   <p class="font-semibold text-slate-900 group-hover:text-brand-700">{o.label}</p>
@@ -154,37 +139,76 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
               </button>
             ))}
           </div>
-          <button id="diag-back-2" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">
-            ← Retour
-          </button>
+          <button id="diag-back-2" type="button" class="mt-4 text-sm text-slate-400 hover:text-slate-700 flex items-center gap-1">← Retour</button>
         </div>
 
         <!-- Résultat -->
         <div id="step-result" style="display:none">
-          <div class="text-center mb-6">
+          <div class="text-center mb-5">
             <span class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-sm font-semibold px-4 py-2 rounded-full border border-brand-200">
               ✅ Notre recommandation personnalisée
             </span>
           </div>
 
-          <div id="result-card" class="border-2 border-brand-200 rounded-xl overflow-hidden mb-5">
+          <!-- Carte produit -->
+          <div class="border-2 border-brand-200 rounded-xl overflow-hidden mb-5">
             <div class="bg-brand-600 text-white text-xs font-bold text-center py-2 uppercase tracking-wide">
               ⭐ Sélection pour votre profil
             </div>
             <div class="p-5">
               <div class="flex items-center gap-4 mb-4">
-                <div id="result-logo" class="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden"></div>
+                <div id="result-logo" class="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden text-sm font-bold text-slate-400"></div>
                 <div>
                   <p id="result-brand" class="text-xs text-slate-500 mb-0.5"></p>
                   <h4 id="result-title" class="font-bold text-slate-900 text-base leading-snug"></h4>
                 </div>
               </div>
-              <div id="result-stars" class="flex items-center gap-1 mb-3"></div>
+              <div id="result-stars" class="flex items-center gap-1 mb-2"></div>
               <p id="result-price" class="text-2xl font-bold text-slate-900 mb-1"></p>
               <p id="result-why" class="text-sm text-slate-600 mb-5 leading-relaxed"></p>
-              <a id="result-cta" href="#" class="block w-full text-center bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 rounded-xl transition-colors text-base">
+              <a id="result-cta" href="#"
+                class="block w-full text-center bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 rounded-xl transition-colors text-base">
                 Voir la fiche complète →
               </a>
+            </div>
+          </div>
+
+          <!-- Capture email -->
+          <div class="border border-slate-200 rounded-xl p-5 bg-slate-50 mb-4">
+            <div id="email-form-wrap">
+              <div class="flex items-start gap-3 mb-3">
+                <span class="text-xl mt-0.5">📩</span>
+                <div>
+                  <p class="font-semibold text-slate-900 text-sm">Recevez votre protocole détaillé par email</p>
+                  <p class="text-xs text-slate-500 mt-0.5">Dosage, durée, études scientifiques clés et conseils pratiques — personnalisés selon vos réponses.</p>
+                </div>
+              </div>
+              <form id="diag-email-form" class="flex flex-col gap-2" novalidate>
+                <input
+                  type="email"
+                  id="diag-email-input"
+                  placeholder="votre@email.fr"
+                  autocomplete="email"
+                  class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 bg-white"
+                  required
+                />
+                <p id="diag-email-error" class="text-xs text-red-500 hidden">Veuillez saisir une adresse email valide.</p>
+                <button type="submit" id="diag-email-btn"
+                  class="w-full bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
+                  <span id="diag-email-btn-text">Recevoir mon protocole →</span>
+                  <svg id="diag-email-spinner" class="hidden w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                  </svg>
+                </button>
+                <p class="text-xs text-slate-400 text-center">Pas de spam. Désinscription en 1 clic.</p>
+              </form>
+            </div>
+            <!-- Succès -->
+            <div id="email-success" class="hidden text-center py-2">
+              <p class="text-3xl mb-2">✅</p>
+              <p class="font-semibold text-slate-900">Protocole envoyé !</p>
+              <p class="text-sm text-slate-500 mt-1">Vérifiez votre boîte mail (et les spams si besoin).</p>
             </div>
           </div>
 
@@ -198,53 +222,117 @@ const produitsData = produits.reduce<Record<string, {title:string; brand:string;
   </div>
 </section>
 
-<script define:vars={{ reco, produitsData }}>
-document.addEventListener('DOMContentLoaded', () => {
-  let answers = { objectif: '', budget: '' };
+<script define:vars={{ reco, produitsData }} is:inline>
+(function () {
+  var answers = { objectif: '', budget: '', format: '' };
 
-  const show = (id) => {
-    ['step-1','step-2','step-3','step-result'].forEach(s => {
-      document.getElementById(s).style.display = s === id ? '' : 'none';
+  function show(id) {
+    ['step-1', 'step-2', 'step-3', 'step-result'].forEach(function (s) {
+      var el = document.getElementById(s);
+      if (el) el.style.display = s === id ? '' : 'none';
     });
-  };
+  }
 
-  const setProgress = (pct) => {
-    document.getElementById('diag-progress').style.width = pct + '%';
-  };
+  function setProgress(pct) {
+    var bar = document.getElementById('diag-progress');
+    if (bar) bar.style.width = pct + '%';
+  }
 
-  // Raisons personnalisées par objectif
-  const whys = {
+  var whys = {
     peau: {
-      eco:      'Peptides marins purs, sans additifs. Rapport qualité/prix imbattable pour débuter.',
-      standard: 'Peptides Naticol® certifiés — le plus étudié pour la peau en France. 10g/jour.',
-      premium:  'Fabrication GMP pharmaceutique, Naticol® certifié, certificat d'analyse par lot.',
+      eco:      "Peptides marins purs, sans additifs. Rapport qualité/prix imbattable pour débuter.",
+      standard: "Peptides Naticol® certifiés — le plus étudié pour la peau en France. 10g/jour.",
+      premium:  "Fabrication GMP pharmaceutique, Naticol® certifié, certificat d'analyse par lot.",
     },
     articulations: {
-      eco:      'Formule marin + glucosamine pour les articulations. Très bon rapport qualité/prix.',
-      standard: 'Peptan® bovin certifié, le standard de référence pour les articulations.',
-      premium:  'UC-II® non dénaturé à 40mg — mécanisme d'action supérieur à la glucosamine.',
+      eco:      "Formule marin + glucosamine pour les articulations. Très bon rapport qualité/prix.",
+      standard: "Peptan® bovin certifié, le standard de référence pour les articulations.",
+      premium:  "UC-II® non dénaturé à 40mg — mécanisme supérieur à la glucosamine.",
     },
     sport: {
-      eco:      'Poudre pure sans arômes, dosage libre. Idéal pour les sportifs qui gèrent leur nutrition.',
-      standard: 'Peptan® certifié, dosage optimal, soluble à froid. La référence du sportif sérieux.',
-      premium:  'Standard international, dosage validé en compétition, format sport pratique.',
+      eco:      "Poudre pure sans arômes, dosage libre. Idéal pour les sportifs qui gèrent leur nutrition.",
+      standard: "Peptan® certifié, dosage optimal, soluble à froid. La référence du sportif sérieux.",
+      premium:  "Standard international, dosage validé en compétition, format sport pratique.",
     },
     cheveux: {
-      eco:      'Peptides marins purs à petit prix — efficace pour les précurseurs de kératine.',
-      standard: 'Collagène marin type I + biodisponibilité élevée. Spécifique cheveux & ongles.',
-      premium:  'Naticol® + études cliniques sur la qualité capillaire. Le choix des professionnels.',
+      eco:      "Peptides marins purs à petit prix — efficace pour les précurseurs de kératine.",
+      standard: "Collagène marin type I + biodisponibilité élevée. Spécifique cheveux & ongles.",
+      premium:  "Naticol® + études cliniques sur la qualité capillaire. Le choix des professionnels.",
     },
     vitalite: {
-      eco:      'Poudre économique à dissoudre dans votre boisson du matin. Simple et efficace.',
-      standard: 'Multi-collagène types I, II, III, V, X — couverture complète pour la vitalité globale.',
-      premium:  'Formule concentrée avec actifs complémentaires. Le choix des exigeants.',
+      eco:      "Poudre économique à dissoudre dans votre boisson du matin. Simple et efficace.",
+      standard: "Multi-collagène types I, II, III, V, X — couverture complète pour la vitalité globale.",
+      premium:  "Formule concentrée avec actifs complémentaires. Le choix des exigeants.",
     },
   };
 
-  document.querySelectorAll('.diag-choice').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const step = btn.dataset.step;
-      const val  = btn.dataset.val;
+  function fillResult() {
+    var slug = (reco[answers.objectif] && reco[answers.objectif][answers.budget])
+      ? reco[answers.objectif][answers.budget]
+      : 'nutriandco-collagene-naticol';
+    var p = produitsData[slug];
+    if (!p) return;
+
+    // Logo
+    var logoEl = document.getElementById('result-logo');
+    if (logoEl) {
+      var initials = p.brand.slice(0, 2).toUpperCase();
+      if (p.image) {
+        logoEl.innerHTML = '<img src="' + p.image + '" alt="' + p.brand + '" style="width:100%;height:100%;object-fit:contain;padding:4px;" onerror="this.parentElement.innerHTML=\'' + initials + '\';" />';
+      } else {
+        logoEl.textContent = initials;
+      }
+    }
+
+    var brandEl = document.getElementById('result-brand');
+    if (brandEl) brandEl.textContent = p.brand;
+    var titleEl = document.getElementById('result-title');
+    if (titleEl) titleEl.textContent = p.title;
+    var ctaEl = document.getElementById('result-cta');
+    if (ctaEl) ctaEl.href = '/produit/' + p.slug;
+
+    var priceEl = document.getElementById('result-price');
+    if (priceEl && p.price) {
+      priceEl.textContent = p.price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+    }
+
+    var starsEl = document.getElementById('result-stars');
+    if (starsEl) {
+      starsEl.innerHTML = '';
+      for (var j = 0; j < 5; j++) {
+        var star = document.createElement('span');
+        star.textContent = '★';
+        star.style.color = j < Math.round(p.rating) ? '#f59e0b' : '#e2e8f0';
+        star.style.fontSize = '1.125rem';
+        starsEl.appendChild(star);
+      }
+      var ratingSpan = document.createElement('span');
+      ratingSpan.style.fontSize = '0.875rem';
+      ratingSpan.style.fontWeight = '600';
+      ratingSpan.style.color = '#334155';
+      ratingSpan.style.marginLeft = '4px';
+      ratingSpan.textContent = p.rating + '/5';
+      starsEl.appendChild(ratingSpan);
+    }
+
+    var whyEl = document.getElementById('result-why');
+    if (whyEl) {
+      var why = whys[answers.objectif] && whys[answers.objectif][answers.budget]
+        ? whys[answers.objectif][answers.budget]
+        : '';
+      whyEl.textContent = why;
+    }
+
+    show('step-result');
+    setProgress(100);
+  }
+
+  // Clicks sur les choix
+  var choices = document.querySelectorAll('.diag-choice');
+  choices.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var step = btn.getAttribute('data-step');
+      var val  = btn.getAttribute('data-val');
 
       if (step === '1') {
         answers.objectif = val;
@@ -253,57 +341,96 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (step === '2') {
         answers.budget = val;
         show('step-3');
-        setProgress(100);
+        setProgress(83);
       } else if (step === '3') {
-        // Déterminer le slug recommandé
-        const slug = reco[answers.objectif]?.[answers.budget] ?? 'nutriandco-collagene-naticol';
-        const p = produitsData[slug];
-        if (!p) return;
-
-        // Remplir le résultat
-        const logoEl = document.getElementById('result-logo');
-        if (p.image) {
-          logoEl.innerHTML = `<img src="${p.image}" alt="${p.brand}" class="w-full h-full object-contain p-1" onerror="this.parentElement.textContent='${p.brand.slice(0,2).toUpperCase()}'" />`;
-        } else {
-          logoEl.textContent = p.brand.slice(0,2).toUpperCase();
-          logoEl.className += ' bg-brand-600 text-white font-bold text-xl';
-        }
-
-        document.getElementById('result-brand').textContent  = p.brand;
-        document.getElementById('result-title').textContent  = p.title;
-        document.getElementById('result-cta').href           = `/produit/${p.slug}`;
-
-        if (p.price) {
-          document.getElementById('result-price').textContent = p.price.toLocaleString('fr-FR', { style:'currency', currency:'EUR' });
-        }
-
-        const starsEl = document.getElementById('result-stars');
-        starsEl.innerHTML = '';
-        for (let j = 0; j < 5; j++) {
-          const star = document.createElement('span');
-          star.textContent = '★';
-          star.className = j < Math.round(p.rating) ? 'text-amber-400 text-lg' : 'text-slate-200 text-lg';
-          starsEl.appendChild(star);
-        }
-        const ratingSpan = document.createElement('span');
-        ratingSpan.className = 'text-sm font-semibold text-slate-700 ml-1';
-        ratingSpan.textContent = `${p.rating}/5`;
-        starsEl.appendChild(ratingSpan);
-
-        const why = whys[answers.objectif]?.[answers.budget] ?? '';
-        document.getElementById('result-why').textContent = why;
-
-        show('step-result');
+        answers.format = val;
+        fillResult();
       }
     });
   });
 
-  document.getElementById('diag-back-1').addEventListener('click', () => { show('step-1'); setProgress(33); });
-  document.getElementById('diag-back-2').addEventListener('click', () => { show('step-2'); setProgress(66); });
-  document.getElementById('diag-restart').addEventListener('click', () => {
-    answers = { objectif: '', budget: '' };
+  // Retour
+  var back1 = document.getElementById('diag-back-1');
+  if (back1) back1.addEventListener('click', function () { show('step-1'); setProgress(33); });
+  var back2 = document.getElementById('diag-back-2');
+  if (back2) back2.addEventListener('click', function () { show('step-2'); setProgress(66); });
+
+  // Restart
+  var restart = document.getElementById('diag-restart');
+  if (restart) restart.addEventListener('click', function () {
+    answers = { objectif: '', budget: '', format: '' };
+    // Reset email form
+    var formWrap = document.getElementById('email-form-wrap');
+    var successEl = document.getElementById('email-success');
+    var inputEl = document.getElementById('diag-email-input');
+    if (formWrap) formWrap.classList.remove('hidden');
+    if (successEl) successEl.classList.add('hidden');
+    if (inputEl) inputEl.value = '';
     show('step-1');
     setProgress(33);
   });
-}); // end DOMContentLoaded
+
+  // Soumission email
+  var emailForm = document.getElementById('diag-email-form');
+  if (emailForm) {
+    emailForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var inputEl = document.getElementById('diag-email-input');
+      var errorEl = document.getElementById('diag-email-error');
+      var btnText = document.getElementById('diag-email-btn-text');
+      var spinner = document.getElementById('diag-email-spinner');
+      var btn     = document.getElementById('diag-email-btn');
+
+      var email = inputEl ? inputEl.value.trim() : '';
+      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRe.test(email)) {
+        if (errorEl) errorEl.classList.remove('hidden');
+        return;
+      }
+      if (errorEl) errorEl.classList.add('hidden');
+
+      // UI loading
+      if (btnText) btnText.textContent = 'Envoi en cours…';
+      if (spinner) spinner.classList.remove('hidden');
+      if (btn) btn.disabled = true;
+
+      // Récupérer les infos produit recommandé
+      var slug = (reco[answers.objectif] && reco[answers.objectif][answers.budget])
+        ? reco[answers.objectif][answers.budget]
+        : 'nutriandco-collagene-naticol';
+      var p = produitsData[slug] || {};
+
+      fetch('/api/diagnostic-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          objectif: answers.objectif,
+          budget: answers.budget,
+          format: answers.format,
+          productSlug: p.slug || slug,
+          productTitle: p.title || '',
+          productBrand: p.brand || '',
+        }),
+      })
+      .then(function (res) { return res.json(); })
+      .then(function () {
+        var formWrap = document.getElementById('email-form-wrap');
+        var successEl = document.getElementById('email-success');
+        if (formWrap) formWrap.classList.add('hidden');
+        if (successEl) successEl.classList.remove('hidden');
+      })
+      .catch(function () {
+        if (btnText) btnText.textContent = 'Recevoir mon protocole →';
+        if (spinner) spinner.classList.add('hidden');
+        if (btn) btn.disabled = false;
+        if (errorEl) {
+          errorEl.textContent = 'Une erreur est survenue. Réessayez.';
+          errorEl.classList.remove('hidden');
+        }
+      });
+    });
+  }
+})();
 </script>
