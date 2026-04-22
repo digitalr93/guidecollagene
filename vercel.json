@@ -4,5 +4,31 @@
       "path": "/api/audit-email",
       "schedule": "0 7 * * *"
     }
+  ],
+  "redirects": [
+    { "source": "/qui-sommes-nous", "destination": "/a-propos", "permanent": true },
+    { "source": "/qui-sommes-nous/", "destination": "/a-propos", "permanent": true },
+    { "source": "/bienfaits-collagene", "destination": "/guide/bienfaits-collagene", "permanent": true },
+    { "source": "/bienfaits-collagene/", "destination": "/guide/bienfaits-collagene", "permanent": true },
+    { "source": "/collagene-marin-bovin-lequel-choisir", "destination": "/guide/collagene-marin-vs-bovin", "permanent": true },
+    { "source": "/collagene-marin-bovin-lequel-choisir/", "destination": "/guide/collagene-marin-vs-bovin", "permanent": true },
+    { "source": "/collagene-marin-vitamine-c", "destination": "/guide/collagene-vitamine-c", "permanent": true },
+    { "source": "/collagene-marin-vitamine-c/", "destination": "/guide/collagene-vitamine-c", "permanent": true },
+    { "source": "/tripeptides-de-collagene", "destination": "/guide/collagene-type-1-2-3", "permanent": true },
+    { "source": "/tripeptides-de-collagene/", "destination": "/guide/collagene-type-1-2-3", "permanent": true },
+    { "source": "/collagene-7-bienfaits-prouves-pour-la-peau-et-la-sante", "destination": "/guide/bienfaits-collagene", "permanent": true },
+    { "source": "/collagene-7-bienfaits-prouves-pour-la-peau-et-la-sante/", "destination": "/guide/bienfaits-collagene", "permanent": true },
+    { "source": "/collagene-fait-il-grossir", "destination": "/guide/collagene-prise-de-poids", "permanent": true },
+    { "source": "/collagene-fait-il-grossir/", "destination": "/guide/collagene-prise-de-poids", "permanent": true },
+    { "source": "/meilleur-collagene", "destination": "/comparatif", "permanent": true },
+    { "source": "/meilleur-collagene/", "destination": "/comparatif", "permanent": true },
+    { "source": "/comparatif-collagene", "destination": "/comparatif", "permanent": true },
+    { "source": "/comparatif-collagene/", "destination": "/comparatif", "permanent": true },
+    { "source": "/collagene-pour-les-articulations", "destination": "/guide/collagene-articulations", "permanent": true },
+    { "source": "/collagene-pour-les-articulations/", "destination": "/guide/collagene-articulations", "permanent": true },
+    { "source": "/collagene-et-peau", "destination": "/guide/collagene-peau-anti-age", "permanent": true },
+    { "source": "/collagene-et-peau/", "destination": "/guide/collagene-peau-anti-age", "permanent": true },
+    { "source": "/collagene-bovin-vs-marin", "destination": "/guide/collagene-marin-vs-bovin", "permanent": true },
+    { "source": "/collagene-bovin-vs-marin/", "destination": "/guide/collagene-marin-vs-bovin", "permanent": true }
   ]
 }
