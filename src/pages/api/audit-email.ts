@@ -55,6 +55,8 @@ export const GET: APIRoute = async () => {
 
   if (supabaseUrl && supabaseKey) {
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
       const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
       const res = await fetch(
         `${supabaseUrl}/rest/v1/clicks?product_id=eq.nutrimuscle-coupon&clicked_at=gte.${since}&select=destination_url`,
@@ -63,15 +65,17 @@ export const GET: APIRoute = async () => {
             apikey: supabaseKey,
             Authorization: `Bearer ${supabaseKey}`,
           },
+          signal: controller.signal,
         }
       );
+      clearTimeout(timeoutId);
       if (res.ok) {
         const rows: { destination_url: string }[] = await res.json();
         nmClicks = rows.length;
         nmCopies = rows.filter(r => r.destination_url?.includes('code-copy')).length;
         nmCtas   = rows.filter(r => r.destination_url?.includes('nmsquad')).length;
       }
-    } catch (_) { /* silencieux si Supabase indisponible */ }
+    } catch (_) { /* silencieux si Supabase indisponible ou timeout */ }
   }
 
   // Opportunités de contenu manquant (URLs WP encore sans article dédié)
