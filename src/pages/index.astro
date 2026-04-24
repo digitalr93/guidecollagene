@@ -101,15 +101,18 @@ const websiteSchema = {
             class="relative rounded-3xl object-cover w-full aspect-[4/3] shadow-xl"
             loading="eager"
           />
-          <!-- Badge flottant -->
-          <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-lg px-4 py-3 border border-slate-100">
-            <p class="text-xs text-slate-500 mb-0.5">Meilleur choix 2026</p>
-            <p class="font-bold text-slate-900 text-sm">Sunday Natural Naticol®</p>
-            <div class="flex items-center gap-1 mt-0.5">
-              <span class="text-amber-400 text-xs">★★★★★</span>
-              <span class="text-xs font-medium text-slate-700">4.8/5</span>
-            </div>
-          </div>
+          <!-- Badge flottant — premier produit featured -->
+          {featuredProducts[0] && (
+            <a href={`/produit/${featuredProducts[0].id}`}
+               class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-lg px-4 py-3 border border-amber-200 hover:shadow-xl transition-shadow">
+              <p class="text-xs text-amber-600 font-semibold mb-0.5">🥇 Meilleur choix 2026</p>
+              <p class="font-bold text-slate-900 text-sm">{featuredProducts[0].data.brand}</p>
+              <div class="flex items-center gap-1 mt-0.5">
+                <span class="text-amber-400 text-xs">★★★★★</span>
+                <span class="text-xs font-medium text-slate-700">{featuredProducts[0].data.rating}/5</span>
+              </div>
+            </a>
+          )}
         </div>
 
       </div>

@@ -31,7 +31,7 @@ certifications:
   - Grass-fed
 publishedAt: 2026-02-01
 updatedAt: 2026-04-10
-featured: true
+featured: false
 ---
 
 ## Présentation
