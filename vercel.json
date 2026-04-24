@@ -29,6 +29,12 @@
     { "source": "/collagene-et-peau", "destination": "/guide/collagene-peau-anti-age", "permanent": true },
     { "source": "/collagene-et-peau/", "destination": "/guide/collagene-peau-anti-age", "permanent": true },
     { "source": "/collagene-bovin-vs-marin", "destination": "/guide/collagene-marin-vs-bovin", "permanent": true },
-    { "source": "/collagene-bovin-vs-marin/", "destination": "/guide/collagene-marin-vs-bovin", "permanent": true }
+    { "source": "/collagene-bovin-vs-marin/", "destination": "/guide/collagene-marin-vs-bovin", "permanent": true },
+    { "source": "/category/tout-savoir-sur-le-collagene", "destination": "/guide", "permanent": true },
+    { "source": "/category/tout-savoir-sur-le-collagene/", "destination": "/guide", "permanent": true },
+    { "source": "/le-collagene-marin-dangers-et-precautions-a-connaitre", "destination": "/guide/collagene-marin-contre-indication", "permanent": true },
+    { "source": "/le-collagene-marin-dangers-et-precautions-a-connaitre/", "destination": "/guide/collagene-marin-contre-indication", "permanent": true },
+    { "source": "/collagene-et-ongles", "destination": "/guide/collagene-ongles", "permanent": true },
+    { "source": "/collagene-et-ongles/", "destination": "/guide/collagene-ongles", "permanent": true }
   ]
 }
