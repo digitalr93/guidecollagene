@@ -35,6 +35,12 @@
     { "source": "/le-collagene-marin-dangers-et-precautions-a-connaitre", "destination": "/guide/collagene-marin-contre-indication", "permanent": true },
     { "source": "/le-collagene-marin-dangers-et-precautions-a-connaitre/", "destination": "/guide/collagene-marin-contre-indication", "permanent": true },
     { "source": "/collagene-et-ongles", "destination": "/guide/collagene-ongles", "permanent": true },
-    { "source": "/collagene-et-ongles/", "destination": "/guide/collagene-ongles", "permanent": true }
+    { "source": "/collagene-et-ongles/", "destination": "/guide/collagene-ongles", "permanent": true },
+    { "source": "/dose-collagene-par-jour", "destination": "/guide/dosage-collagene", "permanent": true },
+    { "source": "/dose-collagene-par-jour/", "destination": "/guide/dosage-collagene", "permanent": true },
+    { "source": "/le-collagene-pour-les-cheveux", "destination": "/guide/collagene-cheveux", "permanent": true },
+    { "source": "/le-collagene-pour-les-cheveux/", "destination": "/guide/collagene-cheveux", "permanent": true },
+    { "source": "/les-bienfaits-du-collagene-pour-la-peau", "destination": "/guide/collagene-peau-anti-age", "permanent": true },
+    { "source": "/les-bienfaits-du-collagene-pour-la-peau/", "destination": "/guide/collagene-peau-anti-age", "permanent": true }
   ]
 }
