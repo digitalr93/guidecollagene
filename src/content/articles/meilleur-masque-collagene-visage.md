@@ -4,7 +4,7 @@ description: "Masque collagène visage : quel type choisir, comment ils fonction
 image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=80"
 imageAlt: "Femme avec masque de soin visage hydratant collagène"
 publishedAt: 2026-04-20
-author: dr-martin-rousseau
+author: "Le pro du collagène"
 category: Comparatif
 tags:
   - masque

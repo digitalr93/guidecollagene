@@ -4,7 +4,7 @@ description: "Vitamine C et collagène forment un duo indissociable. On vous exp
 image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1200&q=80"
 imageAlt: "Oranges fraîches et compléments alimentaires vitamine C"
 publishedAt: 2026-04-20
-author: dr-martin-rousseau
+author: "Le pro du collagène"
 category: Science
 tags:
   - vitamine C

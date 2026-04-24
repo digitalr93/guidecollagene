@@ -4,7 +4,7 @@ description: "Masques coréens au collagène, sheet masks, routine K-beauty : ce
 image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1200&q=80"
 imageAlt: "Femme appliquant un masque sheet mask coréen pour la peau"
 publishedAt: 2026-04-20
-author: "dr-martin-rousseau"
+author: "Le pro du collagène"
 category: Beauté
 tags:
   - masque

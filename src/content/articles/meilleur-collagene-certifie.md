@@ -8,7 +8,7 @@ tags:
   - Naticol
   - Verisol
   - comparatif
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-24
 updatedAt: 2026-04-24
 image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80"

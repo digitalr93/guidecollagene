@@ -8,7 +8,7 @@ tags:
   - pousse cheveux
   - kératine
   - beauté
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-22
 updatedAt: 2026-04-22
 image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1200&q=80"

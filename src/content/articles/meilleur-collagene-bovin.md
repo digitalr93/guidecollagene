@@ -7,7 +7,7 @@ tags:
   - meilleur collagène
   - comparatif
   - grass-fed
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-22
 updatedAt: 2026-04-22
 image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200&q=80"

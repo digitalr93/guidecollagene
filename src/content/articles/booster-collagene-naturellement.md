@@ -7,7 +7,7 @@ tags:
   - alimentation collagène
   - production endogène
   - mode de vie
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-24
 updatedAt: 2026-04-24
 image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&q=80"

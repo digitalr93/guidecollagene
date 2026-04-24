@@ -7,7 +7,7 @@ tags:
   - vegan
   - alternative végane
   - booster collagène
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-24
 updatedAt: 2026-04-24
 image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=1200&q=80"

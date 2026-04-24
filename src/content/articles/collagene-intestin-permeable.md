@@ -8,7 +8,7 @@ tags:
   - collagène santé intestinale
   - glycine
   - microbiome
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-22
 updatedAt: 2026-04-22
 image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=80"

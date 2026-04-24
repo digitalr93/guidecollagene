@@ -7,7 +7,7 @@ tags:
   - compléments enceinte
   - sécurité
   - femme enceinte
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-22
 updatedAt: 2026-04-22
 image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=1200&q=80"

@@ -7,7 +7,7 @@ tags:
   - collagène marin certifié
   - WEISHARDT
   - peptides marins
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-24
 updatedAt: 2026-04-24
 image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80"

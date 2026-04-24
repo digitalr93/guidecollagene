@@ -8,7 +8,7 @@ tags:
   - booster collagène
   - peau cheveux ongles
   - végétal
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-24
 updatedAt: 2026-04-24
 image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&q=80"

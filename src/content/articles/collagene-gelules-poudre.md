@@ -7,7 +7,7 @@ tags:
   - collagène poudre
   - forme galénique
   - biodisponibilité
-author: "regis-eklo"
+author: "Le pro du collagène"
 publishedAt: 2026-04-22
 updatedAt: 2026-04-22
 image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&q=80"

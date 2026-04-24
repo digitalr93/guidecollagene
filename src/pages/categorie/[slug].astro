@@ -24,7 +24,15 @@ const category = CATEGORIES[slug as keyof typeof CATEGORIES];
 const produits = await getCollection('produits', ({ data }) =>
   data.category === slug && !data.draft
 );
-produits.sort((a, b) => b.data.rating - a.data.rating);
+produits.sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return b.data.rating - a.data.rating;
+});
+
+const articles = await getCollection('articles', ({ data }) =>
+  data.category?.toLowerCase() === slug && !data.draft
+);
+articles.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -55,47 +63,88 @@ const breadcrumbSchema = {
       <p class="text-xl text-slate-600 max-w-2xl">{category.desc}</p>
     </header>
 
-    {produits.length === 0 ? (
-      <div class="text-center py-16 text-slate-500">
-        <p class="text-lg">Aucun produit dans cette catégorie pour l'instant.</p>
-        <a href="/comparatif" class="mt-4 inline-block text-brand-600 hover:underline">Voir le comparatif global</a>
-      </div>
-    ) : (
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {produits.map((p, i) => (
-          <article class="card hover:shadow-md transition-shadow">
-            {i === 0 && (
-              <span class="badge bg-amber-100 text-amber-800 font-semibold mb-2">
-                Meilleur {category.label}
-              </span>
-            )}
-            {p.data.image && (
-              <img
-                src={p.data.image}
-                alt={p.data.imageAlt ?? p.data.title}
-                class="w-full h-40 object-contain mb-4 rounded-lg bg-slate-50"
-              />
-            )}
-            <h2 class="font-bold text-slate-900 mb-1">
-              <a href={`/produit/${p.id}`} class="hover:text-brand-600 transition-colors">
-                {p.data.title}
+    {produits.length > 0 && (
+      <>
+        <h2 class="text-xl font-bold text-slate-900 mb-6">Produits sélectionnés</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+          {produits.map((p, i) => (
+            <article class="card hover:shadow-md transition-shadow">
+              {i === 0 && (
+                <span class="badge bg-amber-100 text-amber-800 font-semibold mb-2">
+                  🥇 Meilleur {category.label}
+                </span>
+              )}
+              {p.data.image && (
+                <img
+                  src={p.data.image}
+                  alt={p.data.imageAlt ?? p.data.title}
+                  class="w-full h-40 object-contain mb-4 rounded-lg bg-slate-50"
+                />
+              )}
+              <h3 class="font-bold text-slate-900 mb-1">
+                <a href={`/produit/${p.id}`} class="hover:text-brand-600 transition-colors">
+                  {p.data.title}
+                </a>
+              </h3>
+              <p class="text-sm text-slate-500 mb-2">{p.data.brand}</p>
+              <div class="flex items-center gap-1 mb-3">
+                <span class="text-amber-400 text-sm">{'★'.repeat(Math.round(p.data.rating))}</span>
+                <span class="text-sm">{p.data.rating}/5</span>
+              </div>
+              {p.data.price && (
+                <p class="font-semibold text-slate-900 mb-3">
+                  {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })}
+                </p>
+              )}
+              <a href={`/produit/${p.id}`} class="btn-secondary w-full text-center text-sm">
+                Lire l'avis →
               </a>
-            </h2>
-            <p class="text-sm text-slate-500 mb-2">{p.data.brand}</p>
-            <div class="flex items-center gap-1 mb-3">
-              <span class="text-amber-400 text-sm">{'★'.repeat(Math.round(p.data.rating))}</span>
-              <span class="text-sm">{p.data.rating}/5</span>
-            </div>
-            {p.data.price && (
-              <p class="font-semibold text-slate-900 mb-3">
-                {p.data.price.toLocaleString('fr-FR', { style: 'currency', currency: p.data.currency })}
-              </p>
-            )}
-            <a href={`/produit/${p.id}`} class="btn-secondary w-full text-center text-sm">
-              Lire l'avis →
-            </a>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
+      </>
+    )}
+
+    {articles.length > 0 && (
+      <>
+        <h2 class="text-xl font-bold text-slate-900 mb-6">Guides & articles</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articles.map((a) => (
+            <article class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+              {a.data.image ? (
+                <div class="aspect-video overflow-hidden">
+                  <img src={a.data.image} alt={a.data.imageAlt ?? a.data.title}
+                       width="400" height="225"
+                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                       loading="lazy" />
+                </div>
+              ) : (
+                <div class="aspect-video bg-gradient-to-br from-brand-50 to-amber-50 flex items-center justify-center">
+                  <span class="text-5xl" aria-hidden="true">📖</span>
+                </div>
+              )}
+              <div class="p-5">
+                <h3 class="font-bold text-slate-900 mb-2 leading-snug line-clamp-2 group-hover:text-brand-600 transition-colors">
+                  <a href={`/guide/${a.id}`}>{a.data.title}</a>
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 line-clamp-2">{a.data.description}</p>
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                  <time datetime={a.data.publishedAt.toISOString()}>
+                    {a.data.publishedAt.toLocaleDateString('fr-FR', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </time>
+                  <span class="text-brand-600 font-medium group-hover:underline">Lire →</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
+
+    {produits.length === 0 && articles.length === 0 && (
+      <div class="text-center py-16 text-slate-500">
+        <p class="text-lg">Aucun contenu dans cette catégorie pour l'instant.</p>
+        <a href="/comparatif" class="mt-4 inline-block text-brand-600 hover:underline">Voir le comparatif global</a>
       </div>
     )}
   </div>
