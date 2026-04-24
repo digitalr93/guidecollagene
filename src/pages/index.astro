@@ -17,12 +17,39 @@ const featuredProducts = allProducts.slice(0, 6);
 const featuredArticle  = allArticles.find(a => a.data.featured) ?? allArticles[0];
 const latestArticles   = allArticles.filter(a => a.id !== featuredArticle?.id).slice(0, 6);
 
+// Stats dynamiques
+const avgRating = allProducts.length
+  ? (allProducts.reduce((sum, p) => sum + p.data.rating, 0) / allProducts.length).toFixed(1)
+  : '4.7';
+
 const categories = [
   { slug: 'marin',    label: 'Collagène marin',   icon: '🐟', desc: 'Le plus étudié pour la peau' },
   { slug: 'bovin',    label: 'Collagène bovin',    icon: '🥩', desc: 'Peptides type I & III' },
   { slug: 'peptides', label: 'Peptides purs',      icon: '🧪', desc: 'Certifiés Peptan® Naticol®' },
   { slug: 'vegetal',  label: 'Option végétale',    icon: '🌿', desc: 'Cofacteurs & silicium' },
 ];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Quel est le meilleur collagène en 2026 ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Le collagène marin hydrolysé de qualité pharmaceutique (type I) est le mieux documenté pour la peau et les articulations. Nutrimuscle propose une formule pure grass-fed sans additifs, parmi les meilleures du marché français.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Quelle dose de collagène par jour ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Les études cliniques utilisent entre 2,5 et 15 g de peptides hydrolysés par jour. La dose de référence est de 10 g/j pour la peau et les articulations, à prendre sur une durée minimale de 8 à 12 semaines.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Collagène marin ou bovin : lequel choisir ?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Le collagène marin (type I dominant) est légèrement mieux absorbé et plus étudié pour la peau. Le bovin (type I + III) est moins cher et couvre aussi les articulations. Les deux sont efficaces à dose équivalente.' },
+    },
+  ],
+};
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -43,6 +70,7 @@ const websiteSchema = {
   description="Guides d'achat experts, comparatifs indépendants et avis détaillés sur les meilleurs compléments de collagène 2026. Marin, bovin, végétal — basé sur les études cliniques."
 >
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
   <section class="relative overflow-hidden bg-white">
@@ -100,6 +128,7 @@ const websiteSchema = {
             width="800" height="600"
             class="relative rounded-3xl object-cover w-full aspect-[4/3] shadow-xl"
             loading="eager"
+            fetchpriority="high"
           />
           <!-- Badge flottant — premier produit featured -->
           {featuredProducts[0] && (
@@ -119,6 +148,22 @@ const websiteSchema = {
     </div>
   </section>
 
+
+  <!-- ═══ STATS BAR ══════════════════════════════════════════════════ -->
+  <section class="bg-slate-900 py-6 px-4">
+    <div class="max-w-4xl mx-auto grid grid-cols-3 gap-4 text-center">
+      {[
+        { value: allArticles.length.toString(), label: 'Guides experts' },
+        { value: allProducts.length.toString(), label: 'Produits testés' },
+        { value: `${avgRating}/5`, label: 'Note moyenne' },
+      ].map(({ value, label }) => (
+        <div>
+          <p class="text-2xl sm:text-3xl font-bold text-white">{value}</p>
+          <p class="text-xs sm:text-sm text-slate-400 mt-0.5">{label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 
   <!-- ═══ CATÉGORIES ══════════════════════════════════════════════════ -->
   <section class="max-w-6xl mx-auto px-4 py-14">
@@ -242,6 +287,38 @@ const websiteSchema = {
     </section>
   )}
 
+  <!-- ═══ PROMO NUTRIMUSCLE ═══════════════════════════════════════════ -->
+  <section class="bg-amber-50 border-y border-amber-200 py-8 px-4">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <img src="/logos/nutrimuscle.avif" alt="Nutrimuscle" width="64" height="64"
+             class="w-14 h-14 object-contain rounded-xl bg-white border border-amber-200 p-1 flex-shrink-0" loading="lazy" />
+        <div>
+          <p class="font-bold text-slate-900 text-lg leading-tight">Nutrimuscle Collagène</p>
+          <p class="text-sm text-slate-600">Qualité pharmaceutique · Grass-fed · Sans additifs</p>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="text-amber-400 text-sm">★★★★★</span>
+            <span class="text-sm font-semibold text-slate-700">4.8/5</span>
+            <span class="text-xs text-slate-400">· Notre choix n°1</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col sm:items-end gap-3 w-full sm:w-auto">
+        <div class="flex items-center gap-2 bg-white border border-amber-300 rounded-xl px-4 py-2">
+          <span class="text-sm text-slate-500">Code promo :</span>
+          <span class="font-mono font-bold text-amber-700 tracking-widest">NME_GC</span>
+          <span class="text-sm font-semibold text-emerald-600">−5%</span>
+        </div>
+        <a href="https://nmsquad.link/02ocm"
+           rel="nofollow noopener sponsored"
+           target="_blank"
+           class="w-full sm:w-auto text-center bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-3 rounded-xl transition-colors shadow-sm">
+          Profiter du code →
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ ARTICLE FEATURED ════════════════════════════════════════════ -->
   {featuredArticle && (
     <section class="bg-slate-50 px-4 pt-14 pb-0">
@@ -333,8 +410,35 @@ const websiteSchema = {
     </section>
   )}
 
+  <!-- ═══ FAQ ════════════════════════════════════════════════════════ -->
+  <section class="bg-white px-4 py-16">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">Questions fréquentes</h2>
+      <div class="space-y-4">
+        {faqSchema.mainEntity.map((item) => (
+          <details class="group border border-slate-200 rounded-2xl overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-semibold text-slate-900 hover:bg-slate-50 transition-colors list-none">
+              {item.name}
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <div class="px-6 pb-5 pt-1 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
+              {item.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+      <p class="text-center mt-8">
+        <a href="/guide" class="text-brand-600 hover:text-brand-800 font-medium text-sm">
+          Voir tous nos guides →
+        </a>
+      </p>
+    </div>
+  </section>
+
   <!-- ═══ POURQUOI NOUS FAIRE CONFIANCE ═══════════════════════════════ -->
-  <section class="bg-slate-900 px-4 pt-14 pb-0">
+  <section class="bg-slate-900 px-4 pt-14 pb-14">
     <div class="max-w-5xl mx-auto">
     <h2 class="text-2xl font-bold text-white mb-10 text-center">Pourquoi nous faire confiance ?</h2>
     <div class="grid sm:grid-cols-3 gap-8">
@@ -373,11 +477,14 @@ const websiteSchema = {
         Notre comparatif classe {allProducts.length} produits sur 5 critères objectifs.
       </p>
       <div class="flex flex-wrap gap-4 justify-center">
-        <a href="/comparatif" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base">
-          Voir le comparatif complet →
+        <a href="https://nmsquad.link/02ocm"
+           rel="nofollow noopener sponsored"
+           target="_blank"
+           class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base shadow-sm">
+          🏷️ Nutrimuscle — code NME_GC (-5%) →
         </a>
-        <a href="/guide/meilleur-collagene-marin" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base border border-white/20">
-          Top marin 2026
+        <a href="/comparatif" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-colors text-base border border-white/20">
+          Voir le comparatif →
         </a>
       </div>
     </div>
