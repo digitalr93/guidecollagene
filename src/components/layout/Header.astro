@@ -34,10 +34,13 @@ const pathname = Astro.url.pathname;
           </a>
         ))}
         <a
-          href="/guide/meilleur-collagene-marin"
-          class="ml-2 px-4 py-2 rounded-full bg-[#D44D2E] text-white text-sm font-semibold hover:bg-[#C0432A] transition-colors whitespace-nowrap"
+          href="https://nmsquad.link/02ocm"
+          rel="nofollow noopener sponsored"
+          target="_blank"
+          class="ml-2 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-500 text-white text-sm font-semibold hover:bg-amber-600 transition-colors whitespace-nowrap shadow-sm"
+          id="nav-nm-cta"
         >
-          Meilleur choix →
+          🏷️ Nutrimuscle <span class="opacity-80 font-mono text-xs">-5%</span>
         </a>
       </nav>
 
@@ -64,8 +67,14 @@ const pathname = Astro.url.pathname;
           {label}
         </a>
       ))}
-      <a href="/comparatif" class="block mx-4 mt-3 px-4 py-2 rounded-full bg-[#D44D2E] text-white text-sm font-semibold text-center hover:bg-[#C0432A] transition-colors">
-        Meilleur choix →
+      <a
+        href="https://nmsquad.link/02ocm"
+        rel="nofollow noopener sponsored"
+        target="_blank"
+        class="block mx-4 mt-3 px-4 py-2 rounded-full bg-amber-500 text-white text-sm font-semibold text-center hover:bg-amber-600 transition-colors"
+        id="nav-nm-cta-mobile"
+      >
+        🏷️ Nutrimuscle — code NME_GC (-5%)
       </a>
     </nav>
   </div>
@@ -78,5 +87,20 @@ const pathname = Astro.url.pathname;
     const open = !menu?.classList.contains('hidden');
     menu?.classList.toggle('hidden');
     btn.setAttribute('aria-expanded', String(!open));
+  });
+
+  // Tracking clics bouton Nutrimuscle nav
+  ['nav-nm-cta', 'nav-nm-cta-mobile'].forEach((id) => {
+    document.getElementById(id)?.addEventListener('click', () => {
+      const payload = JSON.stringify({
+        clickId: `nm-nav-${Date.now()}`,
+        productId: 'nutrimuscle-nav',
+        merchant: 'nutrimuscle',
+        destinationUrl: 'https://nmsquad.link/02ocm',
+        sourcePage: window.location.pathname,
+        device: /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+      });
+      navigator.sendBeacon('/api/click', new Blob([payload], { type: 'application/json' }));
+    });
   });
 </script>
