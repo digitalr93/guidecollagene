@@ -12,6 +12,16 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
+
+// Derive key points from H2 headings if not explicitly set in frontmatter
+const autoKeyPoints = article.body
+  ? article.body
+      .split('\n')
+      .filter((line: string) => line.startsWith('## '))
+      .map((line: string) => line.replace(/^## /, '').trim())
+      .slice(0, 5)
+  : [];
+const resolvedKeyPoints = article.data.keyPoints?.length ? article.data.keyPoints : autoKeyPoints;
 ---
 
 <ArticleLayout
@@ -26,7 +36,7 @@ const { Content } = await render(article);
   faq={article.data.faq}
   slug={article.id}
   featuredProducts={article.data.featuredProducts}
-  keyPoints={article.data.keyPoints}
+  keyPoints={resolvedKeyPoints}
 >
   <Content />
 </ArticleLayout>

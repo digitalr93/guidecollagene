@@ -35,13 +35,8 @@ const {
   keyPoints,
 } = Astro.props;
 
-// "En résumé" : utilise keyPoints si fournis, sinon extrait la 1ère phrase des 4 premières FAQ
-const summaryPoints: string[] = keyPoints?.length
-  ? keyPoints
-  : (faq?.slice(0, 4).map((f) => {
-      const first = f.answer.split(/\.\s+/)[0];
-      return first.endsWith('.') ? first : first + '.';
-    }) ?? []);
+// "En résumé" : keyPoints transmis depuis [slug].astro (H2 auto ou keyPoints frontmatter)
+const summaryPoints: string[] = keyPoints ?? [];
 
 const canonical = `${SITE_URL}${Astro.url.pathname}`;
 
@@ -70,9 +65,14 @@ const sidebarArticles = relatedArticles.length >= 3
   ? relatedArticles
   : [...relatedArticles, ...fallbackArticles].slice(0, 5);
 
-// Featured products (guides d'achat) — logos inline dans l'article
+// Featured products (guides d'achat) — logos inline dans l'article, featured en premier
 const inlineProducts = featuredProductIds?.length
-  ? allProducts.filter((p) => featuredProductIds.includes(p.id))
+  ? allProducts
+      .filter((p) => featuredProductIds.includes(p.id))
+      .sort((a, b) => {
+        if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+        return b.data.rating - a.data.rating;
+      })
   : [];
 
 // JSON-LD Article
