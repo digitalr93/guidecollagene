@@ -1,0 +1,86 @@
+name: Daily Content Generation
+
+on:
+  # Tous les jours à 7h00 heure de Paris (06:00 UTC en été, 07:00 UTC en hiver)
+  schedule:
+    - cron: '0 6 * * *'
+  # Permet de déclencher manuellement depuis GitHub Actions
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Slug spécifique à générer (laisser vide pour le prochain dans la queue)'
+        required: false
+        default: ''
+      force:
+        description: 'Écraser si déjà existant (true/false)'
+        required: false
+        default: 'false'
+
+jobs:
+  generate-article:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate article
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FORCE: ${{ github.event.inputs.force == 'true' && '1' || '' }}
+        run: |
+          if [ -n "${{ github.event.inputs.slug }}" ]; then
+            node scripts/generate-article.mjs --slug=${{ github.event.inputs.slug }}
+          else
+            node scripts/generate-article.mjs
+          fi
+
+      - name: Check if new article was created
+        id: check_changes
+        run: |
+          git diff --name-only HEAD
+          if git status --porcelain | grep -q "src/content/articles/"; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            NEW_FILE=$(git status --porcelain | grep "src/content/articles/" | awk '{print $2}' | head -1)
+            echo "new_file=$NEW_FILE" >> $GITHUB_OUTPUT
+            ARTICLE_NAME=$(basename "$NEW_FILE" .md)
+            echo "article_name=$ARTICLE_NAME" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push new article
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/articles/ scripts/published.json
+          git commit -m "content: add article ${{ steps.check_changes.outputs.article_name }}
+
+          Auto-generated via GitHub Actions daily content pipeline.
+          Model: claude-opus-4-5"
+          git push
+
+      - name: Summary
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "## ✅ Nouvel article publié" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Fichier :** \`${{ steps.check_changes.outputs.new_file }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Le push déclenche automatiquement un redéploiement Vercel." >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes
+        if: steps.check_changes.outputs.has_changes == 'false'
+        run: |
+          echo "## ℹ️ Aucun article généré" >> $GITHUB_STEP_SUMMARY
+          echo "Queue vide ou article déjà existant." >> $GITHUB_STEP_SUMMARY

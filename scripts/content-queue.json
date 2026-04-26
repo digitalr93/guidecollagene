@@ -1,0 +1,250 @@
+[
+  {
+    "slug": "collagene-type-2-articulations",
+    "title": "Collagène Type 2 : le meilleur pour les articulations et le cartilage ?",
+    "category": "Science",
+    "tags": ["collagène type 2", "articulations", "cartilage", "UC-II"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Focus sur le type 2 natif (UC-II) vs type 2 hydrolysé, études cliniques sur l'arthrose et la mobilité articulaire, comparaison avec glucosamine/chondroïtine"
+  },
+  {
+    "slug": "collagene-sport-performance",
+    "title": "Collagène et Sport : quand et comment le prendre pour récupérer plus vite",
+    "category": "Sport",
+    "tags": ["collagène sport", "récupération musculaire", "tendon", "blessure"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "nutrimuscle-collagene-bovin"],
+    "angle": "Protocole scientifique (gélatine + vitamine C avant effort), fenêtre métabolique, études sur les tendons et ligaments, running/CrossFit/musculation"
+  },
+  {
+    "slug": "collagene-apres-50-ans",
+    "title": "Collagène après 50 ans : ce qui change et ce qu'il faut faire",
+    "category": "Sante",
+    "tags": ["collagène âge", "ménopause", "vieillissement", "senior"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "nutrimuscle-collagene-bovin"],
+    "angle": "Chute de production avec l'âge (-1%/an après 25 ans, accélération ménopause), besoins spécifiques 50+, dosage recommandé, études sur populations âgées"
+  },
+  {
+    "slug": "collagene-marine-vs-bovin-differences",
+    "title": "Collagène Marin vs Bovin : lequel choisir selon votre objectif ?",
+    "category": "comparatif",
+    "tags": ["collagène marin", "collagène bovin", "comparatif", "choix"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "nutrimuscle-collagene-bovin"],
+    "angle": "Comparaison factuelle : sources, types (I/II/III), biodisponibilité, profil acides aminés, prix, cas d'usage peau vs articulations vs sport"
+  },
+  {
+    "slug": "collagene-prise-de-masse",
+    "title": "Collagène pour la prise de masse : mythe ou réalité ?",
+    "category": "Sport",
+    "tags": ["collagène musculation", "prise de masse", "whey vs collagène", "protéines"],
+    "featuredProducts": ["nutrimuscle-collagene-bovin"],
+    "angle": "Le collagène n'est pas une protéine complète (faible en leucine) — rôle structural vs anabolique, complémentarité avec whey, intérêt pour les fascias et tendons en hypertrophie"
+  },
+  {
+    "slug": "vitamine-c-collagene-synergie",
+    "title": "Vitamine C et Collagène : une synergie indispensable à comprendre",
+    "category": "Science",
+    "tags": ["vitamine C", "synthèse collagène", "hydroxyproline", "cofacteur"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Rôle de la vitamine C comme cofacteur de la prolyl-hydroxylase, doses efficaces, études cliniques, quand prendre ensemble, sources alimentaires"
+  },
+  {
+    "slug": "collagene-peau-rides-effets",
+    "title": "Collagène et Rides : ce que les études disent vraiment",
+    "category": "Beaute",
+    "tags": ["collagène rides", "peau", "anti-âge", "élasticité"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "kreme-paris-creme-collagene"],
+    "angle": "Méta-analyses sur la peau (Proksch 2014, Bolke 2019), effets mesurés (hydratation, élasticité, ridules), délai d'action 8-12 semaines, Verisol vs peptides standards"
+  },
+  {
+    "slug": "collagene-genou-douleur",
+    "title": "Collagène pour les genoux douloureux : ce que la science recommande",
+    "category": "Sante",
+    "tags": ["collagène genou", "arthrose genou", "douleur articulaire", "cartilage"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Études spécifiques sur le genou (athletes + sujets arthrosiques), UC-II vs peptides hydrolysés, protocoles validés, résultats attendus à 3/6 mois"
+  },
+  {
+    "slug": "hydroxyproline-biomarqueur-collagene",
+    "title": "L'Hydroxyproline : le biomarqueur clé du métabolisme du collagène",
+    "category": "Science",
+    "tags": ["hydroxyproline", "biomarqueur", "acides aminés", "absorption"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Acide aminé quasi-exclusif au collagène, rôle dans la triple hélice, utilité comme marqueur d'absorption dans les études, taux urinaire, dosage sanguin"
+  },
+  {
+    "slug": "collagene-cheveux-croissance",
+    "title": "Collagène pour la Croissance des Cheveux : est-ce vraiment efficace ?",
+    "category": "Beaute",
+    "tags": ["collagène cheveux", "croissance cheveux", "kératine", "chute cheveux"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Mécanismes (précurseurs kératine, antioxydants de la gaine, derme papillaire), études disponibles (limitées mais positives), durée traitement, compléments associés"
+  },
+  {
+    "slug": "collagene-intestin-sibo-ibs",
+    "title": "Collagène et Intestin Irritable (IBS/SIBO) : que dit la recherche ?",
+    "category": "Sante",
+    "tags": ["collagène intestin", "IBS", "SIBO", "perméabilité intestinale"],
+    "featuredProducts": ["nutrimuscle-collagene-bovin"],
+    "angle": "Glycine et glutamine dans la réparation de la muqueuse, études sur tight junctions, cautious evidence, profils patients qui bénéficient le plus, limites"
+  },
+  {
+    "slug": "collagene-vegan-alternatif",
+    "title": "Collagène Vegan : est-ce que ça existe vraiment et comment ça marche ?",
+    "category": "vegetal",
+    "tags": ["collagène vegan", "végétalien", "booster collagène", "sans animal"],
+    "featuredProducts": [],
+    "angle": "Clarification : il n'existe pas de collagène vegan natif, mais des précurseurs végétaux (Pro-Collagène végétal, vitamine C, lysine, proline), études sur leur efficacité, alternatives réelles"
+  },
+  {
+    "slug": "collagene-thermique-chaleur-cuisine",
+    "title": "Le Collagène Résiste-t-il à la Chaleur ? Ce qu'il faut savoir en cuisine",
+    "category": "Science",
+    "tags": ["collagène chaleur", "dénaturation", "bouillon d'os", "cuisson"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Température de dénaturation, bouillon d'os et gélatine, collagène en poudre dans le café chaud (ok ou pas?), stockage et dégradation UV"
+  },
+  {
+    "slug": "collagene-os-fractures-osteoporose",
+    "title": "Collagène et Solidité Osseuse : utile contre l'ostéoporose ?",
+    "category": "Sante",
+    "tags": ["collagène os", "ostéoporose", "fractures", "densité osseuse"],
+    "featuredProducts": ["nutrimuscle-collagene-bovin"],
+    "angle": "Le collagène forme 90% de la matrice organique de l'os, études sur la densité minérale osseuse, complémentarité calcium/vitamine D/collagène, ménopause"
+  },
+  {
+    "slug": "naticol-vs-verisol-vs-peptan-2026",
+    "title": "Naticol® vs Verisol® vs Peptan® : lequel acheter en 2026 ?",
+    "category": "peptides",
+    "tags": ["Naticol", "Verisol", "Peptan", "peptides brevetés", "comparatif"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Comparatif factuel des 3 marques brevetées : source, poids moléculaire, études cliniques propres, indications, prix, disponibilité France"
+  },
+  {
+    "slug": "collagene-musculation-tendons-ligaments",
+    "title": "Collagène et Tendons : le protocole pour les sportifs blessés",
+    "category": "Sport",
+    "tags": ["collagène tendons", "ligaments", "blessure sport", "protocole Keith Baar"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Protocole Shaw/Baar : 15g gélatine + 500mg vit C, 1h avant exercice de mise en charge, études cliniques, application pratique pour sportifs, tendinite d'Achille"
+  },
+  {
+    "slug": "effets-secondaires-collagene",
+    "title": "Effets Secondaires du Collagène : tout ce qu'il faut savoir",
+    "category": "Sante",
+    "tags": ["effets secondaires collagène", "contre-indications", "sécurité", "interactions"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Revue exhaustive des effets indésirables documentés (digestifs légers, allergie poisson/bovin), populations à risque, interactions médicamenteuses (pas connues), sécurité long terme"
+  },
+  {
+    "slug": "collagene-prise-matin-soir",
+    "title": "Collagène le Matin ou le Soir : quelle est la meilleure heure ?",
+    "category": "Guide",
+    "tags": ["quand prendre collagène", "matin soir", "timing supplémentation"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Pas de fenêtre métabolique stricte pour le collagène, argument pour le soir (glycine + sommeil), avant sport (protocole Baar), constance > timing, recommandation pratique"
+  },
+  {
+    "slug": "collagene-psoriasis-peau-atopique",
+    "title": "Collagène et Psoriasis ou Eczéma : peut-il aider ?",
+    "category": "Sante",
+    "tags": ["collagène psoriasis", "eczéma", "peau atopique", "inflammation peau"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "kreme-paris-creme-collagene"],
+    "angle": "Mécanismes anti-inflammatoires de la glycine, barrière cutanée et collagène IV, études limitées mais mécanismes plausibles, limites et recommandations prudentes"
+  },
+  {
+    "slug": "collagene-porc-porcin",
+    "title": "Collagène Porcin : une alternative efficace au collagène marin ?",
+    "category": "comparatif",
+    "tags": ["collagène porcin", "collagène porc", "types", "comparatif"],
+    "featuredProducts": ["nutrimuscle-collagene-bovin"],
+    "angle": "Source porcine (peau), profil proche du bovin, présent dans certains compléments européens, considérations religieuses (halal/casher), accessibilité, comparaison avec marin"
+  },
+  {
+    "slug": "collagene-liquide-poudre-gelules-comparatif",
+    "title": "Collagène Liquide, Poudre ou Gélules : quelle forme est la plus efficace ?",
+    "category": "Guide",
+    "tags": ["collagène liquide", "poudre", "gélules", "forme supplémentation"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Analyse factuelle : la forme n'impacte pas l'absorption si dose et poids moléculaire sont équivalents, avantages pratiques de chaque format, dose et coût par format"
+  },
+  {
+    "slug": "collagene-thyroide-hashimoto",
+    "title": "Collagène et Thyroïde (Hashimoto, Hypothyroïdie) : risques ou bénéfices ?",
+    "category": "Sante",
+    "tags": ["collagène thyroïde", "Hashimoto", "hypothyroïdie", "auto-immune"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Pas d'interaction directe documentée, mais question légitime posée par la communauté Hashimoto, rôle de l'intestin dans l'auto-immunité, prudence et recommandations"
+  },
+  {
+    "slug": "collagene-grossesse-allaitement-2026",
+    "title": "Collagène Pendant l'Allaitement : est-ce sans danger ?",
+    "category": "Sante",
+    "tags": ["collagène allaitement", "grossesse", "sécurité", "bébé"],
+    "featuredProducts": [],
+    "angle": "Extension de l'article grossesse, focus sur la période allaitement, manque de données spécifiques, position prudente, alternatives naturelles (alimentation riche en précurseurs)"
+  },
+  {
+    "slug": "score-yuka-nutriscore-complement",
+    "title": "Score Yuka, Nutriscore et Compléments Alimentaires : comment lire les étiquettes ?",
+    "category": "Guide",
+    "tags": ["Yuka", "étiquette", "complément alimentaire", "composition"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Limites de Yuka pour les compléments, comment lire une étiquette de collagène, critères pertinents (poids mol, source hydrolyse, additifs, sucres), exemple avec Nutrimuscle"
+  },
+  {
+    "slug": "bouillon-os-collagene-maison",
+    "title": "Bouillon d'Os : source naturelle de collagène ou mythe moderne ?",
+    "category": "Alimentation",
+    "tags": ["bouillon d'os", "source collagène", "naturel", "recette"],
+    "featuredProducts": ["nutrimuscle-collagene-bovin"],
+    "angle": "Teneur réelle en collagène du bouillon (variable, souvent faible), comparaison avec suppléments, recette optimale pour extraire le collagène, avantages alimentaires globaux"
+  },
+  {
+    "slug": "acide-hyaluronique-collagene-ensemble",
+    "title": "Acide Hyaluronique + Collagène : faut-il les prendre ensemble ?",
+    "category": "Science",
+    "tags": ["acide hyaluronique", "collagène", "synergie", "peau articulations"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Synergie biologique (collagène = structure, AH = hydratation), études sur la combinaison pour peau et articulations, produits combinés vs supplémentation séparée, coût"
+  },
+  {
+    "slug": "proline-hydroxyproline-collagene",
+    "title": "Proline et Hydroxyproline : les acides aminés oubliés du collagène",
+    "category": "Science",
+    "tags": ["proline", "hydroxyproline", "acides aminés", "synthèse collagène"],
+    "featuredProducts": ["nutrimuscle-collagene-marin"],
+    "angle": "Après la glycine, la proline (12%) et l'hydroxyproline (10%), leurs rôles dans la stabilité thermique de la triple hélice, sources alimentaires, synthèse endogène"
+  },
+  {
+    "slug": "collagene-diabete-glycemie",
+    "title": "Collagène et Diabète : effets sur la glycémie et les tissus",
+    "category": "Sante",
+    "tags": ["collagène diabète", "glycémie", "glycine insuline", "diabète type 2"],
+    "featuredProducts": ["nutrimuscle-collagene-bovin"],
+    "angle": "Impact du diabète sur le collagène (glycation), effet de la glycine sur la sensibilité insuline, études préliminaires, précautions pour les diabétiques sous traitement"
+  },
+  {
+    "slug": "collagene-cellulite-peau-orange",
+    "title": "Collagène contre la Cellulite : ce que les études disent vraiment",
+    "category": "Beaute",
+    "tags": ["collagène cellulite", "peau d'orange", "fermeté peau", "anti-cellulite"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "kreme-paris-creme-collagene"],
+    "angle": "Mécanisme (septa de collagène sous-cutané), études avec LQ Collagen sur la cellulite (Schunck 2015), résultats réalistes vs marketing, complémentarité avec activité physique"
+  },
+  {
+    "slug": "meilleur-collagene-femme-40-ans",
+    "title": "Meilleur Collagène pour une Femme de 40 ans : notre guide complet",
+    "category": "comparatif",
+    "tags": ["collagène femme 40 ans", "péri-ménopause", "peau cheveux", "comparatif"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "kreme-paris-creme-collagene"],
+    "angle": "Guide de décision pour la femme 40+, facteurs péri-ménopause, objectifs typiques (peau/cheveux/articulations), sélection de 3-4 produits avec justification, protocole pratique"
+  },
+  {
+    "slug": "collagene-yeux-cernes-contour",
+    "title": "Collagène pour le Contour des Yeux : est-ce utile contre les cernes et ridules ?",
+    "category": "Beaute",
+    "tags": ["collagène yeux", "contour des yeux", "ridules", "cernes"],
+    "featuredProducts": ["nutrimuscle-collagene-marin", "kreme-paris-creme-collagene"],
+    "angle": "Zone contour des yeux = peau la plus fine du visage, moins de glandes sébacées, importance du collagène IV et VII pour la peau fine, sérums topiques vs oral"
+  }
+]

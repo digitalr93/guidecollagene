@@ -8,12 +8,13 @@ const CATEGORIES = {
   bovin: { label: 'Collagène Bovin', desc: 'Extrait de peaux et os de bovins, riche en types I et III. Excellent rapport qualité/prix.' },
   vegetal: { label: 'Collagène Végétal', desc: 'Boosters végétaux (vitamine C, acides aminés) pour stimuler la synthèse naturelle de collagène.' },
   peptides: { label: 'Peptides de Collagène', desc: 'Collagène hydrolysé en peptides pour une absorption optimale et des effets plus rapides.' },
+  cosmetique: { label: 'Cosmétiques Collagène', desc: 'Crèmes, sérums et soins topiques au collagène ou aux actifs pro-synthèse pour la peau.' },
   autre: { label: 'Autres collagènes', desc: 'Formats spécifiques, associations et compléments mixtes.' },
 };
 
 export function getStaticPaths() {
   const cats = {
-    marin: true, bovin: true, vegetal: true, peptides: true, autre: true,
+    marin: true, bovin: true, vegetal: true, peptides: true, cosmetique: true, autre: true,
   };
   return Object.keys(cats).map((slug) => ({ params: { slug } }));
 }

@@ -34,7 +34,7 @@ const produits = defineCollection({
     title: z.string(),
     description: z.string(),
     brand: z.string(),
-    category: z.enum(['marin', 'bovin', 'vegetal', 'peptides', 'autre']),
+    category: z.enum(['marin', 'bovin', 'vegetal', 'peptides', 'cosmetique', 'autre']),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
 
@@ -57,7 +57,7 @@ const produits = defineCollection({
     // Composition
     collagenType: z.array(z.string()).optional(),
     dosage: z.string().optional(),
-    format: z.enum(['poudre', 'gelules', 'liquide', 'comprime', 'gummies']).optional(),
+    format: z.enum(['poudre', 'gelules', 'liquide', 'comprime', 'gummies', 'creme', 'serum']).optional(),
     certifications: z.array(z.string()).default([]),
 
     publishedAt: z.coerce.date(),
