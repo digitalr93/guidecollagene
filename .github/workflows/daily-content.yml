@@ -1,23 +1,27 @@
 name: Daily Content Generation
 
 on:
-  # Tous les jours à 7h00 heure de Paris (06:00 UTC en été, 07:00 UTC en hiver)
+  # Tous les jours à 7h00 heure de Paris (06:00 UTC en été)
   schedule:
     - cron: '0 6 * * *'
-  # Permet de déclencher manuellement depuis GitHub Actions
+  # Déclenchement manuel depuis l'onglet Actions
   workflow_dispatch:
     inputs:
+      count:
+        description: "Nombre d'articles à générer (défaut: 5)"
+        required: false
+        default: '5'
       slug:
-        description: 'Slug spécifique à générer (laisser vide pour le prochain dans la queue)'
+        description: 'Slug spécifique (optionnel, ignore count si renseigné)'
         required: false
         default: ''
       force:
-        description: 'Écraser si déjà existant (true/false)'
+        description: 'Écraser les articles existants (true/false)'
         required: false
         default: 'false'
 
 jobs:
-  generate-article:
+  generate-articles:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -33,54 +37,81 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Generate article
+      - name: Generate articles
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FORCE: ${{ github.event.inputs.force == 'true' && '1' || '' }}
         run: |
-          if [ -n "${{ github.event.inputs.slug }}" ]; then
-            node scripts/generate-article.mjs --slug=${{ github.event.inputs.slug }}
+          COUNT=${{ github.event.inputs.count || '5' }}
+          SLUG="${{ github.event.inputs.slug }}"
+
+          if [ -n "$SLUG" ]; then
+            echo "🎯 Génération ciblée : $SLUG"
+            node scripts/generate-article.mjs --slug="$SLUG"
           else
-            node scripts/generate-article.mjs
+            echo "🔄 Génération de $COUNT articles en séquence..."
+            GENERATED=0
+            for i in $(seq 1 $COUNT); do
+              echo ""
+              echo "━━━ Article $i/$COUNT ━━━"
+              if node scripts/generate-article.mjs; then
+                GENERATED=$((GENERATED + 1))
+                echo "✅ Article $i généré"
+              else
+                EXIT_CODE=$?
+                if [ $EXIT_CODE -eq 0 ]; then
+                  echo "ℹ️ Queue vide, arrêt à $GENERATED articles"
+                  break
+                else
+                  echo "⚠️ Erreur sur l'article $i, passage au suivant..."
+                fi
+              fi
+              # Pause entre appels API pour éviter le rate limiting
+              if [ $i -lt $COUNT ]; then
+                sleep 3
+              fi
+            done
+            echo ""
+            echo "📊 Total : $GENERATED article(s) généré(s)"
           fi
 
-      - name: Check if new article was created
+      - name: Check generated articles
         id: check_changes
         run: |
-          git diff --name-only HEAD
-          if git status --porcelain | grep -q "src/content/articles/"; then
+          NEW_FILES=$(git status --porcelain | grep "src/content/articles/" | awk '{print $2}')
+          if [ -n "$NEW_FILES" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            NEW_FILE=$(git status --porcelain | grep "src/content/articles/" | awk '{print $2}' | head -1)
-            echo "new_file=$NEW_FILE" >> $GITHUB_OUTPUT
-            ARTICLE_NAME=$(basename "$NEW_FILE" .md)
-            echo "article_name=$ARTICLE_NAME" >> $GITHUB_OUTPUT
+            COUNT=$(echo "$NEW_FILES" | wc -l | tr -d ' ')
+            echo "count=$COUNT" >> $GITHUB_OUTPUT
+            NAMES=$(echo "$NEW_FILES" | xargs -I{} basename {} .md | tr '\n' ', ' | sed 's/,$//')
+            echo "names=$NAMES" >> $GITHUB_OUTPUT
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Commit and push new article
+      - name: Commit and push
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add src/content/articles/ scripts/published.json
-          git commit -m "content: add article ${{ steps.check_changes.outputs.article_name }}
+          git commit -m "content: add ${{ steps.check_changes.outputs.count }} articles (${{ steps.check_changes.outputs.names }})
 
           Auto-generated via GitHub Actions daily content pipeline.
           Model: claude-opus-4-5"
           git push
 
-      - name: Summary
-        if: steps.check_changes.outputs.has_changes == 'true'
+      - name: Job summary
         run: |
-          echo "## ✅ Nouvel article publié" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Fichier :** \`${{ steps.check_changes.outputs.new_file }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Le push déclenche automatiquement un redéploiement Vercel." >> $GITHUB_STEP_SUMMARY
-
-      - name: No changes
-        if: steps.check_changes.outputs.has_changes == 'false'
-        run: |
-          echo "## ℹ️ Aucun article généré" >> $GITHUB_STEP_SUMMARY
-          echo "Queue vide ou article déjà existant." >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check_changes.outputs.has_changes }}" = "true" ]; then
+            echo "## ✅ ${{ steps.check_changes.outputs.count }} article(s) publiés" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "${{ steps.check_changes.outputs.names }}" | tr ',' '\n' | while read name; do
+              echo "- \`$name\`" >> $GITHUB_STEP_SUMMARY
+            done
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Push effectué → redéploiement Vercel déclenché automatiquement." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ℹ️ Aucun article généré" >> $GITHUB_STEP_SUMMARY
+            echo "Queue vide ou tous les articles déjà existants." >> $GITHUB_STEP_SUMMARY
+          fi
