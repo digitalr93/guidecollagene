@@ -19,6 +19,10 @@ on:
         description: 'Écraser les articles existants (true/false)'
         required: false
         default: 'false'
+      skip_replenish:
+        description: 'Ignorer le rechargement de la queue (true/false)'
+        required: false
+        default: 'false'
 
 jobs:
   generate-articles:
@@ -37,6 +41,16 @@ jobs:
         with:
           node-version: '22'
 
+      # ── Étape 1 : recharger la queue pour maintenir 30 sujets ──
+      - name: Replenish content queue
+        if: github.event.inputs.skip_replenish != 'true' && github.event.inputs.slug == ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "🔄 Vérification et rechargement de la queue..."
+          node scripts/replenish-queue.mjs --target=30
+
+      # ── Étape 2 : générer les articles ──
       - name: Generate articles
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -54,19 +68,14 @@ jobs:
             for i in $(seq 1 $COUNT); do
               echo ""
               echo "━━━ Article $i/$COUNT ━━━"
-              if node scripts/generate-article.mjs; then
+              node scripts/generate-article.mjs
+              STATUS=$?
+              if [ $STATUS -eq 0 ]; then
                 GENERATED=$((GENERATED + 1))
-                echo "✅ Article $i généré"
               else
-                EXIT_CODE=$?
-                if [ $EXIT_CODE -eq 0 ]; then
-                  echo "ℹ️ Queue vide, arrêt à $GENERATED articles"
-                  break
-                else
-                  echo "⚠️ Erreur sur l'article $i, passage au suivant..."
-                fi
+                echo "⚠️ Erreur sur l'article $i, passage au suivant..."
               fi
-              # Pause entre appels API pour éviter le rate limiting
+              # Pause entre appels API (rate limiting)
               if [ $i -lt $COUNT ]; then
                 sleep 3
               fi
@@ -75,15 +84,18 @@ jobs:
             echo "📊 Total : $GENERATED article(s) généré(s)"
           fi
 
-      - name: Check generated articles
+      # ── Étape 3 : commit unique pour tout (articles + queue mise à jour) ──
+      - name: Check generated files
         id: check_changes
         run: |
-          NEW_FILES=$(git status --porcelain | grep "src/content/articles/" | awk '{print $2}')
-          if [ -n "$NEW_FILES" ]; then
+          NEW_ARTICLES=$(git status --porcelain | grep "src/content/articles/" | awk '{print $2}')
+          QUEUE_CHANGED=$(git status --porcelain | grep "scripts/" | wc -l | tr -d ' ')
+
+          if [ -n "$NEW_ARTICLES" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
-            COUNT=$(echo "$NEW_FILES" | wc -l | tr -d ' ')
+            COUNT=$(echo "$NEW_ARTICLES" | wc -l | tr -d ' ')
             echo "count=$COUNT" >> $GITHUB_OUTPUT
-            NAMES=$(echo "$NEW_FILES" | xargs -I{} basename {} .md | tr '\n' ', ' | sed 's/,$//')
+            NAMES=$(echo "$NEW_ARTICLES" | xargs -I{} basename {} .md | tr '\n' ', ' | sed 's/,$//')
             echo "names=$NAMES" >> $GITHUB_OUTPUT
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -94,23 +106,28 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/content/articles/ scripts/published.json
-          git commit -m "content: add ${{ steps.check_changes.outputs.count }} articles (${{ steps.check_changes.outputs.names }})
+          # Inclure les articles ET la queue mise à jour
+          git add src/content/articles/ scripts/published.json scripts/content-queue.json
+          git commit -m "content: add ${{ steps.check_changes.outputs.count }} articles
+
+          ${{ steps.check_changes.outputs.names }}
 
           Auto-generated via GitHub Actions daily content pipeline.
-          Model: claude-opus-4-5"
+          Model: claude-opus-4-5 (articles) · claude-haiku-4-5 (queue)"
           git push
 
       - name: Job summary
         run: |
           if [ "${{ steps.check_changes.outputs.has_changes }}" = "true" ]; then
-            echo "## ✅ ${{ steps.check_changes.outputs.count }} article(s) publiés" >> $GITHUB_STEP_SUMMARY
+            echo "## ✅ ${{ steps.check_changes.outputs.count }} article(s) publiés aujourd'hui" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "${{ steps.check_changes.outputs.names }}" | tr ',' '\n' | while read name; do
-              echo "- \`$name\`" >> $GITHUB_STEP_SUMMARY
+            echo "${{ steps.check_changes.outputs.names }}" | tr ',' '\n' | sed 's/^ //' | while read name; do
+              [ -n "$name" ] && echo "- \`$name\`" >> $GITHUB_STEP_SUMMARY
             done
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "Push effectué → redéploiement Vercel déclenché automatiquement." >> $GITHUB_STEP_SUMMARY
+            echo "Queue rechargée automatiquement → toujours 30 sujets prêts." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Push effectué → redéploiement Vercel déclenché." >> $GITHUB_STEP_SUMMARY
           else
             echo "## ℹ️ Aucun article généré" >> $GITHUB_STEP_SUMMARY
             echo "Queue vide ou tous les articles déjà existants." >> $GITHUB_STEP_SUMMARY
